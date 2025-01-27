@@ -1,4 +1,4 @@
-package helper;
+package com.digital_nomads.talent_lms.helper;
 
 import org.openqa.selenium.WebDriver;
 

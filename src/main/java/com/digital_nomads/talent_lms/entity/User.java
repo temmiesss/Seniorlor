@@ -1,4 +1,4 @@
-package entity;
+package com.digital_nomads.talent_lms.entity;
 
 import lombok.*;
 

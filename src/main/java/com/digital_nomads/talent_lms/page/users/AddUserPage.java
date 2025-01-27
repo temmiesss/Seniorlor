@@ -1,8 +1,8 @@
-package page.users;
+package com.digital_nomads.talent_lms.page.users;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import page.BasePage;
+import com.digital_nomads.talent_lms.page.BasePage;
 
 public class AddUserPage extends BasePage {
     @FindBy(xpath = "//input[@name='name']")

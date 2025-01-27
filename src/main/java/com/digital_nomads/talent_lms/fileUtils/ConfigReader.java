@@ -1,4 +1,4 @@
-package fileUtils;
+package com.digital_nomads.talent_lms.fileUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,6 +1,6 @@
-package drivers;
+package com.digital_nomads.talent_lms.drivers;
 
-import fileUtils.ConfigReader;
+import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.openqa.selenium.WebDriver;
 
 public class Driver {

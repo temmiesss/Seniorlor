@@ -1,9 +1,9 @@
-package page.login;
+package com.digital_nomads.talent_lms.page.login;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import page.BasePage;
-import page.dashboard.DashboardPage;
+import com.digital_nomads.talent_lms.page.BasePage;
+import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 
 public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@name ='login']")

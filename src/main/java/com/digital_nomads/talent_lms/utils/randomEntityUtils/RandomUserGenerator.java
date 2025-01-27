@@ -1,7 +1,7 @@
-package utils.randomEntityUtils;
+package com.digital_nomads.talent_lms.utils.randomEntityUtils;
 
 import com.github.javafaker.Faker;
-import entity.User;
+import com.digital_nomads.talent_lms.entity.User;
 
 public class RandomUserGenerator {
 
