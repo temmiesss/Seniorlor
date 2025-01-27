@@ -111,6 +111,3 @@ public class DeleteCourse extends BasePage {
         }
     }
 }
-
-
-
