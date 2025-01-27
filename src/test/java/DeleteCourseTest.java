@@ -6,7 +6,6 @@ import page.DeleteCourse;
 /**
  * @author Rano
  * **/
-
 public class DeleteCourseTest extends BaseTest {
     @Test
     public void deleteSelectedCourse() throws InterruptedException {
@@ -31,7 +30,6 @@ public class DeleteCourseTest extends BaseTest {
 
         Thread.sleep(2000);
         deleteCourse.cancelDelete();
-
 
 //        boolean isCourseVisibleAfterCancel = deleteCourse.isCourseVisibleAfterCancel();
 //        Assert.assertTrue(isCourseVisibleAfterCancel, "Курс должен быть доступен после отмены удаления!");
