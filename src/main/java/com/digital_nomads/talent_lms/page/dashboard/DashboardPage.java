@@ -1,14 +1,14 @@
-package page.dashboard;
+package com.digital_nomads.talent_lms.page.dashboard;
 
-import drivers.Driver;
-import entity.User;
+import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import page.BasePage;
-import page.login.LoginPage;
-import page.users.AddUserPage;
+import com.digital_nomads.talent_lms.page.BasePage;
+import com.digital_nomads.talent_lms.page.login.LoginPage;
+import com.digital_nomads.talent_lms.page.users.AddUserPage;
 
 import java.util.ArrayList;
 import java.util.List;

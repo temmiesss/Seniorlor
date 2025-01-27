@@ -1,6 +1,6 @@
-package helper;
+package com.digital_nomads.talent_lms.helper;
 
-import drivers.Driver;
+import com.digital_nomads.talent_lms.drivers.Driver;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;

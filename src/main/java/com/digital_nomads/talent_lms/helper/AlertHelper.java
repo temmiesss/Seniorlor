@@ -1,6 +1,6 @@
-package helper;
+package com.digital_nomads.talent_lms.helper;
 
-import drivers.Driver;
+import com.digital_nomads.talent_lms.drivers.Driver;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;

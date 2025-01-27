@@ -1,11 +1,11 @@
-package page.users;
+package com.digital_nomads.talent_lms.page.users;
 
-import entity.Sections;
-import entity.User;
+import com.digital_nomads.talent_lms.entity.Sections;
+import com.digital_nomads.talent_lms.entity.User;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import page.BasePage;
-import page.dashboard.DashboardPage;
+import com.digital_nomads.talent_lms.page.BasePage;
+import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 
 /**
  * @author Akylai
