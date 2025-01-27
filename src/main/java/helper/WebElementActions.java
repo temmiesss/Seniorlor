@@ -41,7 +41,7 @@ public class WebElementActions {
     }
 
     public WebElementActions sendKeys(WebElement element, String text){
-        waitElementToBeDisplayed(element);
+        waitButtonBeClickable(element);
         highlightElement(element);
         element.sendKeys(text);
         return this;

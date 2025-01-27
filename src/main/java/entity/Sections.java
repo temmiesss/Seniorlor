@@ -4,6 +4,10 @@ import lombok.Data;
 
 @Data
 
+/**
+ * @author Akylai
+ */
+
 public class Sections {
     private String users = "Users";
     private String courses = "Courses";

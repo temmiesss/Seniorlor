@@ -7,6 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import page.BasePage;
 import page.dashboard.DashboardPage;
 
+/**
+ * @author Akylai
+ */
 public class UserPage extends BasePage {
     private DashboardPage dashboardPage = new DashboardPage();
     private Sections sections = new Sections();
@@ -29,6 +32,12 @@ public class UserPage extends BasePage {
     @FindBy(xpath = "//input[@name='password']")
     public WebElement password;
 
+//    @FindBy(xpath = "//textarea[@name='description']")
+//    public WebElement bioInput;
+
+//    @FindBy(xpath = "//div[@class='select2-container tl-select2 select2-dropdown-open select2-container-active']")
+//    public WebElement userTypesSelect;
+
     @FindBy(xpath = "//input[@name='submit_personal_details']")
     public WebElement addUserBtn;
 
@@ -41,17 +50,30 @@ public class UserPage extends BasePage {
 //    @FindBy(xpath = "//a[@id='tl-confirm-submit']")
 //    public WebElement deleteUser;
 
+    /**
+     * Добавляем нового пользователя с корректными данными:
+     * @param user Заполняет поля (имя, фамилия, имя пользователя, пароль)
+     * @param email Заполняет эл.почту
+     * @return Возвращает новый объект UserPage, чтобы продолжить взаимодействие с этой страницей
+     */
     public UserPage addNewUser(User user, String email) {
         webElementActions.click(dashboardPage.selectSection(sections.getUsers())).click(this.addUser)
                 .sendKeys(this.firstName, user.getFirstName())
                 .sendKeys(this.lastName, user.getLastName())
                 .sendKeys(this.email, email)
                 .sendKeys(this.userName, user.getUsername())
-                .sendKeys(this.password, user.getPassword()).click(this.addUserBtn);
+                .sendKeys(this.password, user.getPassword())
+                .click(this.addUserBtn);
         return new UserPage();
     }
 
-    public UserPage addNewUserIncorrect(User user, String email) {
+    /**
+     * Пытаемся добавить пользователя с некорректной эл.почтой
+     * @param user Заполняет те же поля, что и addNewUser
+     * @param email Заполняет эл.почту
+     * @return Возвращает текущий объект UserPage, чтобы протестировать поведение с некорректной эл.почтой
+     */
+    public UserPage addNewUserWithIncorrectEmail(User user, String email) {
         webElementActions.sendKeys(this.firstName, user.getFirstName())
                 .sendKeys(this.lastName, user.getLastName())
                 .sendKeys(this.email, email)

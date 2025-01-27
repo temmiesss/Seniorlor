@@ -17,7 +17,7 @@ public class DashboardPage extends BasePage {
 
     AddUserPage addUserPage = new AddUserPage();
 
-    @FindBy(xpath = "(//a[normalize-space()='Add user'])[2]")
+    @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//span[@class='arrow-down']")
@@ -26,6 +26,11 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
+    /**
+     * @author Akylai
+     * Метод открывает меню и переключается на  Legacy Interface
+     * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
+     */
     public LoginPage switchToLegacyInterface(){
         try{
             webElementActions.click(subMenu).click(legacyMenuItem);
@@ -35,6 +40,11 @@ public class DashboardPage extends BasePage {
         }
     }
 
+    /**
+     * @author Akylai
+     * @param section указывает на определенный раздел на странице
+     * @return Возвращает элемент, который соответствует переданному названию раздела.
+     */
     public WebElement selectSection(String section){
         List<WebElement> allSections = Driver.getDriver().findElements(By.xpath("//div[@class='tl-bold-link']/a"));
         List<String> sectionNames = new ArrayList<>();
