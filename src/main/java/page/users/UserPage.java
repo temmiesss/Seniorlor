@@ -12,7 +12,7 @@ public class UserPage extends BasePage {
     private Sections sections = new Sections();
 
     @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
-    public WebElement addUserBtn;
+    public WebElement addUser;
 
     @FindBy(xpath = "//input[@name='name']")
     public WebElement firstName;
@@ -30,7 +30,7 @@ public class UserPage extends BasePage {
     public WebElement password;
 
     @FindBy(xpath = "//input[@name='submit_personal_details']")
-    public WebElement addBtn;
+    public WebElement addUserBtn;
 
 //    @FindBy(xpath = "//input[@type='checkbox']/parent::td")
 //    public WebElement checkboxOn;
@@ -42,12 +42,12 @@ public class UserPage extends BasePage {
 //    public WebElement deleteUser;
 
     public UserPage addNewUser(User user, String email) {
-        webElementActions.click(dashboardPage.selectSection(sections.getUsers())).click(this.addUserBtn)
+        webElementActions.click(dashboardPage.selectSection(sections.getUsers())).click(this.addUser)
                 .sendKeys(this.firstName, user.getFirstName())
                 .sendKeys(this.lastName, user.getLastName())
                 .sendKeys(this.email, email)
                 .sendKeys(this.userName, user.getUsername())
-                .sendKeys(this.password, user.getPassword()).click(this.addBtn);
+                .sendKeys(this.password, user.getPassword()).click(this.addUserBtn);
         return new UserPage();
     }
 
@@ -57,7 +57,7 @@ public class UserPage extends BasePage {
                 .sendKeys(this.email, email)
                 .sendKeys(this.userName, user.getUsername())
                 .sendKeys(this.password, user.getPassword())
-                .click(addBtn);
+                .click(addUserBtn);
         return this;
     }
 }

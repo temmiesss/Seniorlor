@@ -41,7 +41,7 @@ public class DashboardPage extends BasePage {
         for (WebElement sectionName : allSections){
             sectionNames.add(sectionName.getText());
         }
-        WebElement selectedSection = Driver.getDriver().findElement(By.xpath("//div[@class='tl-bold-link']/a[contains(text(),'" + section + "']"));
+        WebElement selectedSection = Driver.getDriver().findElement(By.xpath("//div[@class='tl-bold-link']/a[contains(text(),'" + section + "')]"));
         return selectedSection;
     }
 
