@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
+import page.DeleteCourse;
 
 public abstract class BaseTest {
     public static WebDriver driver;
@@ -14,6 +15,7 @@ public abstract class BaseTest {
     UserPage userPage = new UserPage();
     LoginPage loginPage = new LoginPage();
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
+    DeleteCourse deleteCourse = new DeleteCourse(driver);    // Rano added
 
 
 
