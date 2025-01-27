@@ -1,11 +1,11 @@
-import drivers.Driver;
-import helper.AlertHelper;
-import helper.WebElementActions;
+import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.helper.AlertHelper;
+import com.digital_nomads.talent_lms.helper.WebElementActions;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
-import page.login.LoginPage;
-import page.users.UserPage;
-import utils.randomEntityUtils.RandomUserGenerator;
+import com.digital_nomads.talent_lms.page.login.LoginPage;
+import com.digital_nomads.talent_lms.page.users.UserPage;
+import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
 
 public abstract class BaseTest {
     public static WebDriver driver;
