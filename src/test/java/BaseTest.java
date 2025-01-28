@@ -20,8 +20,8 @@ public abstract class BaseTest {
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
     Random random = new Random();
     DashboardPage dashboardPage = new DashboardPage();
-    User randomUser = new User();
     AddUserPage addUserPage = new AddUserPage();
+    WebElementActions webElementActions = new WebElementActions();
 
 
 

@@ -2,9 +2,13 @@ import entity.User;
 import fileUtils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.List;
 
 /**
@@ -15,28 +19,31 @@ import java.util.List;
 public class AddUserPageTest extends BaseTest {
     User randomUser = randomUserGenerator.randomUser();
 
+    @BeforeTest
+    public void setup(){
+        driver.get("https://charlieblack.talentlms.com/index");
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+                .switchToLegacyInterface();
+    }
     /**
      * Проверяет, что новый пользователь с корректными данными добавляется успешно.
      */
-    @Test(priority = 1)
+    @Test
     public void testAddNewUser(){
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/index");
-
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
         dashboardPage.navigateToAddUserPage();
         userPage = addUserPage.addNewUser(randomUser);
 
-        boolean isUserAdded = userPage.isUserPresent(randomUser.getUsername());
-        Assert.assertTrue(isUserAdded, "User was not added successfully");
+        String actualMessage = addUserPage.getAddUserSuccessMessage();
+        Assert.assertEquals(actualMessage,"Success! Do you want to add another user?",
+                "User was not added successfully");
     }
 
     /**
      * Проверяет, что система не позволяет добавить пользователя с некорректным email.
      */
-    @Test(priority = 2)
+    @Test
     public void negativeEmailTest(){
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/user/create");
+        dashboardPage.addUserBtn.click();
         addUserPage.addNewUserWithInvalidEmail(randomUser,"wrong.ru");
         WebElement isRequired = driver.findElement(By.xpath("//div[@class='span8']/child::*[3]//span[@class='help-block']"));
         String actual = isRequired.getText();
@@ -46,12 +53,8 @@ public class AddUserPageTest extends BaseTest {
     /**
      * Проверяем, что после отмены пользователь находится на странице UserPage
      */
-    @Test(priority = 3)
+    @Test
     public void testCancelAddUser() {
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/index");
-
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
         dashboardPage.navigateToAddUserPage();
         userPage = addUserPage.cancelAddUser();
 
@@ -59,18 +62,12 @@ public class AddUserPageTest extends BaseTest {
         Assert.assertTrue(isOnUserPage, "Cancel button did not navigate back to UserPage.");
     }
 
-    @Test(priority = 4)
+    @Test
     public void testSelectUserType() {
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/user/create");
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
         dashboardPage.navigateToAddUserPage();
 
-        // Выбор случайного типа пользователя
-        addUserPage.selectUserType();
-
         // Проверка: убедиться, что выбранный тип отображается
-        String selectedUserType = addUserPage.getSelectedUserType();
+        String selectedUserType = addUserPage.selectRandomUserType();
         Assert.assertNotNull(selectedUserType, "No user type was selected.");
 
         // Проверяем, что выбранное значение принадлежит списку
@@ -79,25 +76,20 @@ public class AddUserPageTest extends BaseTest {
                 "Selected user type is not in the list of available types.");
     }
 
-    @Test(priority = 5)
+    @Test
     public void testSelectTimeZone() {
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/user/create");
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
         dashboardPage.navigateToAddUserPage();
 
-        // Выбор случайной временной зоны
-        addUserPage.selectTimeZone();
-
-        String selectedTimeZone = addUserPage.getSelectedTimeZone();
+        String selectedTimeZone = addUserPage.selectRandomTimeZone();
         Assert.assertNotNull(selectedTimeZone, "No time zone was selected.");
-        System.out.println("Selected time zone: " + selectedTimeZone);
 
         // Проверяем, что выбранная временная зона доступна в списке
         List<String> availableTimeZones = addUserPage.getAvailableTimeZones();
         Assert.assertTrue(availableTimeZones.contains(selectedTimeZone),
                 "Selected time zone is not in the list of available time zones.");
     }
+
+
 
 
 }
