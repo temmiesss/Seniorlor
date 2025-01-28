@@ -1,8 +1,5 @@
 package page.dashboard;
 
-import drivers.Driver;
-import entity.User;
-import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,14 +7,9 @@ import page.BasePage;
 import page.login.LoginPage;
 import page.users.AddUserPage;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DashboardPage extends BasePage {
 
-    AddUserPage addUserPage = new AddUserPage();
-
-    @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
+    @FindBy(xpath = "//div[@class='hidden-phone']/a[normalize-space()='Add user']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//span[@class='arrow-down']")
@@ -26,45 +18,98 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Users']")
+    public WebElement usersSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Courses']")
+    public WebElement coursesSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Categories']")
+    public WebElement categoriesSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Groups']")
+    public WebElement groupsSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Branches']")
+    public WebElement branchesSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Events engine']")
+    public WebElement eventsEngineSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='User types']")
+    public WebElement userTypesSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Import - Export']")
+    public WebElement importExportSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Reports']")
+    public WebElement reportsSection;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Account & Settings']")
+    public WebElement AccountAndSettingsSection;
+
     /**
+     * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
      * @author Akylai
      * Метод открывает меню и переключается на  Legacy Interface
-     * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
      */
-    public LoginPage switchToLegacyInterface(){
-        try{
+    public LoginPage switchToLegacyInterface() {
+        try {
             webElementActions.click(subMenu).click(legacyMenuItem);
             return new LoginPage();
-        } catch(NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return new LoginPage();
         }
+    }
+    /**
+     * @author Akylai
+     */
+
+    public void navigateToSection(String sectionName) {
+        WebElement section;
+        switch (sectionName.toLowerCase()) {
+            case "users":
+                section = usersSection;
+                break;
+            case "courses":
+                section = coursesSection;
+                break;
+            case "categories":
+                section = categoriesSection;
+                break;
+            case "groups":
+                section = groupsSection;
+                break;
+            case "branches":
+                section = branchesSection;
+                break;
+            case "events engine":
+                section = eventsEngineSection;
+                break;
+            case "user types":
+                section = userTypesSection;
+                break;
+            case "import - export":
+                section = importExportSection;
+                break;
+            case "reports":
+                section = reportsSection;
+                break;
+            case "account & settings":
+                section = AccountAndSettingsSection;
+                break;
+            default:
+                throw new IllegalArgumentException("Section not found: " + sectionName);
+        }
+        section.click();
     }
 
     /**
      * @author Akylai
-     * @param section указывает на определенный раздел на странице
-     * @return Возвращает элемент, который соответствует переданному названию раздела.
+     * @return Переход к добавлению пользователя со страницы dashboard в AddUserPage
      */
-    public WebElement selectSection(String section){
-        List<WebElement> allSections = Driver.getDriver().findElements(By.xpath("//div[@class='tl-bold-link']/a"));
-        List<String> sectionNames = new ArrayList<>();
-        for (WebElement sectionName : allSections){
-            sectionNames.add(sectionName.getText());
-        }
-        WebElement selectedSection = Driver.getDriver().findElement(By.xpath("//div[@class='tl-bold-link']/a[contains(text(),'" + section + "')]"));
-        return selectedSection;
-    }
-
-
-    public AddUserPage addNewUser(User user){
+    public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUserBtn);
-        webElementActions.sendKeys(addUserPage.firstName, user.getFirstName())
-                .sendKeys(addUserPage.lastName, user.getLastName())
-                .sendKeys(addUserPage.login, user.getUsername())
-                .sendKeys(addUserPage.email, user.getEmail())
-                .sendKeys(addUserPage.password, user.getPassword())
-                .click(addUserBtn);
         return new AddUserPage();
-
     }
 }
