@@ -3,6 +3,7 @@ package com.digital_nomads.talent_lms.page.dashboard;
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.enums.Role;
 import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -29,9 +30,12 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
+
     @FindBy(xpath = " //*[@id=\"tl-admin-courses\"]/div/div[2]/a[1]")
     public WebElement addCourseBtn;
 
+    @FindBy(css = "#tl-dropdown-roles")
+    public WebElement dropdownRoles;
     /**
      * @author Akylai
      * Метод открывает меню и переключается на  Legacy Interface
@@ -97,7 +101,10 @@ public class DashboardPage extends BasePage {
         return new AddCoursePage();
     }
 
-
-
+     public DashboardPage navigateToRole(Role role){
+        webElementActions.click(dropdownRoles)
+               .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
+        return new DashboardPage();
+     }
 
 }
