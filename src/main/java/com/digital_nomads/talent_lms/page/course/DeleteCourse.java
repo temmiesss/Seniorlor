@@ -1,4 +1,4 @@
-package page;
+package com.digital_nomads.talent_lms.page.course;
 
 import com.digital_nomads.talent_lms.page.BasePage;
 import org.openqa.selenium.TimeoutException;
