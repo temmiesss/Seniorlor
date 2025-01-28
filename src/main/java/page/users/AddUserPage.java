@@ -1,36 +1,36 @@
 package page.users;
 
+import drivers.Driver;
 import entity.User;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.BasePage;
-
+import java.util.Random;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * @author Akylai
- */
 public class AddUserPage extends BasePage {
+
     @FindBy(xpath = "//input[@name='name']")
-    public WebElement firstName;
+    public WebElement firstNameInput;
 
     @FindBy(xpath = "//input[@name='surname']")
-    public WebElement lastName;
+    public WebElement lastNameInput;
 
     @FindBy(xpath = "//input[@name='email']")
-    public WebElement email;
+    public WebElement emailInput;
 
     @FindBy(xpath = "//input[@name='login']")
-    public WebElement login;
+    public WebElement userNameInput;
 
     @FindBy(xpath = "//input[@name='password']")
-    public WebElement password;
-
-    @FindBy(xpath = "//textarea[@name='description']")
-    public WebElement bioInput;
+    public WebElement passwordInput;
 
     @FindBy(xpath = "//span[text()='Learner-Type']/ancestor::a")
     public WebElement openUserTypes;
@@ -38,74 +38,23 @@ public class AddUserPage extends BasePage {
     @FindBy(xpath = "//span[contains(text(),'Greenwich')]/parent::a")
     public WebElement openTimeZone;
 
-    @FindBy(xpath = "//span[contains(text(),'English')]/parent::a")
-    public WebElement setLanguage;
-
-    @FindBy(xpath = "//input[@name='restrict_email']")
-    public WebElement excludeFromEmailTick;
-
     @FindBy(xpath = "//input[@name='submit_personal_details']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//a[text()='cancel']")
     public WebElement cancelAddUserBtn;
 
-    @FindBy(xpath = "//div[@class='toast-message']")
-    public WebElement addUserSuccessMessage;
-
-    @FindBy(xpath = "//input[@name='email']/../../span/span")
-    public WebElement emailMessage;
-
-    @FindBy(xpath = "//input[@name='login']/../../span/span")
-    public WebElement userNameMessage;
-
-    @FindBy(xpath = "//input[@name='name']/../../span/span")
-    public WebElement nameIsRequiredMessage;
-
-    @FindBy(xpath = "//input[@name='surname']/../../span/span")
-    public WebElement lastNameIsRequiredMessage;
-
-    @FindBy(xpath = "//input[@name='email']/../../span/span")
-    public WebElement emailValidationMessage;
-
-    @FindBy(xpath = "//input[@name='password']/../../span/span")
-    public WebElement passwordValidationMessage;
-
     @FindBy(xpath = "//input[@name='submit_personal_details']")
     public WebElement addUserButton;
 
-    @FindBy(xpath = "//input[@type='checkbox']/parent::td")
-    public WebElement checkboxOn;
-
-    @FindBy(xpath = "//a[@class='btn dropdown-toggle']")
-    public WebElement massActionsBtn;
-
-    @FindBy(xpath = "//a[normalize-space()='Activate']")
-    public WebElement activateUser;
-
-    @FindBy(xpath = "//a[normalize-space()='Deactivate']")
-    public WebElement deactivateUser;
-
-    @FindBy(xpath = "//a[normalize-space()='Delete']")
-    public WebElement deleteUser;
-
-    @FindBy(xpath = "//a[@title='Users']")
-    public WebElement goBackToUsersSection;
-
-
     public UserPage addNewUser(User user) {
-        webElementActions.sendKeys(firstName, user.getFirstName())
-                .sendKeys(lastName, user.getLastName())
-                .sendKeys(login, user.getUsername())
-                .sendKeys(email, user.getEmail())
-                .sendKeys(password, "QwerTy123%$")
+        webElementActions.sendKeys(firstNameInput, user.getFirstName())
+                .sendKeys(lastNameInput, user.getLastName())
+                .sendKeys(emailInput, user.getEmail())
+                .sendKeys(userNameInput, user.getUsername())
+                .sendKeys(passwordInput, "QwerTy123%$")
                 .click(addUserButton);
         return new UserPage();
-    }
-
-    // проверяет наличие заголовка или одного из элементов страницы
-    public boolean isPageLoaded() {
-        return goBackToUsersSection.isDisplayed();
     }
 
     /**
@@ -114,86 +63,80 @@ public class AddUserPage extends BasePage {
      * @return Возвращает текущий объект AddUserPage, чтобы протестировать поведение с некорректной эл.почтой
      */
     public AddUserPage addNewUserWithInvalidEmail(User user, String invalidEmail) {
-        webElementActions.sendKeys(firstName, user.getFirstName())
-                .sendKeys(lastName, user.getLastName())
-                .sendKeys(email, invalidEmail)
-                .sendKeys(login, user.getUsername())
-                .sendKeys(password, user.getPassword())
+        webElementActions.sendKeys(firstNameInput, user.getFirstName())
+                .sendKeys(lastNameInput, user.getLastName())
+                .sendKeys(emailInput, invalidEmail)
+                .sendKeys(userNameInput, user.getUsername())
+                .sendKeys(passwordInput, user.getPassword())
                 .click(addUserButton);
         return this;
     }
 
-    public AddUserPage selectUserType() {
+    public String selectRandomUserType() {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true);", openUserTypes);
         webElementActions.click(openUserTypes);
-        List<WebElement> userTypeDropDown = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy
-                (By.xpath("//div[@id='select2-drop']/ul/li")));
-        int randomIndex = random.nextInt(userTypeDropDown.size());
-        userTypeDropDown.get(randomIndex).click();
-        return this;
-    }
-
-    public String getSelectedUserType() {
-        return openUserTypes.getText();
+        List<WebElement> userTypeOptions = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//ul[@class='select2-results']/li")));
+        int randomIndex = random.nextInt(userTypeOptions.size());
+        WebElement selectedElement = userTypeOptions.get(randomIndex);
+        String selectedText = selectedElement.getText();
+        selectedElement.click();
+        return selectedText;
     }
 
     public List<String> getAvailableUserTypes() {
-        List<WebElement> userTypeDropDown = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//div[@id='select2-drop']/ul/li")));
-        return userTypeDropDown.stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+        webElementActions.click(openUserTypes);
+        List<WebElement> userTypeOptions = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//ul[@class='select2-results']/li")));
+        List<String> userTypes = new ArrayList<>();
+        for (WebElement userType : userTypeOptions) {
+            userTypes.add(userType.getText());
+        }
+        return userTypes;
     }
 
-    public AddUserPage selectTimeZone(){
+    public String selectRandomTimeZone() {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true);", openTimeZone);
         webElementActions.click(openTimeZone);
-        List<WebElement> timeZoneDropdown = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy
-                (By.xpath("//div[@id='select2-drop']/ul/li")));
-        int randomIndex = random.nextInt(timeZoneDropdown.size());
-        timeZoneDropdown.get(randomIndex).click();
-        return this;
-    }
-    // Возвращает текст выбранной временной зоны
-    public String getSelectedTimeZone() {
-        return openTimeZone.getText();
+        List<WebElement> timeZoneOptions = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy
+                (By.xpath("//ul[@class='select2-results']/li")));
+        int randomIndex = random.nextInt(timeZoneOptions.size());
+        WebElement selectedElement = timeZoneOptions.get(randomIndex);
+        String selectedZone = selectedElement.getText();
+        selectedElement.click();
+        return selectedZone;
     }
 
     public List<String> getAvailableTimeZones() {
-        List<WebElement> timeZoneDropdown = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
-                By.xpath("//div[@id='select2-drop']/ul/li")));
-        return timeZoneDropdown.stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+        webElementActions.click(openTimeZone);
+        List<WebElement> timeZoneOptions = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(
+                By.xpath("//ul[@class='select2-results']/li")));
+        List<String> timeZones = new ArrayList<>();
+        for (WebElement timeZone : timeZoneOptions) {
+            timeZones.add(timeZone.getText());
+        }
+        return timeZones;
     }
 
+    public String getAddUserSuccessMessage() {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
+        WebElement messageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='toast-message']")));
 
-    public AddUserPage selectLanguage(){
-        webElementActions.click(setLanguage);
-        List<WebElement> languageDropdown = wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy
-                (By.xpath("//div[@id='select2-drop']/ul/li")));
-        int randomIndex = random.nextInt(languageDropdown.size());
-        languageDropdown.get(randomIndex).click();
-        return this;
-    }
-
-    public AddUserPage clickOnExcludeFromEmailCheckbox(){
-        webElementActions.scrollToElement(excludeFromEmailTick).click(excludeFromEmailTick);
-        return this;
-    }
-
-    public AddUserPage clickOnAddUserSubmitBtn(){
-        webElementActions.scrollToElement(activateUser).click(activateUser)
-                .scrollToElement(addUserBtn).click(addUserBtn);
-        return this;
-    }
-
-    public String getSuccessMessage() {
-        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div{@class='toast-message']/a")));
-        return messageElement.getText();
+        // Сохраняем текст через JavaScript (даже если элемент исчезнет)
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        String messageText = (String) js.executeScript("return arguments[0].innerText;", messageElement);
+        return messageText;
     }
 
     public UserPage cancelAddUser() {
         webElementActions.click(cancelAddUserBtn);
-        return new UserPage(); // После отмены пользователь возвращается на UserPage
+        return new UserPage();
+    }
+
+    // проверяет наличие заголовка или одного из элементов страницы
+    public boolean isPageLoaded() {
+        return addUserBtn.isDisplayed();
     }
 }
-

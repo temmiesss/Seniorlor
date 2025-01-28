@@ -1,11 +1,17 @@
 package page.dashboard;
 
+import drivers.Driver;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.BasePage;
 import page.login.LoginPage;
 import page.users.AddUserPage;
+
+import java.time.Duration;
+import java.util.concurrent.TimeoutException;
 
 public class DashboardPage extends BasePage {
 
@@ -51,13 +57,20 @@ public class DashboardPage extends BasePage {
     /**
      * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
      * @author Akylai
-     * Метод открывает меню и переключается на  Legacy Interface
+     * Метод ожидает и открывает меню и переключается на  Legacy Interface
      */
     public LoginPage switchToLegacyInterface() {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         try {
-            webElementActions.click(subMenu).click(legacyMenuItem);
+            wait.until(ExpectedConditions.visibilityOf(subMenu));
+            webElementActions.click(subMenu);
+
+            wait.until(ExpectedConditions.visibilityOf(legacyMenuItem));
+            webElementActions.click(legacyMenuItem);
+
             return new LoginPage();
         } catch (NoSuchElementException e) {
+            System.err.println("Element not found or not clickable: " + e.getMessage());
             return new LoginPage();
         }
     }

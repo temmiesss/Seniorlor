@@ -1,6 +1,7 @@
 package page.users;
 
 import drivers.Driver;
+import entity.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,17 +16,10 @@ public class UserPage extends BasePage {
     @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUser;
 
-    @FindBy(xpath = "//div[@id='tl-users-grid_wrapper']//tbody/tr")
-    public WebElement usersInTable;
-
+    //Метод переводит на следующую страницу для регистрации пользователя
     public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUser);
         return new AddUserPage();
-    }
-
-    public boolean isUserPresent(String username) {
-        List<WebElement> userRows = Driver.getDriver().findElements(By.xpath("//table[@id='users-table']//td[contains(text(),'" + username + "')]"));
-        return !userRows.isEmpty();
     }
 
 }
