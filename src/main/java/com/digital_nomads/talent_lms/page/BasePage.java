@@ -2,6 +2,7 @@ package com.digital_nomads.talent_lms.page;
 
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;

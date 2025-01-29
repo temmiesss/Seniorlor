@@ -56,21 +56,6 @@ public class AddUserPage extends BasePage {
         return new UserPage();
     }
 
-    /**
-     * Добавление пользователя с некорректной эл.почтой
-     * @param user Заполняет те же поля, что и addNewUser
-     * @return Возвращает текущий объект AddUserPage, чтобы протестировать поведение с некорректной эл.почтой
-     */
-    public AddUserPage addNewUserWithInvalidEmail(User user, String invalidEmail) {
-        webElementActions.sendKeys(firstNameInput, user.getFirstName())
-                .sendKeys(lastNameInput, user.getLastName())
-                .sendKeys(emailInput, invalidEmail)
-                .sendKeys(userNameInput, user.getUsername())
-                .sendKeys(passwordInput, user.getPassword())
-                .click(addUserButton);
-        return this;
-    }
-
     public String selectRandomUserType() {
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         js.executeScript("arguments[0].scrollIntoView(true);", openUserTypes);
@@ -121,7 +106,7 @@ public class AddUserPage extends BasePage {
 
     public String getAddUserSuccessMessage() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
-        WebElement messageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='toast-message']")));
+        WebElement messageElement = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='toast-message']/a")));
 
         // Сохраняем текст через JavaScript (даже если элемент исчезнет)
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();

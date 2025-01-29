@@ -24,7 +24,7 @@ public class DashboardPage extends BasePage {
     AddUserPage addUserPage = new AddUserPage();
     AddCoursePage addCoursePage = new AddCoursePage();
 
-    @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
+    @FindBy(xpath = "//div[@class='hidden-phone']/a[normalize-space()='Add user']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//span[@class='arrow-down']")
@@ -39,6 +39,7 @@ public class DashboardPage extends BasePage {
 
     @FindBy(css = "#tl-dropdown-roles")
     public WebElement dropdownRoles;
+
     @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Users']")
     public WebElement usersSection;
 

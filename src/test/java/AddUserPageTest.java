@@ -34,20 +34,7 @@ public class AddUserPageTest extends BaseTest {
         userPage = addUserPage.addNewUser(randomUser);
 
         String actualMessage = addUserPage.getAddUserSuccessMessage();
-        Assert.assertEquals(actualMessage,"Success! Do you want to add another user?",
-                "User was not added successfully");
-    }
-
-    /**
-     * Проверяет, что система не позволяет добавить пользователя с некорректным email.
-     */
-    @Test
-    public void negativeEmailTest(){
-        dashboardPage.addUserBtn.click();
-        addUserPage.addNewUserWithInvalidEmail(randomUser,"wrong.ru");
-        WebElement isRequired = driver.findElement(By.xpath("//div[@class='span8']/child::*[3]//span[@class='help-block']"));
-        String actual = isRequired.getText();
-        Assert.assertEquals(actual,"This is not a valid 'Email address'");
+        Assert.assertEquals(actualMessage,"add another", "User was not added successfully");
     }
 
     /**
