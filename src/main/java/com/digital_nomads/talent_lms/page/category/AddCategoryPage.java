@@ -1,9 +1,10 @@
 package com.digital_nomads.talent_lms.page.category;
 
+import com.digital_nomads.talent_lms.page.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class AddCategoryPage {
+public class AddCategoryPage extends BasePage {
     @FindBy(xpath = "//input[@name='name']")
     public WebElement categoryName;
 

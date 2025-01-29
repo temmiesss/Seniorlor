@@ -1,6 +1,7 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
+import com.digital_nomads.talent_lms.page.category.CategoryPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
@@ -16,7 +17,7 @@ public abstract class BaseTest {
     LoginPage loginPage = new LoginPage();
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
     DeleteCourse deleteCourse = new DeleteCourse(driver);    // Rano added
-
+    CategoryPage categoryPage = new CategoryPage();
 
 
     @BeforeSuite

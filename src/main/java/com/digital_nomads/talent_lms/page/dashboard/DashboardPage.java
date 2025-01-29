@@ -1,7 +1,9 @@
 package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.Category;
 import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.page.category.AddCategoryPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -67,4 +69,18 @@ public class DashboardPage extends BasePage {
         return new AddUserPage();
 
     }
+
+    @FindBy(xpath = "//a[normalize-space()='Add category']")
+    public WebElement addCategoryBtn;
+    AddCategoryPage addCategoryPage = new AddCategoryPage();
+
+    public AddCategoryPage addNewCategory(Category category){
+        webElementActions.click(addCategoryBtn);
+        webElementActions.sendKeys(addCategoryPage.categoryName, category.getCatName())
+//                .randomClick(addCategoryPage.selectorOfParentCategory)
+//                .randomClick(addCategoryPage.priceSetter)
+                .click(addCategoryPage.addCategoryBtn);
+        return new AddCategoryPage();
+    }
+
 }
