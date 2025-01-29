@@ -1,7 +1,7 @@
-package page;
+package com.digital_nomads.talent_lms.page;
 
-import drivers.Driver;
-import helper.WebElementActions;
+import com.digital_nomads.talent_lms.helper.WebElementActions;
+import com.digital_nomads.talent_lms.drivers.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;

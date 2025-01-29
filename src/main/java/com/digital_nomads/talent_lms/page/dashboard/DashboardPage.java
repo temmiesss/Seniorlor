@@ -1,21 +1,30 @@
-package page.dashboard;
+package com.digital_nomads.talent_lms.page.dashboard;
 
-import drivers.Driver;
+import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.Course;
+import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.enums.Role;
+import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import com.digital_nomads.talent_lms.page.BasePage;
+import com.digital_nomads.talent_lms.page.login.LoginPage;
+import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import page.BasePage;
-import page.login.LoginPage;
-import page.users.AddUserPage;
 
 import java.time.Duration;
-import java.util.concurrent.TimeoutException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardPage extends BasePage {
 
-    @FindBy(xpath = "//div[@class='hidden-phone']/a[normalize-space()='Add user']")
+    AddUserPage addUserPage = new AddUserPage();
+    AddCoursePage addCoursePage = new AddCoursePage();
+
+    @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//span[@class='arrow-down']")
@@ -24,6 +33,12 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
+
+    @FindBy(xpath = " //*[@id=\"tl-admin-courses\"]/div/div[2]/a[1]")
+    public WebElement addCourseBtn;
+
+    @FindBy(css = "#tl-dropdown-roles")
+    public WebElement dropdownRoles;
     @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Users']")
     public WebElement usersSection;
 
@@ -125,4 +140,35 @@ public class DashboardPage extends BasePage {
         webElementActions.click(addUserBtn);
         return new AddUserPage();
     }
+
+    /**
+     * @author Gera
+     * Метод нажимает на Add course и открывает страницу Add course(create)
+     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
+     */
+
+    public AddCoursePage addNewCourse(Course course){
+        webElementActions.click(addCourseBtn);
+        webElementActions.sendKeys(addCoursePage.courseName, course.getCourseName())
+                .click(addCoursePage.category)
+                .click(addCoursePage.select2)
+                .sendKeys(addCoursePage.description, course.getDescription()).
+                click(addCoursePage.courseCodeBtn)
+                .sendKeys(addCoursePage.courseCode, course.getCourseCode())
+                .click(addCoursePage.priceBtn)
+                .sendKeys(addCoursePage.price, course.getPrice())
+                .click(addCoursePage.videoBtn)
+                .sendKeys(addCoursePage.video, course.getVideo())
+                .click(addCoursePage.capacityBtn)
+                .sendKeys(addCoursePage.capacity, course.getCapacity())
+                .click(addCoursePage.submit);
+        return new AddCoursePage();
+    }
+
+     public DashboardPage navigateToRole(Role role){
+        webElementActions.click(dropdownRoles)
+               .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
+        return new DashboardPage();
+     }
+
 }

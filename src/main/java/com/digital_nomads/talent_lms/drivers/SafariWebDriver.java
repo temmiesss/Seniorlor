@@ -1,16 +1,16 @@
-package drivers;
+package com.digital_nomads.talent_lms.drivers;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import java.time.Duration;
 
-public class ChromeWebDriver {
+public class SafariWebDriver {
 
-    public static WebDriver loadChromeDriver(){
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
+    public static WebDriver loadSafariDriver(){
+        WebDriverManager.safaridriver().setup();
+        WebDriver driver = new SafariDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         return driver;

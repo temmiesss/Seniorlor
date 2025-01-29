@@ -1,12 +1,8 @@
-package page.users;
+package com.digital_nomads.talent_lms.page.users;
 
-import drivers.Driver;
-import entity.User;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import page.BasePage;
-import java.util.List;
+import com.digital_nomads.talent_lms.page.BasePage;
 
 /**
  * @author Akylai
