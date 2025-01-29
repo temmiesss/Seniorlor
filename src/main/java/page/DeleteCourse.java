@@ -12,6 +12,9 @@ import java.util.NoSuchElementException;
 
 /**
  * @author Rano
+ * courseEnter is method which allows us to enter to Course Section
+ * method checkCourse allows us to check course for deleting
+ * method deleteBtn is deleting choosing Course
  * **/
 
 public class DeleteCourse extends BasePage {
