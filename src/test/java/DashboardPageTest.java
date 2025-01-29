@@ -1,5 +1,5 @@
 
-import fileUtils.ConfigReader;
+import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.Arrays;

@@ -1,5 +1,5 @@
-import entity.User;
-import fileUtils.ConfigReader;
+import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;

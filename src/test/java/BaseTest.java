@@ -1,12 +1,16 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
+import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
+import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
-import page.DeleteCourse;
+import com.digital_nomads.talent_lms.page.course.DeleteCourse;
+
+import java.util.Random;
 
 public abstract class BaseTest {
     public static WebDriver driver;
@@ -15,7 +19,10 @@ public abstract class BaseTest {
     UserPage userPage = new UserPage();
     LoginPage loginPage = new LoginPage();
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
-    DeleteCourse deleteCourse = new DeleteCourse(driver);    // Rano added
+    DeleteCourse deleteCourse = new DeleteCourse(driver);// Rano added
+    DashboardPage dashboardPage = new DashboardPage();
+    AddUserPage addUserPage = new AddUserPage();
+    Random random = new Random();
 
 
 
