@@ -18,7 +18,7 @@ public class AddNewCategoryTest extends BaseTest {
     public void CategoryNameRequiresFilling() {
         driver.get("https://sololeveling.talentlms.com/index");
 
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("userPassword"))
+        loginPage.doLogin(ConfigReader.getProperty("userName"),ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
         categoryPage.AddNewCategory();
         if (category.getCatName().isEmpty()) {
