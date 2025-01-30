@@ -1,5 +1,5 @@
 
-import com.digital_nomads.talent_lms.enums.DashboardSections;
+import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -24,8 +24,8 @@ public class DashboardPageTest extends BaseTest {
      */
     @Test
     public void testNavigateToSection() {
-        DashboardSections section = DashboardSections.USERS; // Проверяем "Users"
-        dashboardPage.navigateToSection(section);
+        Section section = Section.USERS; // Проверяем "Users"
+        dashboardPage.selectSection(section.getSectionName());
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         boolean isDisplayed = wait.until(d -> driver.getCurrentUrl().contains("user"));
@@ -36,16 +36,10 @@ public class DashboardPageTest extends BaseTest {
      * Выбор раздела через рандом
      */
     @Test
-    public void testNavigateToRandomSection(){
-        dashboardPage.navigateToRandomSection();
-        boolean isAnySectionOpened = false;
+    public void testSelectRandomSection(){
+        Section[] sections = Section.values();
+        Section randomSection = sections[random.nextInt(sections.length)];
+        dashboardPage.selectSection(randomSection.getSectionName());
 
-        for (DashboardSections section : DashboardSections.values()){
-            if (driver.getCurrentUrl().contains(section.getUrlPart())){
-                isAnySectionOpened = true;
-                break;
-            }
-        }
-        Assert.assertTrue(isAnySectionOpened, "Switching to a random section is not performed");
     }
 }

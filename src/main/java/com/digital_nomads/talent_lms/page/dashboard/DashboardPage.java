@@ -2,9 +2,9 @@ package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Course;
-import com.digital_nomads.talent_lms.entity.User;
-import com.digital_nomads.talent_lms.enums.DashboardSections;
 import com.digital_nomads.talent_lms.enums.Role;
+import com.digital_nomads.talent_lms.enums.Section;
+import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -17,7 +17,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.List;
 
 public class DashboardPage extends BasePage {
 
@@ -37,6 +37,9 @@ public class DashboardPage extends BasePage {
 
     @FindBy(css = "#tl-dropdown-roles")
     public WebElement dropdownRoles;
+
+    @FindBy(xpath = "//div[@class='tl-bold-link']")
+    public WebElement allSections;
 
     /**
      * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
@@ -59,37 +62,26 @@ public class DashboardPage extends BasePage {
         }
     }
 
-    /**
-     * @author Akylai
-     * Переход к заданному разделу на странице Dashboard.
-     * @param section Раздел из DashboardSection
-     */
-    public void navigateToSection(DashboardSections section) {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(section.getXpath())));
-        element.click();
-    }
-    /**
-     * Переход к случайному разделу Dashboard.
-     */
-    public void navigateToRandomSection() {
-        DashboardSections randomSection = getRandomSection();
-        navigateToSection(randomSection);
+   public DashboardPage selectSection(String section){
+        webElementActions.click(allSections.findElement(By.xpath("//a[contains(text(),'" + section + "')]")));
+        return new DashboardPage();
+   }
+
+    // Метод для поиска раздела по enum Section
+    public WebElement findSectionByName(Section section) {
+        // Получаем все дочерние элементы из allSections
+        List<WebElement> sections = allSections.findElements(By.xpath("./a"));
+        for (WebElement sec : sections) {
+            if (sec.getText().equalsIgnoreCase(section.getSectionName())) {
+                return sec;
+            }
+        }
+        throw new IllegalArgumentException("Section not found: " + section.getSectionName());
     }
 
     /**
-     * Получение случайного раздела на странице Dashboard.
-     * @return Возвращает рандомный раздел из DashboardSections
-     */
-    private DashboardSections getRandomSection() {
-        DashboardSections[] sections = DashboardSections.values();
-        int randomIndex = ThreadLocalRandom.current().nextInt(sections.length);
-        return sections[randomIndex];
-    }
-
-    /**
-     * @author Akylai
      * @return Переход к добавлению пользователя со страницы dashboard в AddUserPage
+     * @author Akylai
      */
     public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUserBtn);
@@ -97,12 +89,12 @@ public class DashboardPage extends BasePage {
     }
 
     /**
+     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      * @author Gera
      * Метод нажимает на Add course и открывает страницу Add course(create)
-     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      */
 
-    public AddCoursePage addNewCourse(Course course){
+    public AddCoursePage addNewCourse(Course course) {
         webElementActions.click(addCourseBtn);
         webElementActions.sendKeys(addCoursePage.courseName, course.getCourseName())
                 .click(addCoursePage.category)
@@ -120,10 +112,10 @@ public class DashboardPage extends BasePage {
         return new AddCoursePage();
     }
 
-     public DashboardPage navigateToRole(Role role){
+    public DashboardPage navigateToRole(Role role) {
         webElementActions.click(dropdownRoles)
-               .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
+                .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
         return new DashboardPage();
-     }
+    }
 
 }
