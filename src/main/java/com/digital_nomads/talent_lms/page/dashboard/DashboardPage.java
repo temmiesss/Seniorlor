@@ -3,6 +3,7 @@ package com.digital_nomads.talent_lms.page.dashboard;
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.enums.DashboardSections;
 import com.digital_nomads.talent_lms.enums.Role;
 import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
 import org.openqa.selenium.By;
@@ -16,12 +17,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DashboardPage extends BasePage {
 
-    AddUserPage addUserPage = new AddUserPage();
     AddCoursePage addCoursePage = new AddCoursePage();
 
     @FindBy(xpath = "//div[@class='hidden-phone']/a[normalize-space()='Add user']")
@@ -33,42 +32,11 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
-
     @FindBy(xpath = " //*[@id=\"tl-admin-courses\"]/div/div[2]/a[1]")
     public WebElement addCourseBtn;
 
     @FindBy(css = "#tl-dropdown-roles")
     public WebElement dropdownRoles;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Users']")
-    public WebElement usersSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Courses']")
-    public WebElement coursesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Categories']")
-    public WebElement categoriesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Groups']")
-    public WebElement groupsSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Branches']")
-    public WebElement branchesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Events engine']")
-    public WebElement eventsEngineSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='User types']")
-    public WebElement userTypesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Import - Export']")
-    public WebElement importExportSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Reports']")
-    public WebElement reportsSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Account & Settings']")
-    public WebElement AccountAndSettingsSection;
 
     /**
      * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
@@ -90,47 +58,33 @@ public class DashboardPage extends BasePage {
             return new LoginPage();
         }
     }
+
     /**
      * @author Akylai
+     * Переход к заданному разделу на странице Dashboard.
+     * @param section Раздел из DashboardSection
      */
+    public void navigateToSection(DashboardSections section) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(section.getXpath())));
+        element.click();
+    }
+    /**
+     * Переход к случайному разделу Dashboard.
+     */
+    public void navigateToRandomSection() {
+        DashboardSections randomSection = getRandomSection();
+        navigateToSection(randomSection);
+    }
 
-    public void navigateToSection(String sectionName) {
-        WebElement section;
-        switch (sectionName.toLowerCase()) {
-            case "users":
-                section = usersSection;
-                break;
-            case "courses":
-                section = coursesSection;
-                break;
-            case "categories":
-                section = categoriesSection;
-                break;
-            case "groups":
-                section = groupsSection;
-                break;
-            case "branches":
-                section = branchesSection;
-                break;
-            case "events engine":
-                section = eventsEngineSection;
-                break;
-            case "user types":
-                section = userTypesSection;
-                break;
-            case "import - export":
-                section = importExportSection;
-                break;
-            case "reports":
-                section = reportsSection;
-                break;
-            case "account & settings":
-                section = AccountAndSettingsSection;
-                break;
-            default:
-                throw new IllegalArgumentException("Section not found: " + sectionName);
-        }
-        section.click();
+    /**
+     * Получение случайного раздела на странице Dashboard.
+     * @return Возвращает рандомный раздел из DashboardSections
+     */
+    private DashboardSections getRandomSection() {
+        DashboardSections[] sections = DashboardSections.values();
+        int randomIndex = ThreadLocalRandom.current().nextInt(sections.length);
+        return sections[randomIndex];
     }
 
     /**

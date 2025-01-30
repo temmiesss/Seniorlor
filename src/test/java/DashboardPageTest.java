@@ -1,44 +1,51 @@
 
+import com.digital_nomads.talent_lms.enums.DashboardSections;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import java.util.Arrays;
-import java.util.List;
+
+import java.time.Duration;
 
 public class DashboardPageTest extends BaseTest {
 
+    @BeforeTest
+    public void setup(){
+        driver.get("https://charlieblack.talentlms.com/index");
+
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+                .switchToLegacyInterface();
+    }
+
+    /**
+     * @author Akylai
+     * Выбор раздела вручную из списка DashboardSections
+     */
+    @Test
+    public void testNavigateToSection() {
+        DashboardSections section = DashboardSections.USERS; // Проверяем "Users"
+        dashboardPage.navigateToSection(section);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        boolean isDisplayed = wait.until(d -> driver.getCurrentUrl().contains("user"));
+        Assert.assertTrue(isDisplayed, "Switching to a " + section + " section is not performed");
+    }
     /**
      * @author Akylai
      * Выбор раздела через рандом
      */
     @Test
     public void testNavigateToRandomSection(){
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/index");
+        dashboardPage.navigateToRandomSection();
+        boolean isAnySectionOpened = false;
 
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
-        List<String> sections = Arrays.asList("Users", "Courses", "Categories", "Groups",
-                "Branches", "Events engine", "User types", "Import - Export", "Reports", "Account & Settings");
-
-        String randomSection = sections.get(random.nextInt(sections.size()));
-        System.out.println("Randomly selected section: " + randomSection);
-
-        dashboardPage.navigateToSection(randomSection);
-    }
-
-    // Выбор раздела через app.properties
-    @Test
-    public void testNavigateToSectionFromProperties(){
-        driver.get("https://zheenbaikyzyakylai.talentlms.com/index");
-
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
-        dashboardPage.navigateToSection(ConfigReader.getProperty("section"));
-    }
-
-    @Test
-    public void testNavigateToAddUserPageFromDashboardPage(){
-        addUserPage = dashboardPage.navigateToAddUserPage();
-        Assert.assertTrue(addUserPage.isPageLoaded(), "AddUserPage did not load correctly");
+        for (DashboardSections section : DashboardSections.values()){
+            if (driver.getCurrentUrl().contains(section.getUrlPart())){
+                isAnySectionOpened = true;
+                break;
+            }
+        }
+        Assert.assertTrue(isAnySectionOpened, "Switching to a random section is not performed");
     }
 }

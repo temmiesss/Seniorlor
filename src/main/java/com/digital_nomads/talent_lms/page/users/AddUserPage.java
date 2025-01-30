@@ -1,6 +1,5 @@
 package com.digital_nomads.talent_lms.page.users;
 
-import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.User;
 import org.openqa.selenium.By;
@@ -121,6 +120,10 @@ public class AddUserPage extends BasePage {
 
     // проверяет наличие заголовка или одного из элементов страницы
     public boolean isPageLoaded() {
-        return addUserBtn.isDisplayed();
+        try {
+            return wait.until(ExpectedConditions.visibilityOf(addUserBtn)).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
