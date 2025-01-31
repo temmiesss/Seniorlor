@@ -1,7 +1,9 @@
 package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.Groups;
 import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -16,6 +18,7 @@ import java.util.List;
 public class DashboardPage extends BasePage {
 
     AddUserPage addUserPage = new AddUserPage();
+
 
     @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUserBtn;
