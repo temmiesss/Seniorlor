@@ -16,9 +16,6 @@ import lombok.*;
 
 
 public class Groups {
-
     private String name = "Fall24";
     private String description = "We are family";
-
-
 }
