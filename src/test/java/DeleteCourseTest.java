@@ -1,8 +1,7 @@
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
-import com.digital_nomads.talent_lms.page.BasePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.DeleteCourse;
+import com.digital_nomads.talent_lms.page.course.DeleteCourse;
 /**
  * @author Rano
  * **/
