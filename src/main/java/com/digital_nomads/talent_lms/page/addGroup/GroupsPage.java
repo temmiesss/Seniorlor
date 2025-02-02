@@ -11,8 +11,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class GroupsPage extends BasePage {
 
-
-
     @FindBy(xpath = "//*[@class='icon-ellipsis-h tl-table-operations-icon']")
     public WebElement textLine;
 
@@ -33,9 +31,5 @@ public class GroupsPage extends BasePage {
 
     @FindBy (xpath = "//a[@title='Groups']")
     public WebElement groupList;
-//
-//    public AddGroupPage displayGroupList() {
-//        groupsBtn.click();
-//        return this;
-//    }
+
 }
