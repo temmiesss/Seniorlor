@@ -2,6 +2,7 @@ package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.page.reports.ReportsPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -14,8 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardPage extends BasePage {
-
+ReportsPage reports =new ReportsPage();
     AddUserPage addUserPage = new AddUserPage();
+
 
     @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUserBtn;
@@ -66,5 +68,13 @@ public class DashboardPage extends BasePage {
                 .click(addUserBtn);
         return new AddUserPage();
 
+    }
+    public ReportsPage report() {
+
+        webElementActions.click(reports.reportsBtn);
+//        webElementActions.click(reports.infographics)
+//                .click(reports.timeLine);
+                //.click(reports.trainingMatrix);
+        return  new ReportsPage();
     }
 }

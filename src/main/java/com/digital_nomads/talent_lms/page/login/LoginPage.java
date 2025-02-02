@@ -20,5 +20,17 @@ public class LoginPage extends BasePage {
                 .sendKeys(this.password, password)
                 .click(submit);
         return new DashboardPage();
+
+
+
     }
+//    public DashBoardReports doLogin1 (String username, String password){
+//        webElementActions.sendKeys(login, username)
+//                .sendKeys(this.password, password)
+//                .click(submit);
+//        return new DashBoardReports();
+//
+//
+//
+//    }
 }
