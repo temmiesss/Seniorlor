@@ -1,38 +1,39 @@
+import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
-import com.digital_nomads.talent_lms.page.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import page.DeleteCourse;
+import java.time.Duration;
+import static org.testng.AssertJUnit.fail;
+
 /**
  * @author Rano
+ * в тесте удаление рандомного курса и assert  на успешное удаление курса
  * **/
 public class DeleteCourseTest extends BaseTest {
     @Test
     public void deleteSelectedCourse() throws InterruptedException {
 
-        DeleteCourse deleteCourse = new DeleteCourse(driver);
-
-        driver.get("https://ranoprojectgroup.talentlms.com/index");
-
+        driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
 
-        boolean isCourseVisibleBefore = deleteCourse.isCourseVisible();
-        Assert.assertTrue(isCourseVisibleBefore, "course is avaliable!");
-
+        Course randomCourse =randomCourseGenerator.randomCourse();
+        deleteCourse.enterToCourse(randomCourse);
         deleteCourse.openCourse();
-        deleteCourse.selectCourse();
-        deleteCourse.openBurgerMenu();
         deleteCourse.deleteCourse();
         deleteCourse.cancelDelete();
 
-        boolean isCourseInvisibleAfterDelete = deleteCourse.isCourseInvisible();
-        Assert.assertTrue(isCourseInvisibleAfterDelete, "Курс должен быть удален и исчезнуть!");
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[text() = '" + randomCourse.getCourseName() + "']")));
 
-        Thread.sleep(2000);
-        deleteCourse.cancelDelete();
-
-//        boolean isCourseVisibleAfterCancel = deleteCourse.isCourseVisibleAfterCancel();
-//        Assert.assertTrue(isCourseVisibleAfterCancel, "Курс должен быть доступен после отмены удаления!");
+            Assert.assertTrue(true);
+        } catch (TimeoutException e) {
+            fail("Курс не был удален");
+        }
 
     }
 }
