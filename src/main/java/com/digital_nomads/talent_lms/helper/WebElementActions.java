@@ -83,4 +83,9 @@ public class WebElementActions {
         return this;
     }
 
+    public WebElementActions clear(WebElement element) {
+        element.clear();
+        return this;
+    }
+
 }

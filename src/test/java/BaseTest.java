@@ -1,8 +1,11 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
+import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
+import com.digital_nomads.talent_lms.page.users.EditUserDataPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
@@ -23,8 +26,9 @@ public abstract class BaseTest {
     DashboardPage dashboardPage = new DashboardPage();
     AddUserPage addUserPage = new AddUserPage();
     Random random = new Random();
-
-
+    AddUserWithInvalidData addUserWithInvalidData = new AddUserWithInvalidData();
+    EditUserDataPage editUserDataPage = new EditUserDataPage();
+    User user = new User();
 
     @BeforeSuite
     public void beforeSuite(){
