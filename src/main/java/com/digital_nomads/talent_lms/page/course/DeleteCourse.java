@@ -1,5 +1,6 @@
 package com.digital_nomads.talent_lms.page.course;
 
+import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.page.BasePage;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -22,11 +23,11 @@ public class DeleteCourse extends BasePage {
     @FindBy(xpath = "//a[normalize-space()='Courses']/parent::div[@class='tl-bold-link']")
     public WebElement courseEnter;
 
-    @FindBy(xpath = "input[@class='hidden-mobile tl-grid-checkbox']")
-    public WebElement checkCourse;
+    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[1]/td[5]/div/div/i[3]")
+    public WebElement iconDelete;
 
     @FindBy(xpath = "//div[@class='tl-table-operations-trigger touchable']")
-    public WebElement pressBurger;
+    public WebElement pressBurgerBtn;
 
     @FindBy(xpath = "//a[@id='tl-confirm-submit']")
     public WebElement deleteBtn;
@@ -35,10 +36,15 @@ public class DeleteCourse extends BasePage {
     public WebElement canselBtn;
 
 
-    private WebDriver driver;
+//    public DeleteCourse(WebDriver driver) {
+//        this.driver = driver;
+//    }
 
-    public DeleteCourse(WebDriver driver) {
-        this.driver = driver;
+    public CloneCoursePage enterToCourse(Course course) {
+        webElementActions.click(courseEnter)
+                .moveToElement(pressBurgerBtn)
+                .click(iconDelete);
+        return new CloneCoursePage();
     }
 
     public void openCourse() {
@@ -49,22 +55,22 @@ public class DeleteCourse extends BasePage {
             System.out.println("Ошибка при открытии курса: " + e.getMessage());
         }
     }
-    public void selectCourse() {
-        try {
-            checkCourse.click();
-            System.out.println("Курс выбран.");
-        } catch (Exception e) {
-            System.out.println("Ошибка при выборе курса: " + e.getMessage());
-        }
-    }
-    public void openBurgerMenu() {
-        try {
-            pressBurger.click();
-            System.out.println("Бургер-меню открыто.");
-        } catch (Exception e) {
-            System.out.println("Ошибка при открытии бургер-меню: " + e.getMessage());
-        }
-    }
+//    public void selectCourse() {
+//        try {
+//            checkCourse.click();
+//            System.out.println("Курс выбран.");
+//        } catch (Exception e) {
+//            System.out.println("Ошибка при выборе курса: " + e.getMessage());
+//        }
+//    }
+//    public void openBurgerMenu() {
+//        try {
+//            pressBurger.click();
+//            System.out.println("Бургер-меню открыто.");
+//        } catch (Exception e) {
+//            System.out.println("Ошибка при открытии бургер-меню: " + e.getMessage());
+//        }
+//    }
 
     public void deleteCourse() {
         try {
@@ -84,33 +90,5 @@ public class DeleteCourse extends BasePage {
         }
     }
 
-    public boolean isCourseInvisible() {
-        try {
-            WebDriverWait webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(15));
-            webDriverWait.until(ExpectedConditions.invisibilityOf(courseEnter));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
 
-    public boolean isCourseVisible() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(courseEnter));
-            return courseEnter.isDisplayed();
-        } catch (NoSuchElementException | TimeoutException e) {
-            return false;
-        }
-    }
-
-    public boolean isCourseVisibleAfterCancel() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOf(courseEnter));
-            return courseEnter.isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
-    }
 }
