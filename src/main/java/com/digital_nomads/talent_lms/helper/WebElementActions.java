@@ -92,11 +92,4 @@ public class WebElementActions {
         actions.moveToElement(element).perform();
         return this;
     }
-
-    public WebElementActions clear(WebElement element) {
-        element.clear();
-        return this;
-    }
-
-
 }
