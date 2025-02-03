@@ -85,10 +85,18 @@ public class WebElementActions {
         return this;
     }
 
+
     public WebElementActions moveToElement(WebElement element){
         waitElementToBeDisplayed(element);
         highlightElement(element);
         actions.moveToElement(element).perform();
         return this;
     }
+
+    public WebElementActions clear(WebElement element) {
+        element.clear();
+        return this;
+    }
+
+
 }

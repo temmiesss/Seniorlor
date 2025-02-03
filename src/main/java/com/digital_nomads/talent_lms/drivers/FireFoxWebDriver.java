@@ -7,7 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import java.time.Duration;
 
 public class FireFoxWebDriver {
-    public static WebDriver loadFireFox(){
+
+    public static WebDriver loadFirefoxDriver(){
         WebDriverManager.firefoxdriver().setup();
         WebDriver driver = new FirefoxDriver();
         driver.manage().window().maximize();
