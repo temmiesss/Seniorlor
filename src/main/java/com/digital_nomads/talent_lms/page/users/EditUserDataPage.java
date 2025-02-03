@@ -39,23 +39,25 @@ public class EditUserDataPage extends BasePage {
     @FindBy(xpath = "//input[@name='submit_personal_details']")
     public WebElement updateUserBTN;
 
-    public EditUserDataPage editUserFirstName(User user){
+    public EditUserDataPage editUserFirstName(User user) {
         webElementActions.click(changeLearnerType).click(edit)
-                .click(editFirstNameField).clear(editFirstNameField)
-                .sendKeys(editFirstNameField, user.getFirstName())
+                .click(editFirstNameField);
+        editFirstNameField.clear();
+        webElementActions.sendKeys(editFirstNameField, user.getFirstName())
                 .click(updateUserBTN);
         return this;
     }
 
-    public EditUserDataPage editUserLastName(User user){
+    public EditUserDataPage editUserLastName(User user) {
         webElementActions.click(changeLearnerType).click(edit)
-                .click(editLastNameField).clear(editLastNameField)
-                .sendKeys(editLastNameField, user.getLastName())
+                .click(editLastNameField);
+        editLastNameField.clear();
+        webElementActions.sendKeys(editLastNameField, user.getLastName())
                 .click(updateUserBTN);
         return this;
     }
 
-    public EditUserDataPage editUserType(String userType){
+    public EditUserDataPage editUserType(String userType) {
         webElementActions.click(changeLearnerType).click(edit)
                 .click(editUserTypeField);
         WebElement userTypeOption = dropdownList.findElement(By.xpath(".//li/div[text()='" + userType + "']"));
@@ -63,7 +65,7 @@ public class EditUserDataPage extends BasePage {
         return this;
     }
 
-    public EditUserDataPage editTimeZone(String timeZone){
+    public EditUserDataPage editTimeZone(String timeZone) {
         webElementActions.click(changeLearnerType).click(edit)
                 .click(editTimeZoneField);
         WebElement timeZoneOption = dropdownList.findElement(By.xpath(".//li/div[text()='" + timeZone + "']"));
@@ -71,7 +73,7 @@ public class EditUserDataPage extends BasePage {
         return this;
     }
 
-    public EditUserDataPage editLanguage(String language){
+    public EditUserDataPage editLanguage(String language) {
         webElementActions.click(changeLearnerType).click(edit)
                 .click(editLanguageField);
         WebElement languageOption = dropdownList.findElement(By.xpath(".//li/div[text()='" + language + "']"));
@@ -92,11 +94,11 @@ public class EditUserDataPage extends BasePage {
         return editUserTypeField;
     }
 
-    public WebElement getUpdateTimeZoneField(){
+    public WebElement getUpdateTimeZoneField() {
         return editTimeZoneField;
     }
 
-    public WebElement getUpdatedLanguageField(){
+    public WebElement getUpdatedLanguageField() {
         return editLanguageField;
     }
 }
