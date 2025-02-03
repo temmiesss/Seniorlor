@@ -9,7 +9,7 @@ public class Driver {
 
     }
 
-    private static WebDriver driver;
+    public static WebDriver driver;
 
     public static WebDriver getDriver(){
         if(driver == null){
@@ -18,14 +18,14 @@ public class Driver {
                     driver = ChromeWebDriver.loadChromeDriver();
                     break;
                 case "firefox":
-                    driver = FireFoxWebDriver.loadFireFox();
+                    driver = FireFoxWebDriver.loadFirefoxDriver();
                     break;
                 case "edge":
                     driver = EdgeWebDriver.loadEdgeDriver();
                     break;
-                case "safari":
-                    driver = SafariWebDriver.loadSafariDriver();
-                    break;
+//                case "safari":
+//                    driver = SafariWebDriver.loadSafariDriver();
+//                    break;
                 default:
                     throw new IllegalArgumentException("Unsupported browser type: " + ConfigReader.getProperty("browserType"));
             }

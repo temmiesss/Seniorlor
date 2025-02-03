@@ -7,6 +7,7 @@ import org.openqa.selenium.edge.EdgeDriver;
 import java.time.Duration;
 
 public class EdgeWebDriver {
+
     public static WebDriver loadEdgeDriver(){
         WebDriverManager.edgedriver().setup();
         WebDriver driver = new EdgeDriver();

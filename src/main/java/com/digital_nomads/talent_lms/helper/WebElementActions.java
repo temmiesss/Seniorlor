@@ -8,6 +8,10 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Random;
+
+import static com.digital_nomads.talent_lms.drivers.Driver.driver;
 
 public class WebElementActions {
     public Actions actions = new Actions(Driver.getDriver());
@@ -78,6 +82,14 @@ public class WebElementActions {
         waitElementToBeDisplayed(element);
         JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
         js.executeScript("arguments[0].style.border='3px solid yellow'", element);
+        return this;
+    }
+
+
+    public WebElementActions moveToElement(WebElement element){
+        waitElementToBeDisplayed(element);
+        highlightElement(element);
+        actions.moveToElement(element).perform();
         return this;
     }
 }

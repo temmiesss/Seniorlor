@@ -1,85 +1,106 @@
 package com.digital_nomads.talent_lms.page.users;
 
-import com.digital_nomads.talent_lms.entity.Sections;
-import com.digital_nomads.talent_lms.entity.User;
+import com.digital_nomads.talent_lms.enums.Action;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import com.digital_nomads.talent_lms.page.BasePage;
-import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 
 /**
  * @author Akylai
  */
 public class UserPage extends BasePage {
-    private DashboardPage dashboardPage = new DashboardPage();
-    private Sections sections = new Sections();
 
     @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
     public WebElement addUser;
 
-    @FindBy(xpath = "//input[@name='name']")
-    public WebElement firstName;
+    @FindBy(xpath = "//td[@class=' tl-align-center tl-grid-checkbox-wrapper hidden-phone']/input")
+    public WebElement checkboxTick;
 
-    @FindBy(xpath = "//input[@name='surname']")
-    public WebElement lastName;
+    @FindBy(xpath = "//a[@class='btn dropdown-toggle']")
+    public WebElement massActionsBtn;
 
-    @FindBy(xpath = "//input[@name='email']")
-    public WebElement email;
+    @FindBy(xpath = "//div[@class='btn-group open']/ul/li")
+    public WebElement actionsDropdownMenu;
 
-    @FindBy(xpath = "//input[@name='login']")
-    public WebElement userName;
+    @FindBy(xpath = "//a[@id='submit-mass-action']")
+    public WebElement submitButton;
 
-    @FindBy(xpath = "//input[@name='password']")
-    public WebElement password;
+    @FindBy(xpath = "//li[@class='select2-search-field']/input[@id='s2id_autogen1']")
+    public WebElement selectField;
 
-//    @FindBy(xpath = "//textarea[@name='description']")
-//    public WebElement bioInput;
+    @FindBy(xpath = "//div[@id='select2-drop']/ul")
+    public WebElement selectFromDropdownList;               // group or branch from list
 
-//    @FindBy(xpath = "//div[@class='select2-container tl-select2 select2-dropdown-open select2-container-active']")
-//    public WebElement userTypesSelect;
+    @FindBy(xpath = "//input[@id='message_subject']")
+    public WebElement subjectInputField;
 
-    @FindBy(xpath = "//input[@name='submit_personal_details']")
-    public WebElement addUserBtn;
+    @FindBy(xpath = "//div[@class='note-editable tl-message-editor span9']")
+    public WebElement messageInputField;
 
-//    @FindBy(xpath = "//input[@type='checkbox']/parent::td")
-//    public WebElement checkboxOn;
-//
-//    @FindBy(xpath = "//a[@class='btn dropdown-toggle']")
-//    public WebElement massActionsBtn;
-//
-//    @FindBy(xpath = "//a[@id='tl-confirm-submit']")
-//    public WebElement deleteUser;
+    @FindBy(xpath = "//a[@id='tl-attachment']")
+    public WebElement selectAttachmentForMsg;
+
+    @FindBy(xpath = "//input[@id='submit_send_message']")
+    public WebElement sendMessageBtn;
+
+    @FindBy(xpath = "//a[text()='Cancel']")
+    public WebElement cancelBTN;
+
+    @FindBy(xpath = "//div[@class='tl-table-operations-trigger touchable']/div")
+    public WebElement options;
 
     /**
-     * Добавляем нового пользователя с корректными данными:
-     * @param user Заполняет поля (имя, фамилия, имя пользователя, пароль)
-     * @param email Заполняет эл.почту
-     * @return Возвращает новый объект UserPage, чтобы продолжить взаимодействие с этой страницей
+     * @return Возвращает страницу AddUserPage для регистрации пользователя
      */
-    public UserPage addNewUser(User user, String email) {
-        webElementActions.click(dashboardPage.selectSection(sections.getUsers())).click(this.addUser)
-                .sendKeys(this.firstName, user.getFirstName())
-                .sendKeys(this.lastName, user.getLastName())
-                .sendKeys(this.email, email)
-                .sendKeys(this.userName, user.getUsername())
-                .sendKeys(this.password, user.getPassword())
-                .click(this.addUserBtn);
-        return new UserPage();
+    public AddUserPage navigateToAddUserPage() {
+        webElementActions.click(addUser);
+        return new AddUserPage();
     }
 
-    /**
-     * Пытаемся добавить пользователя с некорректной эл.почтой
-     * @param user Заполняет те же поля, что и addNewUser
-     * @param email Заполняет эл.почту
-     * @return Возвращает текущий объект UserPage, чтобы протестировать поведение с некорректной эл.почтой
-     */
-    public UserPage addNewUserWithIncorrectEmail(User user, String email) {
-        webElementActions.sendKeys(this.firstName, user.getFirstName())
-                .sendKeys(this.lastName, user.getLastName())
-                .sendKeys(this.email, email)
-                .sendKeys(this.userName, user.getUsername())
-                .sendKeys(this.password, user.getPassword())
-                .click(addUserBtn);
+    public void showMassActionDropdownMenu(Action action) {
+        WebElement actionElement = actionsDropdownMenu.findElement(By.xpath(".//a[normalize-space()='" + action + "']"));
+        actionElement.click();
+    }
+
+//    // Нужно связать со списком из раздела Branch и добавить в метод performMassAction
+//    public void selectBranchFromDropdownList() {
+//        WebElement branchElement = selectFromDropdownList.findElement(By.xpath("//*[@id='select2-drop']/descendant::*[contains(text(),'" + branchName + "')]"));
+//        branchElement.click();
+//    }
+//
+//    // Нужно связать со списком из раздела Groups и добавить в метод performMassAction
+//    public void selectGroupFromDropdownList() {
+//        WebElement groupElement = selectFromDropdownList.findElement(By.xpath("//*[@id='select2-drop']/descendant::*[contains(text(),'" + groupName + "')]"));
+//        groupElement.click();
+//    }
+
+    public UserPage performMassAction(Action action) {
+        webElementActions.click(checkboxTick).click(massActionsBtn);
+        showMassActionDropdownMenu(action);
+        if (action.equals(Action.DELETE) || action.equals(Action.ACTIVATE) || action.equals(Action.DEACTIVATE)) {
+            webElementActions.click(submitButton);
+        } else if (action.equals(Action.ADD_TO_BRANCH) || action.equals(Action.REMOVE_FROM_BRANCH)) {
+            webElementActions.click(selectField);
+//            selectBranchFromDropdownList();
+        } else if (action.equals(Action.ADD_TO_GROUP) || action.equals(Action.REMOVE_FROM_GROUP)) {
+            webElementActions.click(selectField);
+//            selectGroupFromDropdownList();
+        } else if (action.equals(Action.SEND_MESSAGE)) {
+            webElementActions.sendKeys(subjectInputField, "Meeting")
+                    .sendKeys(messageInputField, "We are waiting for you today at 2pm")
+                    .click(sendMessageBtn);
+        }
         return this;
+    }
+
+    public UserPage cancelAction() {
+        webElementActions.click(cancelBTN);
+        return this;
+    }
+
+    public void selectOptions(WebElement optionName){
+        WebElement optionElement = options.findElement(By.xpath(".//i[@alt='" + optionName + "'"));
+        optionElement.click();
     }
 }

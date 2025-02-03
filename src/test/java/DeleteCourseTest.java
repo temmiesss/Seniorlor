@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.time.Duration;
 import static org.testng.AssertJUnit.fail;
+import com.digital_nomads.talent_lms.page.course.DeleteCourse;
 
 /**
  * @author Rano
