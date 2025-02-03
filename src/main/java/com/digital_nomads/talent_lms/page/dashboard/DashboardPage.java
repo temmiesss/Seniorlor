@@ -5,8 +5,8 @@ import com.digital_nomads.talent_lms.entity.Category;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.AddCategoryPage;
 import com.digital_nomads.talent_lms.entity.Course;
-import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.enums.Role;
+import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -19,15 +19,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.ArrayList;
 import java.util.List;
 
 public class DashboardPage extends BasePage {
 
-    AddUserPage addUserPage = new AddUserPage();
     AddCoursePage addCoursePage = new AddCoursePage();
 
-    @FindBy(xpath = "//a[@class='btn btn-primary' and text()='Add user']")
+    @FindBy(xpath = "//div[@class='hidden-phone']/a[normalize-space()='Add user']")
     public WebElement addUserBtn;
 
     @FindBy(xpath = "//span[@class='arrow-down']")
@@ -36,41 +34,14 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//a[@data-testid='legacy-menu-item']")
     public WebElement legacyMenuItem;
 
-
     @FindBy(xpath = " //*[@id=\"tl-admin-courses\"]/div/div[2]/a[1]")
     public WebElement addCourseBtn;
 
     @FindBy(css = "#tl-dropdown-roles")
     public WebElement dropdownRoles;
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Users']")
-    public WebElement usersSection;
 
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Courses']")
-    public WebElement coursesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Categories']")
-    public WebElement categoriesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Groups']")
-    public WebElement groupsSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Branches']")
-    public WebElement branchesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Events engine']")
-    public WebElement eventsEngineSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='User types']")
-    public WebElement userTypesSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Import - Export']")
-    public WebElement importExportSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Reports']")
-    public WebElement reportsSection;
-
-    @FindBy(xpath = "//div[@class='tl-bold-link']/a[normalize-space()='Account & Settings']")
-    public WebElement AccountAndSettingsSection;
+    @FindBy(xpath = "//div[@class='tl-bold-link']")
+    public WebElement allSections;
 
     /**
      * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
@@ -92,52 +63,27 @@ public class DashboardPage extends BasePage {
             return new LoginPage();
         }
     }
-    /**
-     * @author Akylai
-     */
 
-    public void navigateToSection(String sectionName) {
-        WebElement section;
-        switch (sectionName.toLowerCase()) {
-            case "users":
-                section = usersSection;
-                break;
-            case "courses":
-                section = coursesSection;
-                break;
-            case "categories":
-                section = categoriesSection;
-                break;
-            case "groups":
-                section = groupsSection;
-                break;
-            case "branches":
-                section = branchesSection;
-                break;
-            case "events engine":
-                section = eventsEngineSection;
-                break;
-            case "user types":
-                section = userTypesSection;
-                break;
-            case "import - export":
-                section = importExportSection;
-                break;
-            case "reports":
-                section = reportsSection;
-                break;
-            case "account & settings":
-                section = AccountAndSettingsSection;
-                break;
-            default:
-                throw new IllegalArgumentException("Section not found: " + sectionName);
+    public DashboardPage selectSection(Section section){
+        webElementActions.click(allSections.findElement(By.xpath("//a[contains(text(),'" + section + "')]")));
+        return new DashboardPage();
+    }
+
+    // Метод для поиска раздела по enum Section
+    public WebElement findSectionByName(Section section) {
+        // Получаем все дочерние элементы из allSections
+        List<WebElement> sections = allSections.findElements(By.xpath("./a"));
+        for (WebElement sec : sections) {
+            if (sec.getText().equalsIgnoreCase(section.getSectionName())) {
+                return sec;
+            }
         }
-        section.click();
+        throw new IllegalArgumentException("Section not found: " + section.getSectionName());
     }
 
     /**
-     * @author Akylai
      * @return Переход к добавлению пользователя со страницы dashboard в AddUserPage
+     * @author Akylai
      */
     public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUserBtn);
@@ -158,12 +104,12 @@ public class DashboardPage extends BasePage {
     }
 
     /**
+     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      * @author Gera
      * Метод нажимает на Add course и открывает страницу Add course(create)
-     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      */
 
-    public AddCoursePage addNewCourse(Course course){
+    public AddCoursePage addNewCourse(Course course) {
         webElementActions.click(addCourseBtn);
         webElementActions.sendKeys(addCoursePage.courseName, course.getCourseName())
                 .click(addCoursePage.category)
@@ -181,10 +127,9 @@ public class DashboardPage extends BasePage {
         return new AddCoursePage();
     }
 
-     public DashboardPage navigateToRole(Role role){
+    public DashboardPage navigateToRole(Role role) {
         webElementActions.click(dropdownRoles)
-               .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
+                .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
         return new DashboardPage();
-     }
-
+    }
 }
