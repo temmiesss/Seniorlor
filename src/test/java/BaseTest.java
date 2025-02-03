@@ -2,11 +2,12 @@ import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Groups;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
-import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
+import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
+import com.digital_nomads.talent_lms.page.course.UpdateCourse;
+import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
+import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
 import com.digital_nomads.talent_lms.entity.User;
-import com.digital_nomads.talent_lms.helper.AlertHelper;
-import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
@@ -17,10 +18,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
-import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
 
 import java.util.Random;
-
 
 public abstract class BaseTest {
     public WebDriver driver;
@@ -29,7 +28,9 @@ public abstract class BaseTest {
     UserPage userPage = new UserPage();
     LoginPage loginPage = new LoginPage();
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
-    DeleteCourse deleteCourse = new DeleteCourse(driver);    // Rano added
+    DeleteCourse deleteCourse = new DeleteCourse();    // Rano added
+    CloneCoursePage cloneCoursePage = new CloneCoursePage();
+    UpdateCourse updateCourse = new UpdateCourse();
     CategoryPage categoryPage = new CategoryPage();
     AddGroupPage addGroupPage = new AddGroupPage();
     Groups group = new Groups();
@@ -39,7 +40,6 @@ public abstract class BaseTest {
     AddUserWithInvalidData addUserWithInvalidData = new AddUserWithInvalidData();
     EditUserDataPage editUserDataPage = new EditUserDataPage();
     User user = new User();
-
 
 
     @BeforeSuite

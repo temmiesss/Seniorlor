@@ -18,11 +18,11 @@ public class RandomCourseGenerator {
     }
 
     public String randomCourseCode() {
-        return faker.code().toString();
+        return String.valueOf(faker.number().numberBetween(1,10));
     }
 
     public String randomCoursePrice() {
-        return faker.commerce().price();
+        return String.valueOf(faker.number().numberBetween(50,100));
     }
 
     public String randomCourseUrl() {
@@ -30,8 +30,7 @@ public class RandomCourseGenerator {
     }
 
     public String randomCourseCapacity() {
-        Integer randomCapacity = faker.number().numberBetween(4, 20);
-        return randomCapacity.toString();
+       return String.valueOf(faker.number().numberBetween(4,20));
     }
 
     public Course randomCourse() {
