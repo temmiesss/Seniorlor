@@ -1,6 +1,8 @@
 package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.Category;
+import com.digital_nomads.talent_lms.page.category.AddCategoryPage;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.enums.Role;
 import com.digital_nomads.talent_lms.enums.Section;
@@ -16,6 +18,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class DashboardPage extends BasePage {
 
@@ -62,7 +65,6 @@ public class DashboardPage extends BasePage {
     /**
      * @author Akylai
      */
-
     public void selectSection(Section section) {
         String sectionName;
         switch (section) {
@@ -105,21 +107,34 @@ public class DashboardPage extends BasePage {
     }
 
     /**
-     * @author Akylai
      * @return Переход к добавлению пользователя со страницы dashboard в AddUserPage
+     * @author Akylai
      */
     public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUserBtn);
         return new AddUserPage();
     }
 
+    @FindBy(xpath = "//a[normalize-space()='Add category']")
+    public WebElement addCategoryBtn;
+    AddCategoryPage addCategoryPage = new AddCategoryPage();
+
+    public AddCategoryPage addNewCategory(Category category){
+        webElementActions.click(addCategoryBtn);
+        webElementActions.sendKeys(addCategoryPage.categoryName, category.getCatName())
+//                .click(addCategoryPage.selectorOfParentCategory)
+//                .click(addCategoryPage.priceSetter)
+                .click(addCategoryPage.addCategoryBtn);
+        return new AddCategoryPage();
+    }
+
     /**
+     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      * @author Gera
      * Метод нажимает на Add course и открывает страницу Add course(create)
-     * @return Возвращает объект типа AddCoursePage, позволяя продолжить работу с этой страницей.
      */
 
-    public AddCoursePage addNewCourse(Course course){
+    public AddCoursePage addNewCourse(Course course) {
         webElementActions.click(addCourseBtn);
         webElementActions.sendKeys(addCoursePage.courseName, course.getCourseName())
                 .click(addCoursePage.category)
@@ -137,10 +152,9 @@ public class DashboardPage extends BasePage {
         return new AddCoursePage();
     }
 
-    public DashboardPage navigateToRole(Role role){
+    public DashboardPage navigateToRole(Role role) {
         webElementActions.click(dropdownRoles)
                 .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
         return new DashboardPage();
     }
-
 }
