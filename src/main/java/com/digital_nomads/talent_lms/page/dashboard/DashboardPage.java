@@ -4,7 +4,6 @@ import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.enums.Role;
 import com.digital_nomads.talent_lms.enums.Section;
-import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.courses.AddCoursePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -62,10 +61,10 @@ public class DashboardPage extends BasePage {
         }
     }
 
-   public DashboardPage selectSection(String section){
+    public DashboardPage selectSection(Section section){
         webElementActions.click(allSections.findElement(By.xpath("//a[contains(text(),'" + section + "')]")));
         return new DashboardPage();
-   }
+    }
 
     // Метод для поиска раздела по enum Section
     public WebElement findSectionByName(Section section) {
@@ -117,5 +116,4 @@ public class DashboardPage extends BasePage {
                 .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
         return new DashboardPage();
     }
-
 }

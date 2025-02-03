@@ -1,13 +1,13 @@
 package com.digital_nomads.talent_lms.page.users;
 
 import com.digital_nomads.talent_lms.page.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
  * @author Akylai
  */
-
 public class AddUserWithInvalidData extends BasePage {
 
     @FindBy(xpath = "//input[@name='email']/../../span/span")
@@ -19,14 +19,11 @@ public class AddUserWithInvalidData extends BasePage {
     @FindBy(xpath = "//input[@name='surname']/../../span/span")
     public WebElement lastNameMaxLengthMessage;
 
-    @FindBy(xpath = "//input[@name='password']/../../span/span")
-    public WebElement passwordValidationMessage;
-
     @FindBy(xpath = "//input[@name='email']/../../span/span")
     public WebElement uniqueEmailInputMessage;
 
     public String getInvalidEmailMessage() {
-       return invalidEmailInputMessage.getText();
+        return invalidEmailInputMessage.getText();
     }
 
     public String getFirstNameIsRequiredMessage(){
@@ -37,12 +34,11 @@ public class AddUserWithInvalidData extends BasePage {
         return lastNameMaxLengthMessage.getText();
     }
 
-    public String getPasswordValidationMessage(){
-        return passwordValidationMessage.getText();
+    public WebElement getPasswordValidationMessage(){
+        return driver.findElement(By.xpath("//input[@name='password']/../../span/span"));
     }
 
     public String getUniqueEmailMessage(){
         return uniqueEmailInputMessage.getText();
     }
-
 }

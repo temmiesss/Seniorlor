@@ -1,7 +1,6 @@
 package com.digital_nomads.talent_lms.enums;
 
 import lombok.Getter;
-import org.openqa.selenium.By;
 
 @Getter
 public enum Section {

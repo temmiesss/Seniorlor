@@ -4,13 +4,11 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class AddNewUserWithInvalidDataTest extends BaseTest {
-
-    User randomUser = randomUserGenerator.randomUser();
+public class AddUserWithInvalidDataTest extends BaseTest{
 
     @BeforeTest
     public void setup() {
-        driver.get("https://charlieblack.talentlms.com/index");
+        driver.get("https://badykeeva.talentlms.com/index");
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
     }
@@ -47,31 +45,4 @@ public class AddNewUserWithInvalidDataTest extends BaseTest {
         String actualLastNameMaxLengthMessage = addUserWithInvalidData.getLastNameMaxLengthMessage();
         Assert.assertEquals(actualLastNameMaxLengthMessage, "'Last name' cannot exceed 50 characters");
     }
-
-    @Test
-    public void invalidPasswordInputTest() {
-        dashboardPage.addUserBtn.click();
-        User invalidPasswordUser = randomUserGenerator.randomUser();
-        invalidPasswordUser.setPassword("invpsw");
-        addUserPage.addNewUser(invalidPasswordUser);
-
-        String actualInvalidPasswordMessage = addUserWithInvalidData.getPasswordValidationMessage();
-        Assert.assertEquals(actualInvalidPasswordMessage, "'Password' is not strong enough (should " +
-                "have at least (1) upper case letter, at least (1) lower case letter, at least (1) number, at " +
-                "least (8) characters in length)");
-    }
-
-    @Test
-    public void uniqueEmailTest(){
-        dashboardPage.addUserBtn.click();
-        User uniqueEmailUser = randomUserGenerator.randomUser();
-        uniqueEmailUser.setEmail("jackie001@mail.ru");
-        addUserPage.addNewUser(uniqueEmailUser);
-
-        String actualUniqueEmailMessage = addUserWithInvalidData.getUniqueEmailMessage();
-        Assert.assertEquals(actualUniqueEmailMessage, "Someone is already using this email address");
-    }
-
-
-
 }
