@@ -7,6 +7,7 @@ import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
+import com.digital_nomads.talent_lms.page.course.EnterOfOneLerner;
 import com.digital_nomads.talent_lms.page.course.UpdateCourse;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
@@ -43,6 +44,7 @@ public abstract class BaseTest {
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
     Random random = new Random();
     CloneCoursePage cloneCoursePage = new CloneCoursePage();
+    EnterOfOneLerner enterOfOneLerner = new EnterOfOneLerner();
 
     @BeforeSuite
     public void beforeSuite(){
