@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="E2E suite">
+    <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
+        <classes>
+            <class name="DashboardPageTest"></class>
+            <class name="UserPageTest"></class>
+            <class name="AddUserPageTest"></class>
+            <class name="AddUserWithInvalidDataTest"></class>
+            <class name="EditUserDataTest"></class>
+        </classes>
+    </test>
+</suite>

@@ -1,28 +1,30 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Groups;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
+import com.digital_nomads.talent_lms.helper.BrowserManager;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
 import com.digital_nomads.talent_lms.page.course.UpdateCourse;
+import com.digital_nomads.talent_lms.page.users.CsvGenerator;
+import com.digital_nomads.talent_lms.page.users.*;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
 import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
-import com.digital_nomads.talent_lms.page.users.AddUserPage;
-import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
-import com.digital_nomads.talent_lms.page.users.EditUserDataPage;
+import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
-import com.digital_nomads.talent_lms.page.users.UserPage;
 
 import java.util.Random;
 
 public abstract class BaseTest {
+    public User randomUser;
     public WebDriver driver;
+    public BrowserManager browserManager;
     WebElementActions webElementActions = new WebElementActions();
     AlertHelper alertHelper;
     UserPage userPage = new UserPage();
@@ -40,7 +42,13 @@ public abstract class BaseTest {
     AddUserWithInvalidData addUserWithInvalidData = new AddUserWithInvalidData();
     EditUserDataPage editUserDataPage = new EditUserDataPage();
     User user = new User();
-
+    RandomCourseGenerator randomCourseGenerator = new RandomCourseGenerator();
+    CsvGenerator csvGenerator = new CsvGenerator();
+    FileUtils fileUtils = new FileUtils();
+    SortingUserPage sortingUserPage = new SortingUserPage();
+    UserCoursesPage userCoursesPage = new UserCoursesPage();
+    UserGroupsPage userGroupsPage = new UserGroupsPage();
+    UserFilesPage userFilesPage = new UserFilesPage();
 
     @BeforeSuite
     public void beforeSuite(){
@@ -49,10 +57,11 @@ public abstract class BaseTest {
     }
 
     @AfterClass
-    public void tearDown() {
-        if (driver != null) {
+    public void tearDown(){
+        if (driver != null){
             driver.close();
         }
     }
+
 
 }
