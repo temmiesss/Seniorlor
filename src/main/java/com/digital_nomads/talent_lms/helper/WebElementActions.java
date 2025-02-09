@@ -2,6 +2,7 @@ package com.digital_nomads.talent_lms.helper;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import static com.digital_nomads.talent_lms.drivers.Driver.driver;
 
@@ -42,6 +44,19 @@ public class WebElementActions {
         js.executeScript("arguments[0].click();", element);
         return this;
 
+    }
+
+    public void pause(Integer milliseconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public WebElementActions navigateBack() {
+        Driver.getDriver().navigate().back();
+        return this;
     }
 
     public WebElementActions sendKeys(WebElement element, String text){
@@ -90,6 +105,15 @@ public class WebElementActions {
         waitElementToBeDisplayed(element);
         highlightElement(element);
         actions.moveToElement(element).perform();
+        return this;
+    }
+
+    public WebElementActions clear(WebElement element) {
+        waitButtonBeClickable(element);
+        element.clear();
+        if (!element.getAttribute("value").isEmpty()) {
+            element.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
+        }
         return this;
     }
 }
