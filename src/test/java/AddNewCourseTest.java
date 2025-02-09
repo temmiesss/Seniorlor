@@ -18,8 +18,8 @@ public class AddNewCourseTest extends BaseTest {
 
         driver.get("https://gerasrd.talentlms.com/index");
         loginPage.doLogin(ConfigReader.getProperty("login"),
-                        ConfigReader.getProperty("password"))
-                .addNewCourse(randomCourse);
+                        ConfigReader.getProperty("password")).switchToLegacyInterface();
+              dashboardPage.addNewCourse(randomCourse);
 
     }
 }
