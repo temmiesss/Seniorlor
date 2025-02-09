@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.time.Duration;
 
@@ -15,12 +16,16 @@ import java.time.Duration;
  *
  */
 public class UpdateCourseTest extends BaseTest{
+    @BeforeMethod
+    public void setUp(){
+        driver.get(ConfigReader.getProperty("URL"));
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
+    }
 
     @Test
     public void updateCourseTest() {
 
-        driver.get(ConfigReader.getProperty("URL"));
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
+
 
         updateCourse.courseEnter.click();
         webElementActions.moveToElement(updateCourse.pressBurger);
@@ -37,6 +42,22 @@ public class UpdateCourseTest extends BaseTest{
 
         System.out.println("Тест успешно завершен: курс обновлен.");
     }
+    @Test
+    public void updateCourseNameTest() {
+        driver.get(ConfigReader.getProperty("URL"));
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+                .switchToLegacyInterface();
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        updateCourse.openRandomCourse();
+
+        String newCourseName = "New Course Name " + System.currentTimeMillis();
+        updateCourse.changeCourseName(newCourseName);
+        updateCourse.saveChanges();
+
+        WebElement updatedName = driver.findElement(By.xpath("//h1[contains(text(), '" + newCourseName + "')]"));
+        Assert.assertTrue(updatedName.isDisplayed(), "Ошибка: название курса не обновилось!");
+    }
+
 
 }
 
