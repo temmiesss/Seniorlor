@@ -12,6 +12,7 @@ public class ConfigReader {
     static {
         try {
             String path = "src/main/resources/app.properties";
+
             FileInputStream fis = new FileInputStream(path);
             properties = new Properties();
             properties.load(fis);
