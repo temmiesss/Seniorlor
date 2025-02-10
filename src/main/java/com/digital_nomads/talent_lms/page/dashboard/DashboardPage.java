@@ -1,6 +1,8 @@
 package com.digital_nomads.talent_lms.page.dashboard;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
+import com.digital_nomads.talent_lms.entity.Category;
+import com.digital_nomads.talent_lms.page.category.AddCategoryPage;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.enums.Role;
 import com.digital_nomads.talent_lms.enums.Section;
@@ -16,7 +18,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
 public class DashboardPage extends BasePage {
 
@@ -37,8 +38,8 @@ public class DashboardPage extends BasePage {
     @FindBy(css = "#tl-dropdown-roles")
     public WebElement dropdownRoles;
 
-    @FindBy(xpath = "//div[@class='tl-bold-link']")
-    public WebElement allSections;
+    @FindBy(css = "#tl-admin-dashboard")
+    public WebElement dashboardContainer;
 
     /**
      * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
@@ -60,22 +61,48 @@ public class DashboardPage extends BasePage {
             return new LoginPage();
         }
     }
-
-    public DashboardPage selectSection(Section section){
-        webElementActions.click(allSections.findElement(By.xpath("//a[contains(text(),'" + section + "')]")));
-        return new DashboardPage();
-    }
-
-    // Метод для поиска раздела по enum Section
-    public WebElement findSectionByName(Section section) {
-        // Получаем все дочерние элементы из allSections
-        List<WebElement> sections = allSections.findElements(By.xpath("./a"));
-        for (WebElement sec : sections) {
-            if (sec.getText().equalsIgnoreCase(section.getSectionName())) {
-                return sec;
-            }
+    /**
+     * @author Akylai
+     */
+    public void selectSection(Section section) {
+        String sectionName;
+        switch (section) {
+            case USERS:
+                sectionName = Section.USERS.getSectionName();
+                break;
+            case COURSES:
+                sectionName = Section.COURSES.getSectionName();
+                break;
+            case CATEGORIES:
+                sectionName = Section.CATEGORIES.getSectionName();
+                break;
+            case GROUPS:
+                sectionName = Section.GROUPS.getSectionName();
+                break;
+            case BRANCHES:
+                sectionName = Section.BRANCHES.getSectionName();
+                break;
+            case EVENTS_ENGINE:
+                sectionName = Section.EVENTS_ENGINE.getSectionName();
+                break;
+            case USER_TYPES:
+                sectionName = Section.USER_TYPES.getSectionName();
+                break;
+            case IMPORT_EXPORT:
+                sectionName = Section.IMPORT_EXPORT.getSectionName();
+                break;
+            case REPORTS:
+                sectionName = Section.REPORTS.getSectionName();
+                break;
+            case ACCOUNT_SETTINGS:
+                sectionName = Section.ACCOUNT_SETTINGS.getSectionName();
+                break;
+            default:
+                throw new IllegalArgumentException("Section not found: " + section);
         }
-        throw new IllegalArgumentException("Section not found: " + section.getSectionName());
+        WebElement sectionElement = wait.until(ExpectedConditions.elementToBeClickable(
+                dashboardContainer.findElement(By.xpath(".//div[@class='tl-bold-link']/a[normalize-space()='" + sectionName + "']"))));
+        sectionElement.click();
     }
 
     /**
@@ -85,6 +112,19 @@ public class DashboardPage extends BasePage {
     public AddUserPage navigateToAddUserPage() {
         webElementActions.click(addUserBtn);
         return new AddUserPage();
+    }
+
+    @FindBy(xpath = "//a[normalize-space()='Add category']")
+    public WebElement addCategoryBtn;
+    AddCategoryPage addCategoryPage = new AddCategoryPage();
+
+    public AddCategoryPage addNewCategory(Category category){
+        webElementActions.click(addCategoryBtn);
+        webElementActions.sendKeys(addCategoryPage.categoryName, category.getCatName())
+//                .click(addCategoryPage.selectorOfParentCategory)
+//                .click(addCategoryPage.priceSetter)
+                .click(addCategoryPage.addCategoryBtn);
+        return new AddCategoryPage();
     }
 
     /**
