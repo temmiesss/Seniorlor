@@ -13,7 +13,7 @@ public class BasePage {
     public WebElementActions webElementActions = new WebElementActions();
     public WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
     public Random random = new Random();
-    public WebDriver driver;
+    public WebDriver driver = Driver.getDriver();
 
     public BasePage() {
         PageFactory.initElements(Driver.getDriver(), this);
