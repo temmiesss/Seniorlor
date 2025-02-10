@@ -25,4 +25,8 @@ public void setUp(){
         Assert.assertTrue(true, "Каталог курсов должен быть открыт");
 
         }
+
+
+
 }
+//2
