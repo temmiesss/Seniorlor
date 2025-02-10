@@ -5,8 +5,8 @@ import com.digital_nomads.talent_lms.drivers.Driver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
-import java.util.Random;
 
 public class BasePage {
 
@@ -15,7 +15,9 @@ public class BasePage {
     public Random random = new Random();
     public WebDriver driver = Driver.getDriver();
 
+
     public BasePage() {
-        PageFactory.initElements(Driver.getDriver(), this);
+        this.driver = Driver.getDriver();
+        PageFactory.initElements(driver, this);
     }
 }

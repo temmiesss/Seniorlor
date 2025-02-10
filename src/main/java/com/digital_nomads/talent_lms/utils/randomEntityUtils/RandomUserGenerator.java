@@ -27,7 +27,11 @@ public class RandomUserGenerator {
         return faker.internet().password();
     }
 
+    public String randomBio() {
+        return faker.lorem().sentence(); // Генерация случайного био
+    }
+
     public User randomUser(){
-        return new User(randomFirstName(), randomLastName(), randomUsername(), randomEmail(), randomPassword());
+        return new User(randomFirstName(), randomLastName(), randomUsername(), randomEmail(), randomPassword(), randomBio());
     }
 }
