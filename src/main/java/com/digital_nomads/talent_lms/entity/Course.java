@@ -21,6 +21,8 @@ public class Course {
     private String  price;
     private String video;
     private String  capacity;
+    private String category;
+    private String timeLimit;
 
 
 
