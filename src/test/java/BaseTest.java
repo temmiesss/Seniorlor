@@ -8,10 +8,9 @@ import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
 import com.digital_nomads.talent_lms.page.users.CsvGenerator;
 import com.digital_nomads.talent_lms.page.users.*;
+import com.digital_nomads.talent_lms.page.course.*;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
-import com.digital_nomads.talent_lms.page.course.EnterOfOneLerner;
-import com.digital_nomads.talent_lms.page.course.UpdateCourse;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
@@ -45,6 +44,7 @@ public abstract class BaseTest {
     EditUserDataPage editUserDataPage = new EditUserDataPage();
     User user = new User();
     UpdateCourse updateCourse = new UpdateCourse();
+    RandomCourseGenerator randomCourseGenerator = new RandomCourseGenerator();
     RandomUserGenerator randomUserGenerator = new RandomUserGenerator();
     Random random = new Random();
     CloneCoursePage cloneCoursePage = new CloneCoursePage();
@@ -57,6 +57,14 @@ public abstract class BaseTest {
     UserGroupsPage userGroupsPage = new UserGroupsPage();
     UserFilesPage userFilesPage = new UserFilesPage();
 
+    ReportCoursePage reportCoursePage = new ReportCoursePage();
+    public FileUtils fileUtils = new FileUtils();
+    AdvertCouses advertCourses = new AdvertCouses();
+    CVSGenerator csvGenerator = new CVSGenerator();
+    PerformMassActionCourse massAction = new PerformMassActionCourse();
+
+
+            ;
 
     @BeforeSuite
     public void beforeSuite(){
@@ -65,11 +73,10 @@ public abstract class BaseTest {
     }
 
     @AfterClass
-    public void tearDown(){
-        if (driver != null){
+    public void tearDown() {
+        if (driver != null) {
             driver.close();
         }
     }
-
 
 }
