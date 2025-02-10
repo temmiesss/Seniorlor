@@ -22,8 +22,4 @@ public class Course {
     private String video;
     private String  capacity;
 
-
-
-
-
 }
