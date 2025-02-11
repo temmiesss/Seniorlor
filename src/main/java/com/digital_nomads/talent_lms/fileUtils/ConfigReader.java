@@ -11,7 +11,7 @@ public class ConfigReader {
 
     static {
         try {
-            String path = "C:\\Users\\tokto\\IdeaProjects\\Seniorlor\\app.properties";
+            String path = "src/main/resources/app.properties";
             FileInputStream fis = new FileInputStream(path);
             properties = new Properties();
             properties.load(fis);

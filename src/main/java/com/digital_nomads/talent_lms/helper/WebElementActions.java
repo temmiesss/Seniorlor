@@ -6,13 +6,15 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-
+import java.util.function.Function;
 import static com.digital_nomads.talent_lms.drivers.Driver.driver;
 
 public class WebElementActions {
@@ -115,6 +117,10 @@ public class WebElementActions {
             element.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
         }
         return this;
+    }
+
+    public boolean isDisplayed(WebElement element){
+       return element.isDisplayed();
     }
 
 }

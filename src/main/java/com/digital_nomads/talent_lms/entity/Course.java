@@ -24,8 +24,4 @@ public class Course {
     private String category;
     private String timeLimit;
 
-
-
-
-
 }
