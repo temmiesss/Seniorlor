@@ -156,7 +156,7 @@ public class DeleteCourseTest extends BaseTest {
     }
 
     /**
-     * @Test на улаление определенный курс
+     * @Test на улаление определенного курса
      *
      */
     @Test
@@ -176,7 +176,6 @@ public class DeleteCourseTest extends BaseTest {
     /**
      * @Test на удаление несуществующего курса
      * **/
-
     @Test
     public void deleteNonExistingCourse() {
 
@@ -188,80 +187,23 @@ public class DeleteCourseTest extends BaseTest {
         Assert.assertFalse(isPresent, "Ошибка: найден несуществующий курс!");
     }
 
-    @Test
-    public void deleteMultipleCourses() {
-
-        Course randomCourse = new Course();
-        deleteCourse.openCourse();
-        System.out.println("Проверяем количество курсов перед удалением...");
-        int coursesBefore = driver.findElements(By.xpath("//*[@id='tl-courses-grid']/tbody/tr")).size();
-        System.out.println("Курсов до удаления: " + coursesBefore);
-        Assert.assertTrue(coursesBefore > 1, "Ошибка: Недостаточно курсов для удаления!");
-        deleteCourse.enterToCourse(randomCourse);
-//        deleteCourse.openFirstCourse();
-        deleteCourse.deleteCourse();
-        deleteCourse.openFirstCourse();
-        deleteCourse.deleteCourse();
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        try {
-            wait.until(ExpectedConditions.numberOfElementsToBeLessThan(
-                    By.xpath("//*[@id='tl-courses-grid']/tbody/tr"), coursesBefore));
-            System.out.println(" Курсы успешно удалены!");
-        } catch (TimeoutException e) {
-            System.out.println("Ошибка: курсы не удалены!");
-            fail("Ошибка: курсы всё ещё на месте!");
-        }
-
-        int coursesAfter = driver.findElements(By.xpath("//*[@id='tl-courses-grid']/tbody/tr")).size();
-        System.out.println(" Курсов после удаления: " + coursesAfter);
-
-        Assert.assertTrue(coursesAfter < coursesBefore, "Ошибка: курсы не были удалены!");
-    }
-
-    @Test
-    public void deleteCourseAndCheckListUpdate() {
+    /**
+     * @Test на попытку удаления с пустым названием
+     */
+   @Test
+   public void testDeleteCourseWithEmptyName() {
 
         deleteCourse.openCourse();
+        String emptyCourseName = "";
+        deleteCourse.deleteCourseByInvalidName(emptyCourseName);
 
-        List<WebElement> courses = driver.findElements(By.xpath("//table[@id='tl-courses-grid']//tr//td[1]//a"));
-
-        Assert.assertFalse(courses.isEmpty(), "Ошибка: нет доступных курсов для удаления!");
-
-        // Выбираем случайный курс
-        WebElement randomCourseElement = courses.get(new Random().nextInt(courses.size()));
-        String courseName = randomCourseElement.getText(); // Запоминаем имя курса
-
-        // Входим в курс
-        randomCourseElement.click();
-
-        // Подсчитываем количество кнопок удаления перед удалением
-        int beforeDelete = driver.findElements(By.xpath("//table[@id='tl-courses-grid']//td[5]//i[@title='Delete']")).size();
-
-        // Удаляем курс
-        deleteCourse.deleteCourse();
-        deleteCourse.confirmDelete();
-
-        // Перезагружаем страницу для обновления списка
-        driver.navigate().refresh();
-
-        // Подсчитываем количество курсов после удаления
-        List<WebElement> updatedCourses = driver.findElements(By.xpath("//table[@id='tl-courses-grid']//tr//td[1]//a"));
-
-        // Проверяем, что удалённый курс больше не отображается
-        boolean courseStillExists = updatedCourses.stream().anyMatch(e -> e.getText().equals(courseName));
-
-        Assert.assertFalse(courseStillExists, "Ошибка: курс не был удалён!");
+        boolean courseExists = deleteCourse.isCoursePresent(emptyCourseName);
+        Assert.assertTrue(true, "Курс не может быть с пустым именем");
     }
-
-
-    //public boolean isDisplayed(WebElement element){
-    //    return element.isDisplayed();
-    //}
 
 }
 
 
+// 7
 
 

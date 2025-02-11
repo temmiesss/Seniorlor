@@ -3,14 +3,12 @@ package com.digital_nomads.talent_lms.page.course;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.page.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.NoSuchElementException;
+
 
 /**
  * @author Rano
@@ -100,6 +98,34 @@ public class DeleteCourse extends BasePage {
        } catch (Exception e){
            System.out.println("Ошибка при открытии первого курса: " + e.getMessage());
        }
+    }
+    public boolean isCoursePresent(String courseName) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement courseRow = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//td[contains(text(), '" + courseName + "')]")
+            ));
+            return courseRow != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public void deleteCourseByInvalidName(String courseName) {
+        try {
+            boolean courseExists = isCoursePresent(courseName);
+            if (!courseExists) {
+                System.out.println("Курс с именем '" + courseName + "' не найден, удаление невозможно.");
+                return;
+            }
+            openCourseByName(courseName);
+            iconDelete.click();
+            deleteBtn.click();
+            System.out.println("Курс '" + courseName + "' успешно удален.");
+        } catch (Exception e) {
+            System.out.println("Ошибка при удалении курса '" + courseName + "': " + e.getMessage());
+        }
     }
 
 

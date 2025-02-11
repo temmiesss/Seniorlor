@@ -77,33 +77,7 @@ public class CloneCoursePage extends BasePage {
             System.out.println("Ошибка при отмене клонирования: " + e.getMessage());
         }
     }
-    public void deleteCourse() {
-        try {
-            deleteBtn.click();
-            System.out.println("Курс успешно удален.");
-        } catch (Exception e) {
-            System.out.println("Ошибка при удалении курса: " + e.getMessage());
-        }
-    }
-    public int getCourseCount() {
-        List<WebElement> courses = driver.findElements(By.xpath("//table/tbody/tr"));
-        return courses.size();
-    }
-    public void searchCourse(String courseName) {
-        WebElement searchInput = driver.findElement(By.xpath("//input[@type='search']"));
-        searchInput.clear();
-        searchInput.sendKeys(courseName + Keys.ENTER);
 
-        // Пробное ожидание (заменить на WebDriverWait, если нужно)
-        try {
-            Thread.sleep(2000); // Даем странице 2 секунды на фильтрацию (лучше заменить на WebDriverWait)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        List<WebElement> results = driver.findElements(By.xpath("//table[contains(@id, 'tl-courses-grid')]//tr"));
-        System.out.println("Найдено курсов: " + results.size());
-    }
 
 }
 

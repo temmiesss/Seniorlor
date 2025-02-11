@@ -1,20 +1,17 @@
 package com.digital_nomads.talent_lms.page.course;
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.page.BasePage;
+import io.qameta.allure.Step;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
-
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
 
 /**
  * @author Rano
- * method нажимает на иконку курсы,
- * обновляет изменения
+ * methodы по изменению курсов,
+ *
  */
 public class UpdateCourse extends BasePage {
     public WebDriver driver;
@@ -49,10 +46,35 @@ public class UpdateCourse extends BasePage {
     @FindBy(xpath = "//*[@name='submit_course']")
     public WebElement submitBnt;
 
+    @FindBy(xpath = "//a[contains(text(), 'cancel')]")
+    public WebElement cancelBtn;
+
+    @FindBy(xpath = "//*[@id=\"tl-goto-course\"]")
+    public WebElement returnToCourseCatalog;
+
+    @FindBy(xpath = "//*[@id=\"course-capacity\"]")
+    public WebElement courseCapacity;
+
+    @FindBy(xpath = "//*[@id=\"show-capacity\"]")
+    public WebElement showCapacity;
+
+    @FindBy(xpath = "//span[contains(@class, 'select2-chosen')]")
+    public WebElement pressSelectorOfCategory;
+
+    @FindBy(xpath = "//*[@id=\"icon-time-options\"]")
+    public WebElement pressTimeOptions;
+
+    @FindBy(xpath = "//*[@id=\"control-group-time-options\"]/div[1]/div/div/a[2]")
+    public WebElement pressTimeLimit;
+
+    @FindBy(id = "course-timelimit")
+    public WebElement inputTimeLimit;
+
     public UpdateCourse() {
         super();
     }
 
+    @Step("метод входа в исчезающем меню")
     public UpdateCourse enterToCourse(Course course) {
         webElementActions.click(courseEnter)
                 .moveToElement(pressBurger)
@@ -60,6 +82,7 @@ public class UpdateCourse extends BasePage {
 
        return new UpdateCourse();
     }
+    @Step("метод рандомного изменения курса")
     public UpdateCourse editCourse(Course course){
         webElementActions.sendKeys(courseNameField, course.getCourseName())
                 .sendKeys(changeText, course.getDescription())
@@ -70,67 +93,112 @@ public class UpdateCourse extends BasePage {
                 .click(submitBnt);
         return new UpdateCourse();
     }
-    public void openRandomCourse() {
-        List<WebElement> courses = driver.findElements(By.xpath("//table[@id='tl-courses-grid']//tr/td[1]//a"));
+    @Step("метод отмены рандомного изменения курса")
+    public UpdateCourse cancelChanges(Course course) {
+        webElementActions.sendKeys(courseNameField, course.getCourseName())
+                .sendKeys(changeText, course.getDescription())
+                .click(showCourseCode)
+                .sendKeys(changeCodeCourse, course.getCourseCode())
+                .click(showCoursePrice)
+                .sendKeys(changeCoursePrice, course.getPrice())
+                .click(cancelBtn);
+        return new UpdateCourse();
+    }
 
-        if (courses.isEmpty()) {
-            throw new NoSuchElementException("Нет доступных курсов для редактирования!");
-        }
-        WebElement randomCourse = courses.get(new Random().nextInt(courses.size()));
-        randomCourse.click();
+    @Step("метод возврата в каталог курсов")
+    public UpdateCourse goToCourseContent(Course course){
+        webElementActions.sendKeys(courseNameField, course.getCourseName())
+                .sendKeys(changeText, course.getDescription())
+                .click(showCourseCode)
+                .sendKeys(changeCodeCourse, course.getCourseCode())
+                .click(showCoursePrice)
+                .sendKeys(changeCoursePrice, course.getPrice())
+                .click(returnToCourseCatalog);
+        return new UpdateCourse();
+
     }
-    public void changeCourseName(String newName) {
-        WebElement nameField = driver.findElement(By.id("course-name-input"));
-        nameField.clear();
-        nameField.sendKeys(newName);
+    @Step("Изменение только цены курса")
+    public UpdateCourse changePrice(Course course, String newPrice) {
+        webElementActions
+                .click(showCoursePrice)
+                .clear(changeCoursePrice)
+                .sendKeys(changeCoursePrice, newPrice)
+                .click(submitBnt);
+
+        return this;
     }
-    public void changeDescription(String newDescription) {
-        WebElement descriptionField = driver.findElement(By.id("course-description-input"));
-        descriptionField.clear();
-        descriptionField.sendKeys(newDescription);
+    @Step("Изменение только цены курса")
+    public UpdateCourse changeCode(Course course, String newCode) {
+        webElementActions
+                .click(showCourseCode)
+                .clear(changeCodeCourse)
+                .sendKeys(changeCodeCourse, newCode)
+                .click(submitBnt);
+
+        return this;
     }
-    public void changeCategory(String category) {
-        WebElement categoryDropdown = driver.findElement(By.id("course-category"));
-        Select select = new Select(categoryDropdown);
-        select.selectByVisibleText(category);
+    @Step("Изменение только описание курса")
+    public UpdateCourse changeText(Course course, String newText) {
+        webElementActions
+                .click(changeText)
+                .clear(changeText)
+                .sendKeys(changeText, newText)
+                .click(submitBnt);
+
+        return this;
     }
-    public void changeStatus(String status) {
-        WebElement statusDropdown = driver.findElement(By.id("course-status"));
-        Select select = new Select(statusDropdown);
-        select.selectByVisibleText(status);
+    @Step("Изменение только емкости курса")
+    public UpdateCourse changeCapacity(Course course, String newCapacity) {
+        webElementActions
+                .click(showCapacity)
+                .clear(courseCapacity)
+                .sendKeys(courseCapacity, newCapacity)
+                .click(submitBnt);
+        return this;
     }
-    public void changeStartDate(String startDate) {
-        WebElement startDateField = driver.findElement(By.id("course-start-date"));
-        startDateField.clear();
-        startDateField.sendKeys(startDate);
+    @Step("метод изменяет название курса")
+    public UpdateCourse changeNameOfCourse(Course course, String newNameOfCourse){
+        webElementActions
+                .click(courseNameField)
+                .clear(courseNameField)
+                .sendKeys(courseNameField, newNameOfCourse)
+                .click(submitBnt);
+        return new UpdateCourse();
     }
-    public void changeEndDate(String endDate) {
-        WebElement endDateField = driver.findElement(By.id("course-end-date"));
-        endDateField.clear();
-        endDateField.sendKeys(endDate);
+   @Step("метод изменяет категорию курса")
+    public UpdateCourse changeCategory(Course course, String  newCategory){
+        webElementActions
+                .click(pressSelectorOfCategory)
+                .scrollToElement(pressSelectorOfCategory)
+                .click(pressSelectorOfCategory)
+                .click(submitBnt);
+        return new UpdateCourse();
+   }
+
+   @Step("метод выбирает лимит для курса")
+    public UpdateCourse chooseTimeLimitOfCourse(Course course, String newTimeLimit){
+        webElementActions
+                .click(pressTimeOptions)
+                .click(pressTimeLimit)
+                .sendKeys(inputTimeLimit, newTimeLimit)
+                .click(submitBnt);
+        return new UpdateCourse();
+
+   }
+    @Step("метод выбирает с невалидным лимитом для курса")
+    public UpdateCourse chooseInvalidTimeLimitOfCourse(Course course, String invalidTimeLimit){
+        webElementActions
+                .click(pressTimeOptions)
+                .click(pressTimeLimit)
+                .click(inputTimeLimit)
+                .clear(inputTimeLimit)
+                .sendKeys(inputTimeLimit, invalidTimeLimit)
+                .click(submitBnt);
+        return new UpdateCourse();
+
     }
-    public void addInstructor(String instructorName) {
-        WebElement instructorField = driver.findElement(By.id("course-instructor"));
-        instructorField.clear();
-        instructorField.sendKeys(instructorName);
-    }
-    public void changePrice(String price) {
-        WebElement priceField = driver.findElement(By.id("course-price"));
-        priceField.clear();
-        priceField.sendKeys(price);
-    }
-    public void uploadCourseImage(String imagePath) {
-        WebElement uploadButton = driver.findElement(By.id("course-image-upload"));
-        uploadButton.sendKeys(imagePath);
-    }
-    public void saveChanges() {
-        WebElement saveButton = driver.findElement(By.id("save-course-button"));
-        saveButton.click();
-    }
-    public void cancelChanges() {
-        WebElement cancelButton = driver.findElement(By.id("cancel-course-button"));
-        cancelButton.click();
-    }
+
+
 
 }
 

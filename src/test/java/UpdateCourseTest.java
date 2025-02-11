@@ -15,9 +15,9 @@ import java.time.Duration;
  * рендомно редактирует первый курс и сохраняет его от имени админа
  *
  */
-public class UpdateCourseTest extends BaseTest{
+public class UpdateCourseTest extends BaseTest {
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
         driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
     }
@@ -25,14 +25,10 @@ public class UpdateCourseTest extends BaseTest{
     @Test
     public void updateCourseTest() {
 
-
-
         updateCourse.courseEnter.click();
         webElementActions.moveToElement(updateCourse.pressBurger);
         webElementActions.click(updateCourse.editPencil);
-
         Course randomCourse = randomCourseGenerator.randomCourse();
-
         updateCourse.editCourse(randomCourse);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
@@ -42,22 +38,156 @@ public class UpdateCourseTest extends BaseTest{
 
         System.out.println("Тест успешно завершен: курс обновлен.");
     }
+
+    /**
+     * @test проверяет наличие отмены изменений курса
+     */
     @Test
-    public void updateCourseNameTest() {
-        driver.get(ConfigReader.getProperty("URL"));
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
+    public void cancelUpdateBtnTest() {
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
         Course randomCourse = randomCourseGenerator.randomCourse();
-        updateCourse.openRandomCourse();
+        updateCourse.cancelChanges(randomCourse);
 
-        String newCourseName = "New Course Name " + System.currentTimeMillis();
-        updateCourse.changeCourseName(newCourseName);
-        updateCourse.saveChanges();
+        Assert.assertFalse(updateCourse.editPencil.isDisplayed(), "Ошибка: кнопка редактирования не появилась после отмены!");
+    }
 
-        WebElement updatedName = driver.findElement(By.xpath("//h1[contains(text(), '" + newCourseName + "')]"));
-        Assert.assertTrue(updatedName.isDisplayed(), "Ошибка: название курса не обновилось!");
+    /**
+     * @test для возврата в каталог курсов
+     */
+    @Test
+    public void returnToCourseCatalogTest() {
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        updateCourse.goToCourseContent(randomCourse);
+
+        Assert.assertTrue(updateCourse.returnToCourseCatalog.isDisplayed(), "Ошибка: не вернулись в содержимое курса!");
+    }
+/** @Test changing only price and assert
+ * */
+    @Test
+    public void changeOnlyPrice(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newPrice = randomCourse.getPrice();
+        updateCourse.changePrice(randomCourse, randomCourse.getPrice());
+
+       Assert.assertEquals(randomCourse.getPrice(), newPrice);
+
+    }
+
+    /** @Test changing only code of course and Assert
+     *
+     */
+    @Test
+    public void changeOnlyCodeTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newCode = randomCourse.getCourseCode();
+        updateCourse.changeCode(randomCourse, randomCourseGenerator.randomCourseCode());
+
+        Assert.assertEquals(randomCourse.getCourseCode(), newCode);
+    }
+
+    /** @Test changing only Description and Assert
+     *
+     */
+    @Test
+    public void changeOnlyTextTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newText = randomCourse.getDescription();
+        updateCourse.changeText(randomCourse, randomCourseGenerator.randomDescription());
+
+        Assert.assertEquals(randomCourse.getDescription(), newText);
+    }
+
+    /** @test of changing only Capacity of course and assert
+     *
+     */
+    @Test
+    public void changeOnlyCapacityTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newCapacity = randomCourse.getCapacity();
+        updateCourse.changeCapacity(randomCourse, randomCourseGenerator.randomCourseCapacity());
+
+        Assert.assertEquals(randomCourse.getCapacity(), newCapacity);
+    }
+
+    /** @test of changing of Course Name and assert
+     *
+     */
+    @Test
+    public void changeNameOfCourseTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newNameOfCourse = randomCourse.getCourseName();
+        updateCourse.changeNameOfCourse(randomCourse,randomCourseGenerator.randomCourseName());
+        Assert.assertEquals(randomCourse.getCourseName(),newNameOfCourse);
+
+    }
+
+    @Test
+    public void changeCategoryOfCourseTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newCategory = randomCourse.getCategory();
+//        webElementActions.scrollToElementWithActions(userPage.selectField);
+        updateCourse.changeCategory(randomCourse,randomCourseGenerator.randomCourseCategory());
+
+    }
+
+    /**
+     * @Test on inputChangesTo Time limit and assert
+     */
+    @Test
+    public void changeTimeLimitTest(){
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String newTimeLimit = randomCourse.getTimeLimit();
+        updateCourse.chooseTimeLimitOfCourse(randomCourse, randomCourseGenerator.randomCourseTimeLimit());
+        Assert.assertEquals(randomCourse.getTimeLimit(), newTimeLimit);
+    }
+    /**
+     * @Test on input invalid Time  and assert
+     */
+    @Test
+    public void changeTimeLimitWithInvalidDataTest() {
+
+        updateCourse.courseEnter.click();
+        webElementActions.moveToElement(updateCourse.pressBurger);
+        webElementActions.click(updateCourse.editPencil);
+
+        Course randomCourse = randomCourseGenerator.randomCourse();
+        String invalidTimeLimit = " ";
+        updateCourse.chooseInvalidTimeLimitOfCourse(randomCourse, invalidTimeLimit);
+        Assert.assertFalse(false, "Поле времени не должно быть пустым");
+
     }
 
 
+
+
 }
+
+//10
+
 

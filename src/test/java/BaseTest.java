@@ -6,8 +6,10 @@ import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
 import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
+import com.digital_nomads.talent_lms.page.course.FileUtils;
 import com.digital_nomads.talent_lms.page.users.CsvGenerator;
 import com.digital_nomads.talent_lms.page.users.*;
+import com.digital_nomads.talent_lms.page.course.*;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
 import com.digital_nomads.talent_lms.page.course.EnterOfOneLerner;
@@ -24,6 +26,7 @@ import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
+
 import java.util.Random;
 
 
@@ -57,6 +60,12 @@ public abstract class BaseTest {
     UserGroupsPage userGroupsPage = new UserGroupsPage();
     UserFilesPage userFilesPage = new UserFilesPage();
 
+    ReportCoursePage reportCoursePage = new ReportCoursePage();
+    AdvertCouses advertCourses = new AdvertCouses();
+    PerformMassActionCourse massAction = new PerformMassActionCourse();
+
+
+            ;
 
     @BeforeSuite
     public void beforeSuite() {
@@ -64,7 +73,7 @@ public abstract class BaseTest {
         alertHelper = new AlertHelper(driver);
     }
 
-    @AfterMethod
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.close();
