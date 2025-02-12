@@ -63,6 +63,7 @@ public abstract class BaseTest {
     ReportCoursePage reportCoursePage = new ReportCoursePage();
     AdvertCouses advertCourses = new AdvertCouses();
     PerformMassActionCourse massAction = new PerformMassActionCourse();
+    FileUtilsUser fileUtilsUser = new FileUtilsUser();
 
 
             ;
