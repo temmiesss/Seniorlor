@@ -3,15 +3,75 @@
 <suite name="Regression suite">
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
         <classes>
-            <class name="DashboardPageTest"></class>
-            <class name="UserPageTest"></class>
-            <class name="AddUserPageTest"></class>
-            <class name="AddUserWithInvalidDataTest"></class>
-            <class name="EditUserDataTest"></class>
-            <class name="SortingUserPageTest"></class>
-            <class name="UsersCsvGeneratorTest"></class>
-            <class name="UserCoursesPageTest"></class>
-            <class name="UserGroupsPageTest"></class>
+            <class name="CloneCourseTest">
+                <methods>
+                    <include name="cloneCourseTest"/>
+                    <include name="cloneCourseCanselTest"/>
+                    <include name="clonedCourseNameTest"/>
+                </methods>
+            </class>
+            <class name="DeleteCourseTest">
+                <methods>
+                    <include name="deleteSelectedCourse"/>
+                    <include name="deleteCancelCourseTest"/>
+                    <include name="deleteFirstCourse"/>
+                    <include name="deleteLastCourse"/>
+                    <include name="deleteSpecificCourse"/>
+                    <include name="deleteNonExistingCourse"/>
+                    <include name="testDeleteCourseWithEmptyName"/>
+                </methods>
+            </class>
+            <class name="UpdateCourseTest">
+                <methods>
+                    <include name="updateCourseTest"/>
+                    <include name="cancelUpdateBtnTest"/>
+                    <include name="returnToCourseCatalogTest"/>
+                    <include name="changeOnlyPrice"/>
+                    <include name="changeOnlyCodeTest"/>
+                    <include name="changeOnlyTextTest"/>
+                    <include name="changeOnlyCapacityTest"/>
+                    <include name="changeNameOfCourseTest"/>
+                    <include name="changeCategoryOfCourseTest"/>
+                    <include name="changeTimeLimitTest"/>
+                    <include name="changeTimeLimitWithInvalidDataTest"/>
+                </methods>
+            </class>
+            <class name="CSVGeneratorTest">
+                <methods>
+                    <include name="generatorCsvTest"/>
+                </methods>
+            </class>
+            <class name="ReportCourseTest">
+                <methods>
+                    <include name="reportPress"/>
+                    <include name="todayReportTest"/>
+                    <include name="yesterdayReportTest"/>
+                    <include name="weekReportTest"/>
+                    <include name="monthReportTest"/>
+                    <include name="usersReportTest"/>
+                    <include name="yearUserReportTest"/>
+                    <include name="yearReportTest"/>
+                    <include name="reportFileReport"/>
+                    <include name="reportFileMonth"/>
+                    <include name="weekReportFileTest"/>
+                    <include name="yesterdayReportFileTest"/>
+                    <include name="todayReportFileTest"/>
+                    <include name="yearReportFileTest"/>
+                    <include name="todayUserReportTest"/>
+                    <include name="yesterdayUserReportTest"/>
+                    <include name="weekUserReportTest"/>
+                    <include name="monthUserReportTest"/>
+                </methods>
+            </class>
+            <class name="AdvertCoursesTest">
+                <methods>
+                    <include name="courseCatalogTest"/>
+                    <include name="buyCourseTest"/>
+                    <include name="reedInfoFromTalant"/>
+                    <include name="readMoreTest"/>
+                    <include name="courseCatalogOtherProvider"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
