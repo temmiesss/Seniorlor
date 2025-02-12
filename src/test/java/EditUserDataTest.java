@@ -68,15 +68,6 @@ public class EditUserDataTest extends BaseTest {
         Assert.assertTrue(currentURL.contains("/user/groups/id"),"Expected URL does not contain this part" );
     }
 
-//    @Test
-//    public void testRedirectToUserBranchesPage(){
-//        String username = "mary";
-//        editUserDataPage.openUserProfile(username);
-//        userBranchesPage = editUserDataPage.clickBranches();
-//        String currentURL = driver.getCurrentUrl();
-//        Assert.assertTrue(currentURL.contains("/user/branches/id"),"Expected URL does not contain this part" );
-//    }
-
     @Test
     public void testRedirectToUserFilesPage(){
         String username = "mary";
@@ -164,6 +155,7 @@ public class EditUserDataTest extends BaseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        driver.close();
         driver.quit();
     }
 }
