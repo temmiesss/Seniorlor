@@ -30,7 +30,7 @@ public class ReportsTest extends BaseTest {
         dashboardPage = new DashboardPage();
         loginPage = new LoginPage();
         reportsPage = new ReportsPage();
-        Driver.getDriver().get("https://seniorlor2024.talentlms.com/index");
+        Driver.getDriver().get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
         dashboardPage.selectSection(Section.REPORTS);
