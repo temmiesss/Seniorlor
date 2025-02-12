@@ -1,15 +1,10 @@
 package com.digital_nomads.talent_lms.page.course;
 
 import com.digital_nomads.talent_lms.drivers.Driver;
-import com.digital_nomads.talent_lms.entity.Course;
-import com.digital_nomads.talent_lms.entity.CourseActionResult;
 import com.digital_nomads.talent_lms.entity.CoursePage;
 import com.digital_nomads.talent_lms.enums.CourseAction;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.BasePage;
-import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
-import com.github.javafaker.Faker;
-import io.cucumber.java.zh_cn.假如;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -20,7 +15,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -155,7 +149,7 @@ public class PerformMassActionCourse extends BasePage {
                         .collect(Collectors.toList());
         }
         @Step("метод по реализации массАктива курсов")
-        public CourseActionResult performMassActionForCourse(String courseName, CourseAction action) {
+        public com.digital_nomads.talent_lms.page.course.CourseActionResult performMassActionForCourse(String courseName, CourseAction action) {
                 Actions actions = new Actions(Driver.getDriver());
                 WebElement courseElement = driver.findElement(By.xpath("//span[text()='" + courseName + "']"));
                 webElementActions.moveToElement(courseElement);
@@ -213,6 +207,6 @@ public class PerformMassActionCourse extends BasePage {
                         }
                         default -> throw new IllegalArgumentException("Unknown action: " + action);
                 }
-                return new CourseActionResult(selectedCategory, selectedBranches);
+                return new com.digital_nomads.talent_lms.page.course.CourseActionResult(selectedCategory, selectedBranches);
         }
 }

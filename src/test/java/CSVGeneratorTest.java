@@ -34,7 +34,7 @@ public class CSVGeneratorTest extends BaseTest{
 
         @Test
     public void saveCSVTest() throws IOException {
-            csvGenerator.saveFile();
+            cvsGenerator.saveFile();
             java.io.File csvFile = new File("C:\\Users\\tokto\\Downloads\\ranoprojectgroup-courses (6).xlsx");
             fileUtils.saveToResources(csvFile,"ranoprojectgroup-courses(6).xlsx");
         }
