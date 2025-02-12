@@ -19,6 +19,8 @@ import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
 
+import java.util.Random;
+
 
 public abstract class BaseTest {
     public WebDriver driver;
@@ -46,11 +48,11 @@ public abstract class BaseTest {
         alertHelper = new AlertHelper(driver);
     }
 
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.close();
-        }
-    }
+//    @AfterClass
+//    public void tearDown() {
+//        if (driver != null) {
+//            driver.close();
+//        }
+//    }
 
 }
