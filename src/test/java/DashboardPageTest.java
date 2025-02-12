@@ -2,8 +2,8 @@
 import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class DashboardPageTest extends BaseTest {
 
-    @BeforeTest
+    @BeforeMethod
     public void setup(){
-        driver.get("https://badykeeva.talentlms.com/index");
+        driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
     }
@@ -41,5 +41,16 @@ public class DashboardPageTest extends BaseTest {
     public void testSelectInvalidSection() {
         Section invalidSection = Section.valueOf("INVALID_SECTION");
         dashboardPage.selectSection(invalidSection);
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.close();
+        driver.quit();
     }
 }

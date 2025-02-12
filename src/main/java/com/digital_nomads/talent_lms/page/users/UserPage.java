@@ -94,6 +94,13 @@ public class UserPage extends BasePage {
         return firstUserUsernameElement.getText();
     }
 
+    public List<String> getUserList() {
+        return driver.findElements(By.cssSelector(".tl-align-left.hidden-phone span[title]"))
+                .stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+    }
+
     /**
      * Выполняет удаление пользователя по email.
      *
@@ -171,7 +178,6 @@ public class UserPage extends BasePage {
             webElementActions.moveToElement(emailElement);
             WebElement editOption = driver.findElement(By.xpath("//span[text()='" + userEmail + "']/ancestor::tr//i[@title='Edit']"));
             webElementActions.click(editOption);
-
             return new EditUserDataPage();
 
         } catch (NoSuchElementException e) {
