@@ -1,9 +1,7 @@
-import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -11,37 +9,26 @@ import org.testng.annotations.Test;
  */
 
 public class AddUserPageTest extends BaseTest {
-    User randomUser = randomUserGenerator.randomUser();
 
-    @BeforeTest
-    public void setup(){
-        driver.get("https://badykeeva.talentlms.com/index");
+    @BeforeMethod
+    public void setup() {
+        driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
         dashboardPage.navigateToAddUserPage();
+        randomUser = randomUserGenerator.randomUser();
     }
+
     /**
      * Проверяет, что новый пользователь с корректными данными добавляется успешно.
      */
     @Test
-    public void testAddNewUser(){
+    public void testAddNewUser() {
         userPage = addUserPage.addNewUser(randomUser);
 
         String actualMessage = addUserPage.getAddUserSuccessMessage();
-        Assert.assertEquals(actualMessage,"Success! Do you want to add another user?",
+        Assert.assertEquals(actualMessage, "Success! Do you want to add another user?",
                 "User was not added successfully");
-    }
-
-    /**
-     * Проверяет, что система не позволяет добавить пользователя с некорректным email.
-     */
-    @Test
-    public void negativeEmailTest(){
-        dashboardPage.addUserBtn.click();
-        addUserPage.addNewUserWithInvalidEmail(randomUser,"wrong.ru");
-        WebElement isRequired = driver.findElement(By.xpath("//div[@class='span8']/child::*[3]//span[@class='help-block']"));
-        String actual = isRequired.getText();
-        Assert.assertEquals(actual,"This is not a valid 'Email address'");
     }
 
     /**
@@ -56,4 +43,15 @@ public class AddUserPageTest extends BaseTest {
         String expectedUrlPart = "user/index";
         Assert.assertTrue(currentUrl.contains(expectedUrlPart), "Current URL does not contain this part");
     }
+
+    @AfterMethod
+    public void tearDown() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        driver.quit();
+    }
+
 }

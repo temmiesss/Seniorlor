@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.Random;
 
@@ -16,8 +17,9 @@ public class BasePage {
     public Random random = new Random();
     public WebDriver driver;
     public Actions actions = new Actions(Driver.getDriver());
-
+  
     public BasePage() {
-        PageFactory.initElements(Driver.getDriver(), this);
+        this.driver = Driver.getDriver();
+        PageFactory.initElements(driver, this);
     }
 }
