@@ -59,7 +59,7 @@ public abstract class BaseTest {
     UserCoursesPage userCoursesPage = new UserCoursesPage();
     UserGroupsPage userGroupsPage = new UserGroupsPage();
     UserFilesPage userFilesPage = new UserFilesPage();
-
+    CVSGenerator cvsGenerator = new CVSGenerator();
     ReportCoursePage reportCoursePage = new ReportCoursePage();
     AdvertCouses advertCourses = new AdvertCouses();
     PerformMassActionCourse massAction = new PerformMassActionCourse();
