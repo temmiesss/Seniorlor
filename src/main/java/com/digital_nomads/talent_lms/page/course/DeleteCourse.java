@@ -2,14 +2,13 @@ package com.digital_nomads.talent_lms.page.course;
 
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.page.BasePage;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.NoSuchElementException;
+
 
 /**
  * @author Rano
@@ -23,7 +22,7 @@ public class DeleteCourse extends BasePage {
     @FindBy(xpath = "//a[normalize-space()='Courses']/parent::div[@class='tl-bold-link']")
     public WebElement courseEnter;
 
-    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[1]/td[5]/div/div/i[3]")
+    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]//td[5]/div/div/i[3]")
     public WebElement iconDelete;
 
     @FindBy(xpath = "//div[@class='tl-table-operations-trigger touchable']")
@@ -35,10 +34,12 @@ public class DeleteCourse extends BasePage {
     @FindBy(xpath = "//a[@class='btn]")
     public WebElement canselBtn;
 
+    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[4]/td[1]/input")
+    public WebElement courseName;
 
-//    public DeleteCourse(WebDriver driver) {
-//        this.driver = driver;
-//    }
+    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[1]/td[2]/a/span")
+    public WebElement firstCourse;
+
 
     public CloneCoursePage enterToCourse(Course course) {
         webElementActions.click(courseEnter)
@@ -50,27 +51,11 @@ public class DeleteCourse extends BasePage {
     public void openCourse() {
         try {
             courseEnter.click();
-            System.out.println("Курс открыт.");
+            System.out.println("Раздел курсов открыт.");
         } catch (Exception e) {
             System.out.println("Ошибка при открытии курса: " + e.getMessage());
         }
     }
-//    public void selectCourse() {
-//        try {
-//            checkCourse.click();
-//            System.out.println("Курс выбран.");
-//        } catch (Exception e) {
-//            System.out.println("Ошибка при выборе курса: " + e.getMessage());
-//        }
-//    }
-//    public void openBurgerMenu() {
-//        try {
-//            pressBurger.click();
-//            System.out.println("Бургер-меню открыто.");
-//        } catch (Exception e) {
-//            System.out.println("Ошибка при открытии бургер-меню: " + e.getMessage());
-//        }
-//    }
 
     public void deleteCourse() {
         try {
@@ -89,6 +74,61 @@ public class DeleteCourse extends BasePage {
             System.out.println("Ошибка при отмене удаления: " + e.getMessage());
         }
     }
+    public void confirmDelete() {
+        WebElement confirmButton = driver.findElement(By.xpath("//button[text()='Delete']"));
+        confirmButton.click();
+    }
+
+    public void openCourseByName(String courseName) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement courseCheckbox = wait.until(ExpectedConditions.elementToBeClickable(
+                    By.xpath("//td[contains(text(), '" + courseName + "')]/preceding-sibling::td/input[@type='checkbox']")
+            ));
+            courseCheckbox.click();
+            System.out.println("Курс '" + courseName + "' выбран");
+        } catch (Exception e) {
+            System.out.println("Ошибка при выборе курса '" + courseName + "': " + e.getMessage());
+        }
+    }
+
+    public void openFirstCourse(){
+       try {
+           firstCourse.click();
+       } catch (Exception e){
+           System.out.println("Ошибка при открытии первого курса: " + e.getMessage());
+       }
+    }
+    public boolean isCoursePresent(String courseName) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement courseRow = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.xpath("//td[contains(text(), '" + courseName + "')]")
+            ));
+            return courseRow != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    public void deleteCourseByInvalidName(String courseName) {
+        try {
+            boolean courseExists = isCoursePresent(courseName);
+            if (!courseExists) {
+                System.out.println("Курс с именем '" + courseName + "' не найден, удаление невозможно.");
+                return;
+            }
+            openCourseByName(courseName);
+            iconDelete.click();
+            deleteBtn.click();
+            System.out.println("Курс '" + courseName + "' успешно удален.");
+        } catch (Exception e) {
+            System.out.println("Ошибка при удалении курса '" + courseName + "': " + e.getMessage());
+        }
+    }
+
+
 
 
 }

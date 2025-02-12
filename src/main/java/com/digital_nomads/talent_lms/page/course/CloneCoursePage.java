@@ -2,9 +2,16 @@ package com.digital_nomads.talent_lms.page.course;
 
 import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.page.BasePage;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
 
 public class CloneCoursePage extends BasePage {
     public WebDriver driver;
@@ -24,8 +31,11 @@ public class CloneCoursePage extends BasePage {
     @FindBy(xpath = "//div[@class='tl-table-operations-trigger touchable']")
     public WebElement pressBurger;
 
-    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[1]/td[5]/div/div/a")
+    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr/td[5]/div/div/a")
     public WebElement cloneIcon;
+
+    @FindBy(xpath = "//a[@id='tl-confirm-submit']")
+    public WebElement deleteBtn;
 
     public CloneCoursePage enterToCourse(Course course) {
         webElementActions.click(courseEnter)
@@ -49,6 +59,7 @@ public class CloneCoursePage extends BasePage {
         } catch (Exception e) {
             System.out.println("Ошибка при выборе курса: " + e.getMessage());
         }
+
     }
     public void setCloneBtn(){
         try {
@@ -67,4 +78,7 @@ public class CloneCoursePage extends BasePage {
         }
     }
 
-    }
+
+}
+
+
