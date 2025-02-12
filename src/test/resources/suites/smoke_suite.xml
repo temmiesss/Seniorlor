@@ -95,6 +95,12 @@
                     </include>
                 </methods>
             </class>
+            <class name="AddNotificationTest">
+                <methods>
+                    <include name="addNotification"/>
+                    <include name="addNotificationTest"/>
+                </methods>
+            </class>
         </classes>
 
 
