@@ -18,8 +18,8 @@ public class AddNewCategoryTest extends BaseTest {
     Category category = new Category();
 
     public AddNewCategoryTest() {}
-    @BeforeClass
-    public void setUp() {
+    @BeforeMethod
+    public static void setUp() {
         driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();

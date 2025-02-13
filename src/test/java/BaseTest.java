@@ -32,12 +32,12 @@ import java.util.Random;
 
 public abstract class BaseTest {
     public User randomUser;
-    public WebDriver driver;
+    public static WebDriver driver;
     public BrowserManager browserManager;
     WebElementActions webElementActions = new WebElementActions();
     AlertHelper alertHelper;
     UserPage userPage = new UserPage();
-    LoginPage loginPage = new LoginPage();
+    static LoginPage loginPage = new LoginPage();
     DeleteCourse deleteCourse = new DeleteCourse();    // Rano added
     CategoryPage categoryPage = new CategoryPage();
     AddGroupPage addGroupPage = new AddGroupPage();
