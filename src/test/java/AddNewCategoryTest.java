@@ -3,7 +3,10 @@ import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,15 +16,18 @@ import java.util.List;
 public class AddNewCategoryTest extends BaseTest {
     Category category = new Category();
 
-    /**
-    @author Amal
-     */
     @BeforeMethod
     public void setUp() {
-        driver.get("https://sololeveling.talentlms.com/index");
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("userPassword"))
+        driver.get(ConfigReader.getProperty("URL"));
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
     }
+
+//    @AfterTest
+//    public void goBackToDashboardPage(){
+//        WebElement goToHome = driver.findElement(By.xpath("//*[@id='tl-dropdown-goto']/ul/li[1]))"));
+//        goToHome.click();
+//    }
 
     @Test
     public void addNewCategory() {
@@ -115,6 +121,7 @@ public class AddNewCategoryTest extends BaseTest {
         Thread.sleep(3000);
         categoryPage.DeleteAlertInOptionBtn();
         webElementActions.click(categoryPage.alertCancleBtn);
+
         //assert
     }
 

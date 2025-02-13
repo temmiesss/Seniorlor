@@ -101,9 +101,9 @@
                     <!--                    <reuseForks>true</reuseForks>-->
                     <!--                    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
                     <suiteXmlFiles>
-                        <suiteXmlFile>smoke_suite.xml</suiteXmlFile>
-                        <suiteXmlFile>regression_suite.xml</suiteXmlFile>
-                        <suiteXmlFile>E2E_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/suites/smoke_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/suites/regression_suite.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/suites/E2E_suite.xml</suiteXmlFile>
                     </suiteXmlFiles>
                     <testFailureIgnore>true</testFailureIgnore>
                     <!-- java heap size = Xms2048m = 2GB -->
@@ -151,7 +151,7 @@
                         <version>3.0.0-M5</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>smoke_suite.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/smoke_suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -169,7 +169,7 @@
                         <version>3.0.0-M5</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>regression_suite.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/regression_suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>
@@ -187,7 +187,7 @@
                         <version>3.0.0-M5</version>
                         <configuration>
                             <suiteXmlFiles>
-                                <suiteXmlFile>E2E_suite.xml</suiteXmlFile>
+                                <suiteXmlFile>src/test/resources/suites/E2E_suite.xml</suiteXmlFile>
                             </suiteXmlFiles>
                         </configuration>
                     </plugin>

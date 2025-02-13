@@ -4,11 +4,11 @@
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
 
         <classes>
-            <class name="DashboardPageTest"/>
-            <class name="AddUserPageTest"/>
-            <class name="AddUserWithInvalidDataTest"/>
+            <class name="AddNewCategoryTest">
+            <methods>
+                <include name="addNewCategory"/>
+            </methods>
+            </class>
         </classes>
-
-
     </test>
 </suite>

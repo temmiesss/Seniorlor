@@ -74,6 +74,7 @@ public abstract class BaseTest {
         alertHelper = new AlertHelper(driver);
     }
 
+
 //    @AfterClass
 //    public void tearDown() {
 //        if (driver != null) {
