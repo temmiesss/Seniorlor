@@ -21,7 +21,6 @@ public class ChromeWebDriver {
         options.addArguments("--disable-extensions");
         options.addArguments("--window-size-1920,1080");
         options.addArguments("--no-sandbox");
-        options.setPageLoadStrategy(PageLoadStrategy.NORMAL);
 
         if (Boolean.parseBoolean(ConfigReader.getProperty("headless"))) {
             options.addArguments("--headless");
