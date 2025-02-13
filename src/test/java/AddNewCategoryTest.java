@@ -17,7 +17,6 @@ import java.util.List;
 public class AddNewCategoryTest extends BaseTest {
     Category category = new Category();
 
-    public AddNewCategoryTest() {}
     @BeforeMethod
     public static void setUp() {
         driver.get(ConfigReader.getProperty("URL"));
