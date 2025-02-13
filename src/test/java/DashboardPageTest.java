@@ -45,12 +45,6 @@ public class DashboardPageTest extends BaseTest {
 
     @AfterMethod
     public void tearDown() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        driver.close();
-        driver.quit();
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }

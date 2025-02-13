@@ -145,6 +145,4 @@ public class AddUserPage extends BasePage {
         return addUserButton.isDisplayed();
     }
 
-
-
 }

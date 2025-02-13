@@ -73,11 +73,12 @@ public abstract class BaseTest {
         alertHelper = new AlertHelper(driver);
     }
 
-//    @AfterClass
-//    public void tearDown() {
-//        if (driver != null) {
-//            driver.close();
-//        }
-//    }
+    @AfterClass
+    public void tearDownClass() {
+        if (driver != null) {
+            driver.quit();  // Закрываем браузер полностью
+            driver = null;  // Обнуляем, чтобы не было NullPointerException
+        }
+    }
 
 }
