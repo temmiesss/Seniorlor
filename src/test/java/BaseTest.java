@@ -30,7 +30,7 @@ import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator
 import java.util.Random;
 
 
-public abstract class BaseTest {
+public class BaseTest {
     public User randomUser;
     public WebDriver driver;
     public BrowserManager browserManager;
