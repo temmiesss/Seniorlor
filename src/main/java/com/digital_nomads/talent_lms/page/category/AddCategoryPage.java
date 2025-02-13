@@ -11,8 +11,13 @@ public class AddCategoryPage extends BasePage {
     @FindBy(xpath = "//span[@class='select2-chosen']")
     public  WebElement selectorOfParentCategory;
 
+    // до нажатия на кнопку xpath
     @FindBy(xpath = "//*[@id='show-price']")
     public WebElement priceSetter;
+
+    // после нажатия на кнопку xpath
+    @FindBy(xpath = "//*[@name='price']")
+    public WebElement priceSetter2ndStage;
 
     @FindBy(xpath = "//input[@name='submit_category']")
     public WebElement addCategoryBtn;

@@ -57,10 +57,17 @@ public class RandomCourseGenerator {
         return faker.lorem().sentence();
     }
 
+    public String randomCourseCategory(){
+        return String.valueOf(faker.number().numberBetween(1,59));
+    }
+
+    public String randomCourseTimeLimit(){
+        return String.valueOf(faker.number().numberBetween(1,59));
+    }
 
     public Course randomCourse() {
         return new Course(randomCourseName(), randomDescription(),
-                randomCourseCode(), randomCoursePrice(), randomCourseUrl(), randomCourseCapacity());
+                randomCourseCode(), randomCoursePrice(), randomCourseUrl(), randomCourseCapacity(),randomCourseCategory(),randomCourseTimeLimit());
     }
 
 

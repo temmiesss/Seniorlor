@@ -62,10 +62,10 @@ public class UsersCsvGeneratorTest extends BaseTest {
         Assert.assertEquals(actualHeader, expectedHeader, "Заголовки в CSV-файле не совпадают с ожидаемыми!");
 
         // Проверяем, что файл скачан в папке загрузок
-        Assert.assertTrue(fileUtils.isFileDownloaded(fileName), "Файл не был скачан!");
+        Assert.assertTrue(fileUtilsUser.isFileDownloaded(fileName), "Файл не был скачан!");
 
         // Сохраняем скачанный файл в папку ресурсов
-        fileUtils.saveDownloadedFile(fileName);
+        fileUtilsUser.saveDownloadedFile(fileName);
 
         // Проверяем, что файл теперь существует в папке resources
         File savedFile = new File(filePath);

@@ -203,6 +203,7 @@ public class AddUserWithInvalidDataTest extends BaseTest {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        driver.close();
         driver.quit();
     }
 }

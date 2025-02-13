@@ -7,13 +7,13 @@ import org.testng.annotations.BeforeMethod;
  * Класс не доработан. Возникли трудности со скачиванием файла
  */
 public class UserFilesPageTest extends BaseTest{
-    @BeforeMethod
-    public void setup() {
-        driver.get(ConfigReader.getProperty("URL"));
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
-                .switchToLegacyInterface();
-        dashboardPage.selectSection(Section.USERS);
-    }
+//    @BeforeMethod
+//    public void setup() {
+//        driver.get(ConfigReader.getProperty("URL"));
+//        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+//                .switchToLegacyInterface();
+//        dashboardPage.selectSection(Section.USERS);
+//    }
 
 
 //    @Test

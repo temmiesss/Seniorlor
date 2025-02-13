@@ -1,13 +1,17 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Groups;
+import com.digital_nomads.talent_lms.enums.Section;
+import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.BrowserManager;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.addGroup.AddGroupPage;
 import com.digital_nomads.talent_lms.page.course.CloneCoursePage;
 import com.digital_nomads.talent_lms.page.course.DeleteCourse;
+import com.digital_nomads.talent_lms.page.course.FileUtils;
 import com.digital_nomads.talent_lms.page.users.CsvGenerator;
 import com.digital_nomads.talent_lms.page.users.*;
+import com.digital_nomads.talent_lms.page.course.*;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.page.category.CategoryPage;
 import com.digital_nomads.talent_lms.page.course.EnterOfOneLerner;
@@ -18,12 +22,11 @@ import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
 import com.digital_nomads.talent_lms.page.users.EditUserDataPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.*;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator;
+
 import java.util.Random;
 
 
@@ -56,6 +59,12 @@ public abstract class BaseTest {
     UserCoursesPage userCoursesPage = new UserCoursesPage();
     UserGroupsPage userGroupsPage = new UserGroupsPage();
     UserFilesPage userFilesPage = new UserFilesPage();
+    CVSGenerator cvsGenerator = new CVSGenerator();
+    ReportCoursePage reportCoursePage = new ReportCoursePage();
+    AdvertCouses advertCourses = new AdvertCouses();
+    PerformMassActionCourse massAction = new PerformMassActionCourse();
+    FileUtilsUser fileUtilsUser = new FileUtilsUser();
+
 
 
     @BeforeSuite
@@ -64,12 +73,11 @@ public abstract class BaseTest {
         alertHelper = new AlertHelper(driver);
     }
 
-    @AfterMethod
-    public void tearDown() {
-        if (driver != null) {
-            driver.close();
-        }
-    }
-
+//    @AfterClass
+//    public void tearDown() {
+//        if (driver != null) {
+//            driver.close();
+//        }
+//    }
 
 }
