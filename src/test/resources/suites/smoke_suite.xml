@@ -5,7 +5,7 @@
 
         <classes>
             <class name="DashboardPageTest"/>
-            <class name="AddUserPageTest"/>
+              <class name="AddUserPageTest"/>
             <class name="AddUserWithInvalidDataTest"/>
 
         </classes>
