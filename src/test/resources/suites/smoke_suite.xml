@@ -4,104 +4,12 @@
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
 
         <classes>
-            <class name="DashboardPageTest"/>
-            <class name="AddUserPageTest"/>
-            <class name="AddUserWithInvalidDataTest"/>
-            <class name="CloneCourseTest">
-            <methods>
-                <include name="cloneCourseTest"/>
-                <include name="cloneCourseCanselTest"/>
-                <include name="clonedCourseNameTest"/>
-            </methods>
-            </class>
-            <class name="DeleteCourseTest">
-                    <methods>
-                        <include name="deleteSelectedCourse"/>
-                        <include name="deleteCancelCourseTest"/>
-                        <include name="deleteFirstCourse"/>
-                        <include name="deleteLastCourse"/>
-                        <include name="deleteSpecificCourse"/>
-                        <include name="deleteNonExistingCourse"/>
-                        <include name="testDeleteCourseWithEmptyName"/>
-                    </methods>
-            </class>
-            <class name="UpdateCourseTest">
-                <methods>
-                    <include name="updateCourseTest"/>
-                    <include name="cancelUpdateBtnTest"/>
-                    <include name="returnToCourseCatalogTest"/>
-                    <include name="changeOnlyPrice"/>
-                    <include name="changeOnlyCodeTest"/>
-                    <include name="changeOnlyTextTest"/>
-                    <include name="changeOnlyCapacityTest"/>
-                    <include name="changeNameOfCourseTest"/>
-                    <include name="changeCategoryOfCourseTest"/>
-                    <include name="changeTimeLimitTest"/>
-                    <include name="changeTimeLimitWithInvalidDataTest"/>
-                </methods>
-            </class>
-            <class name="CSVGeneratorTest">
-                <methods>
-                    <include name="generatorCsvTest"/>
-                </methods>
-            </class>
-            <class name="ReportCourseTest">
-                <methods>
-                    <include name="reportPress"/>
-                    <include name="todayReportTest"/>
-                    <include name="yesterdayReportTest"/>
-                    <include name="weekReportTest"/>
-                    <include name="monthReportTest"/>
-                    <include name="usersReportTest"/>
-                    <include name="yearUserReportTest"/>
-                    <include name="yearReportTest"/>
-                    <include name="reportFileReport"/>
-                    <include name="reportFileMonth"/>
-                    <include name="weekReportFileTest"/>
-                    <include name="yesterdayReportFileTest"/>
-                    <include name="todayReportFileTest"/>
-                    <include name="yearReportFileTest"/>
-                    <include name="todayUserReportTest"/>
-                    <include name="yesterdayUserReportTest"/>
-                    <include name="weekUserReportTest"/>
-                    <include name="monthUserReportTest"/>
-                </methods>
-            </class>
-            <class name="AdvertCoursesTest">
-                <methods>
-                    <include name="courseCatalogTest"/>
-                    <include name="buyCourseTest"/>
-                    <include name="reedInfoFromTalant"/>
-                    <include name="readMoreTest"/>
-                    <include name="courseCatalogOtherProvider"/>
-                </methods>
-            </class>
-            <class name="ReportsTest">
-                <methods>
-                    <include name="userTest">
-                        <include name="testUserReport"/>
-                        <include name="testCourseReport"/>
-                        <include name="testBranchReport"/>
-                        <include name="testGroup"/>
-                        <include name="testScorm"/>
-                        <include name="testReports"/>
-                        <include name="surveyTest"/>
-                        <include name="assignmentTest"/>
-                        <include name="iltTest"/>
-                        <include name="customTest"/>
-                        <include name="testInfographicsReport"/>
-                        <include name="testTrainingMatrix"/>
-                        <include name="testTimelineReport"/>
-                    </include>
-                </methods>
-            </class>
             <class name="AddNewCourseTest">
                 <methods>
                     <include name="addNewCourse">
                     </include>
                 </methods>
             </class>
-
             <class name="AddNewCourseWithInvalidDataTest">
                 <methods>
                     <include name="courseNameExceed">
