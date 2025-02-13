@@ -17,10 +17,6 @@ public class RandomCourseGenerator {
         return faker.lorem().characters(101,150);
     }
 
-    public String courseNameEmpty(){
-        return "";
-    }
-
     public String randomDescription() {
         return faker.company().catchPhrase();
     }

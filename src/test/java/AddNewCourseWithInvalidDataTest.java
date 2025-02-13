@@ -29,15 +29,15 @@ public class AddNewCourseWithInvalidDataTest {
 
     @BeforeClass
     public void login() {
-        driver.get("https://gerasrd.talentlms.com/index");
-        loginPage.doLogin(ConfigReader.getProperty("login"),
+        driver.get(ConfigReader.getProperty("URL"));
+        loginPage.doLogin(ConfigReader.getProperty("userName"),
                 ConfigReader.getProperty("password")).switchToLegacyInterface();
+        webElementActions.click(dashboardPage.addCourseBtn);
     }
 
     @Test
     public void courseNameExceed() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .sendKeys(addCoursePage.courseName, randomCourseGenerator.randomCourseName100Char())
+             webElementActions.sendKeys(addCoursePage.courseName, randomCourseGenerator.randomCourseName100Char())
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.courseNameExceed = wait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//span[@class='help-inline' and text()=\"'Course name' cannot exceed 100 characters\"]")));
@@ -49,8 +49,7 @@ public class AddNewCourseWithInvalidDataTest {
 
     @Test
     public void courseNameEmpty() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .sendKeys(addCoursePage.courseName, randomCourseGenerator.courseNameEmpty())
+               webElementActions .sendKeys(addCoursePage.courseName, "")
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.courseNameRequired = wait.until(ExpectedConditions.visibilityOfElementLocated
                 (By.xpath("//span[@class='help-inline' and text()=\"'Course name' is required\"]")));
@@ -62,8 +61,7 @@ public class AddNewCourseWithInvalidDataTest {
 
     @Test
     public void courseCodeExceeding() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .click(addCoursePage.courseCodeBtn)
+        webElementActions.click(addCoursePage.courseCodeBtn)
                 .sendKeys(addCoursePage.courseCode, randomCourseGenerator.randomCourseCodeExceed())
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.courseCodeExceed = wait.until(ExpectedConditions.visibilityOfElementLocated
@@ -75,8 +73,7 @@ public class AddNewCourseWithInvalidDataTest {
 
     @Test
     public void coursePriceInvalid() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .click(addCoursePage.priceBtn)
+        webElementActions.click(addCoursePage.priceBtn)
                 .sendKeys(addCoursePage.price, randomCourseGenerator.randomCoursePriceInvalid())
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.coursePriceInvalid = wait.until(ExpectedConditions.visibilityOfElementLocated
@@ -88,8 +85,7 @@ public class AddNewCourseWithInvalidDataTest {
 
     @Test
     public void courseUrlInvalid() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .click(addCoursePage.videoBtn)
+        webElementActions.click(addCoursePage.videoBtn)
                 .sendKeys(addCoursePage.video, randomCourseGenerator.randomCourseUrlInvalid())
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.courseUrlInvalid = wait.until(ExpectedConditions.visibilityOfElementLocated
@@ -101,8 +97,7 @@ public class AddNewCourseWithInvalidDataTest {
 
     @Test
     public void courseCapacityInvalid() {
-        webElementActions.click(dashboardPage.addCourseBtn)
-                .click(addCoursePage.capacityBtn)
+        webElementActions.click(addCoursePage.capacityBtn)
                 .sendKeys(addCoursePage.capacity, randomCourseGenerator.randomCourseCapacityInvalid())
                 .click(addCoursePage.submit);
         addCourseWithInvalidData.courseCapacityInvalid = wait.until(ExpectedConditions.visibilityOfElementLocated
@@ -118,6 +113,4 @@ public class AddNewCourseWithInvalidDataTest {
             driver.quit();
         }
     }
-
-
 }
