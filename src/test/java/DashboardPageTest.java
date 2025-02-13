@@ -1,4 +1,3 @@
-
 import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
