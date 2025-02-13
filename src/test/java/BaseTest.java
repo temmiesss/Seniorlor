@@ -68,6 +68,7 @@ public abstract class BaseTest {
 
             ;
 
+            
     @BeforeSuite
     public void beforeSuite() {
         driver = Driver.getDriver();
