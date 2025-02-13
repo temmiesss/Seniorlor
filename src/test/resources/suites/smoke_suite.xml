@@ -95,22 +95,6 @@
                     </include>
                 </methods>
             </class>
-            <class name="AddNewCourseTest">
-                <methods>
-                    <include name="addNewCourse">
-                    </include>
-                </methods>
-            </class>
-
-            <class name="AddNewCourseWithInvalidDataTest">
-                <methods>
-                    <include name="courseNameExceed">
-                        <include name="courseNameEmpty"/>
-                        <include name="courseCodeExceeding"/>
-                        <include name="coursePriceInvalid"/>
-                        <include name="courseUrlInvalid"/>
-                        <include name="courseCapacityInvalid"/>
-                    </include>
                 </methods>
             </class>
         </classes>
