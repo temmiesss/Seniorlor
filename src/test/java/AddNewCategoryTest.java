@@ -13,6 +13,8 @@ import java.util.List;
 
 public class AddNewCategoryTest extends BaseTest {
     Category category = new Category();
+    public AddNewCategoryTest() {
+    }
 
     @BeforeMethod
     public static void setUp() {
@@ -22,7 +24,7 @@ public class AddNewCategoryTest extends BaseTest {
     }
 
     @AfterMethod
-    public void tearDown() {
+    public void tearDown1() {
         driver.manage().deleteAllCookies();
     }
 
