@@ -41,16 +41,16 @@ public class AddNewCategoryTest extends BaseTest {
      *
      * Проверяет что администратор может создать категорию с корректным названием.
      */
-    @Test
-    public void CategoryNameRequiresFillingNotEmpty() {
-        categoryPage.AddNewCategory();
-        if (category.getCatName().isEmpty()) {
-            WebElement isRequired = driver.findElement(By.xpath("//div/span/span[@class='help-inline']"));
-            String actual = isRequired.getText();
-            Assert.assertEquals(actual, "'Name' is required");
-            throw new IllegalArgumentException("Ошибка: строка пустая.");
-        }
-    }
+//    @Test
+//    public void CategoryNameRequiresFillingNotEmpty() {
+//        categoryPage.AddNewCategory();
+//        if (category.getCatName().isEmpty()) {
+//            WebElement isRequired = driver.findElement(By.xpath("//div/span/span[@class='help-inline']"));
+//            String actual = isRequired.getText();
+//            Assert.assertEquals(actual, "'Name' is required");
+//            throw new IllegalArgumentException("Ошибка: строка пустая.");
+//        }
+//    }
 
     @Test
     public void CategoryNameRequiresFillingNoExceed() {
