@@ -1,7 +1,5 @@
 import com.digital_nomads.talent_lms.drivers.Driver;
 import com.digital_nomads.talent_lms.entity.Groups;
-import com.digital_nomads.talent_lms.enums.Section;
-import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import com.digital_nomads.talent_lms.helper.AlertHelper;
 import com.digital_nomads.talent_lms.helper.BrowserManager;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
@@ -30,15 +28,15 @@ import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomUserGenerator
 import java.util.Random;
 
 
-public class BaseTest {
-    public User randomUser;
+public abstract class BaseTest {
     public WebDriver driver;
     public BrowserManager browserManager;
-    WebElementActions webElementActions = new WebElementActions();
-    AlertHelper alertHelper;
+    public WebElementActions webElementActions;
+    public AlertHelper alertHelper;
+    public User randomUser;
     UserPage userPage = new UserPage();
     LoginPage loginPage = new LoginPage();
-    DeleteCourse deleteCourse = new DeleteCourse();    // Rano added
+    DeleteCourse deleteCourse = new DeleteCourse();   // Rano added
     CategoryPage categoryPage = new CategoryPage();
     AddGroupPage addGroupPage = new AddGroupPage();
     Groups group = new Groups();
@@ -66,19 +64,15 @@ public class BaseTest {
     FileUtilsUser fileUtilsUser = new FileUtilsUser();
 
 
-
-    @BeforeSuite
+    @BeforeClass
     public void beforeSuite() {
         driver = Driver.getDriver();
         alertHelper = new AlertHelper(driver);
     }
 
     @AfterClass
-    public void tearDownClass() {
-        if (driver != null) {
-            driver.quit();  // Закрываем браузер полностью
-            driver = null;  // Обнуляем, чтобы не было NullPointerException
-        }
+    public void tearDown() {
+        Driver.closeDriver();
     }
 
 }

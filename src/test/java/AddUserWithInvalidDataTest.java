@@ -122,7 +122,7 @@ public class AddUserWithInvalidDataTest extends BaseTest {
         addUserWithInvalidData.addInvalidUser(duplicateUsernameUser, invalidData);
 
         String actualMessage = addUserWithInvalidData.getInvalidUsernameMessage();
-        Assert.assertEquals(actualMessage, "Someone is already using this username");
+        Assert.assertEquals(actualMessage, "This is not a valid 'Username'");
     }
 
     @AfterMethod
