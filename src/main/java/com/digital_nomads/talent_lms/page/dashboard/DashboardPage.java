@@ -46,7 +46,7 @@ public class DashboardPage extends BasePage {
      * @author Akylai
      * Метод ожидает и открывает меню и переключается на  Legacy Interface
      */
-    public LoginPage switchToLegacyInterface() {
+    public DashboardPage switchToLegacyInterface() {
         WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
         try {
             wait.until(ExpectedConditions.visibilityOf(subMenu));
@@ -55,10 +55,10 @@ public class DashboardPage extends BasePage {
             wait.until(ExpectedConditions.visibilityOf(legacyMenuItem));
             webElementActions.click(legacyMenuItem);
 
-            return new LoginPage();
+            return new DashboardPage();
         } catch (NoSuchElementException e) {
             System.err.println("Element not found or not clickable: " + e.getMessage());
-            return new LoginPage();
+            return new DashboardPage();
         }
     }
     /**
