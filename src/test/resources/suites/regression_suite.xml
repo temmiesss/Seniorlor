@@ -90,6 +90,24 @@
                     <include name="testTimelineReport"/>
                 </methods>
             </class>
+            <class name="NotificationsTest">
+                <methods>
+                    <include name="deleteNotificationTest"/>
+                    <include name="editNotificationNameTest"/>
+                    <include name="editEventTest"/>
+                    <include name="editRecipientTest"/>
+                    <include name="editNotificationBodyTest"/>
+                </methods>
+            </class>
+            <class name="AddNotificationTest">
+                <methods>
+                    <include name="addNotificationTest"/>
+                    <include name="notificationWithoutName"/>
+                    <include name="addNotificationWithNameOnly"/>
+                    <include name="addNotificationWithoutBody"/>
+                    <include name="addNotification"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
