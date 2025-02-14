@@ -150,24 +150,4 @@ public class AddGroupPageTest extends BaseTest {
         Assert.assertNotNull(addGroupPage, "Group should be edited with a long name");
     }
 
-
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

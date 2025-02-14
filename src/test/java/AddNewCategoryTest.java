@@ -6,10 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.List;
 
@@ -24,11 +21,10 @@ public class AddNewCategoryTest extends BaseTest {
                 .switchToLegacyInterface();
     }
 
-//    @AfterTest
-//    public void goBackToDashboardPage(){
-//        WebElement goToHome = driver.findElement(By.xpath("//*[@id='tl-dropdown-goto']/ul/li[1]))"));
-//        goToHome.click();
-//    }
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();
+    }
 
     @Test
     public void addNewCategory() {
