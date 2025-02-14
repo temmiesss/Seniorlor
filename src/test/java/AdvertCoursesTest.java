@@ -2,6 +2,7 @@ import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -40,6 +41,10 @@ public class AdvertCoursesTest extends BaseTest{
     public void courseCatalogOtherProvider(){
             advertCourses.otherCourseProvider();
             Assert.assertTrue(true,"Курс выбран из списка");
+    }
+    @AfterMethod
+    public void tearDown1() {
+        driver.manage().deleteAllCookies();
     }
     }
     //5
