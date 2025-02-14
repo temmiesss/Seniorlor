@@ -8,22 +8,22 @@
             <class name="AddUserPageTest"/>
             <class name="AddUserWithInvalidDataTest"/>
             <class name="CloneCourseTest">
-            <methods>
-                <include name="cloneCourseTest"/>
-                <include name="cloneCourseCanselTest"/>
-                <include name="clonedCourseNameTest"/>
-            </methods>
+                <methods>
+                    <include name="cloneCourseTest"/>
+                    <include name="cloneCourseCanselTest"/>
+                    <include name="clonedCourseNameTest"/>
+                </methods>
             </class>
             <class name="DeleteCourseTest">
-                    <methods>
-                        <include name="deleteSelectedCourse"/>
-                        <include name="deleteCancelCourseTest"/>
-                        <include name="deleteFirstCourse"/>
-                        <include name="deleteLastCourse"/>
-                        <include name="deleteSpecificCourse"/>
-                        <include name="deleteNonExistingCourse"/>
-                        <include name="testDeleteCourseWithEmptyName"/>
-                    </methods>
+                <methods>
+                    <include name="deleteSelectedCourse"/>
+                    <include name="deleteCancelCourseTest"/>
+                    <include name="deleteFirstCourse"/>
+                    <include name="deleteLastCourse"/>
+                    <include name="deleteSpecificCourse"/>
+                    <include name="deleteNonExistingCourse"/>
+                    <include name="testDeleteCourseWithEmptyName"/>
+                </methods>
             </class>
             <class name="UpdateCourseTest">
                 <methods>
@@ -99,6 +99,20 @@
                 <methods>
                     <include name="addNotification"/>
                     <include name="addNotificationTest"/>
+                </methods>
+            </class>
+            <class name="AddGroupPageTest">
+                <methods>
+                    <include name="testAddGroup"/>
+                    <include name="testAddNewGroup"/>
+                    <include name="testEditGroup"/>
+                    <include name="testIsGroupAdded"/>
+                    <include name="deleteGroupTest"/>
+                    <include name="cancelDeletingGroupTest"/>
+                    <include name="testAddGroupButtonDisplayed"/>
+                    <include name="testRedirectAfterGroupAdded"/>
+                    <include name="testGroupDisplayedInTable"/>
+                    <include name="testAddGroupButtonDisplayed"/>
                 </methods>
             </class>
         </classes>
