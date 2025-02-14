@@ -21,6 +21,7 @@ import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
 import com.digital_nomads.talent_lms.page.users.EditUserDataPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
+import org.apache.log4j.BasicConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
