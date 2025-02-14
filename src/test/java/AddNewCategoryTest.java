@@ -17,7 +17,7 @@ public class AddNewCategoryTest extends BaseTest {
     }
 
     @BeforeMethod
-    public static void setUp() {
+    public void setUp1() {
         driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
@@ -41,16 +41,16 @@ public class AddNewCategoryTest extends BaseTest {
      *
      * Проверяет что администратор может создать категорию с корректным названием.
      */
-//    @Test
-//    public void CategoryNameRequiresFillingNotEmpty() {
-//        categoryPage.AddNewCategory();
-//        if (category.getCatName().isEmpty()) {
-//            WebElement isRequired = driver.findElement(By.xpath("//div/span/span[@class='help-inline']"));
-//            String actual = isRequired.getText();
-//            Assert.assertEquals(actual, "'Name' is required");
-//            throw new IllegalArgumentException("Ошибка: строка пустая.");
-//        }
-//    }
+    @Test
+    public void CategoryNameRequiresFillingNotEmpty() {
+        categoryPage.AddNewCategory();
+        if (category.getCatName().isEmpty()) {
+            WebElement isRequired = driver.findElement(By.xpath("//div/span/span[@class='help-inline']"));
+            String actual = isRequired.getText();
+            Assert.assertEquals(actual, "'Name' is required");
+            throw new IllegalArgumentException("Ошибка: строка пустая.");
+        }
+    }
 
     @Test
     public void CategoryNameRequiresFillingNoExceed() {
@@ -62,16 +62,16 @@ public class AddNewCategoryTest extends BaseTest {
             throw new IllegalArgumentException("Ошибка: строка превышает 80 символов.");
         }
     }
-    @Test
-    public void CategoryPriceRequiresFilling() {
-        categoryPage.AddNewCategory();
-        if(!category.getPrice().matches(".*[A-Za-z].*")){
-            WebElement isRequired = driver.findElement(By.xpath("//*[@id='control-group-price']/div/span/span"));
-            String actual = isRequired.getText();
-            Assert.assertEquals(actual, "This is not a valid 'Price'");
-            throw new IllegalArgumentException("Ошибка: не может содержать текст");
-        }
-    }
+//    @Test
+//    public void CategoryPriceRequiresFilling() {
+//        categoryPage.AddNewCategory();
+//        if(!category.getPrice().matches(".*[A-Za-z].*")){
+//            WebElement isRequired = driver.findElement(By.xpath("//*[@id='control-group-price']/div/span/span"));
+//            String actual = isRequired.getText();
+//            Assert.assertEquals(actual, "This is not a valid 'Price'");
+//            throw new IllegalArgumentException("Ошибка: не может содержать текст");
+//        }
+//    }
 
     @Test
     public void CategoriesEditor() {

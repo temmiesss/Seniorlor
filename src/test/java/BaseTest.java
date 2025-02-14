@@ -68,16 +68,14 @@ public abstract class BaseTest {
 
 
 
-            
-    @BeforeSuite
-    public void beforeSuite() {
+    @BeforeClass(alwaysRun = true)
+    public void setUp(){
         driver = Driver.getDriver();
-        alertHelper = new AlertHelper(driver);
+        browserManager = new BrowserManager(driver);
     }
 
-
-    @AfterClass
-    public void tearDown() {
-       Driver.closeDriver();
+    @AfterClass(alwaysRun = true)
+    public void tearDown(){
+        Driver.closeDriver();
     }
 }
