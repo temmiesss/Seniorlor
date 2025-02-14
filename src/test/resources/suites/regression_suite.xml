@@ -108,6 +108,24 @@
                     <include name="addNotification"/>
                 </methods>
             </class>
+            <class name="AddGroupPageTest">
+                <methods>
+                    <include name="testAddGroup"/>
+                    <include name="testAddNewGroup"/>
+                    <include name="testEditGroup"/>
+                    <include name="testIsGroupAdded"/>
+                    <include name="deleteGroupTest"/>
+                    <include name="cancelDeletingGroupTest"/>
+                    <include name="testAddGroupButtonAfterDataEntry"/>
+                    <include name="testMandatoryFields"/>
+                    <include name="testEditGroupEmptyName"/>
+                    <include name="testEditGroupEmptyDescription"/>
+                    <include name="testEditGroupWithLongName"/>
+                    <include name="testAddGroupWithLongDescription"/>
+                    <include name="testGroupDisplayedInTable"/>
+                    <include name="testAddGroupButtonDisplayed"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

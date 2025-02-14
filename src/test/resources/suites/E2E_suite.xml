@@ -90,6 +90,14 @@
                     <include name="testTimelineReport"/>
                 </methods>
             </class>
+            <class name="AddGroupPageTest">
+                <methods>
+                    <include name="testAddGroup"/>
+                    <include name="testIsGroupAdded"/>
+                    <include name="testRedirectAfterGroupAdded"/>
+                    <include name="testGroupDisplayedInTable"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>
