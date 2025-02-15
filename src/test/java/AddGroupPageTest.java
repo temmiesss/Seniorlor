@@ -30,7 +30,6 @@ public class AddGroupPageTest extends BaseTest {
         Assert.assertTrue(addGroupPage.isGroupAdded(group), "Group not found after adding");
     }
 
-
     @Test
     public void testAddNewGroup() {
         Groups group = new Groups("New Group", "Description of new group");
@@ -55,12 +54,11 @@ public class AddGroupPageTest extends BaseTest {
     @Test
     public void deleteGroupTest() {
         addGroupPage.deleteGroup(group);
-        Assert.assertTrue(addGroupPage.isGroupExist("Fall2024"), "The group is not visible");
+        Assert.assertFalse(addGroupPage.isGroupPresent(group), "Группа не была удалена!");
     }
 
     @Test
     public void cancelDeletingGroupTest() {
-
         addGroupPage.cancelDeletingGroup(group);
         Assert.assertTrue(addGroupPage.isGroupAdded(group), "The group should still be visible after canceling delete.");
     }
@@ -128,7 +126,6 @@ public class AddGroupPageTest extends BaseTest {
 
     }
 
-
     @Test
     public void testEditGroupEmptyName() {
         Groups group = new Groups("", "Updated description");
@@ -150,24 +147,4 @@ public class AddGroupPageTest extends BaseTest {
         Assert.assertNotNull(addGroupPage, "Group should be edited with a long name");
     }
 
-
- }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
