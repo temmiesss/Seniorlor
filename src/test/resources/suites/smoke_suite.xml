@@ -2,27 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Smoke Suite">
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
-
         <classes>
-            <class name="AddNewCourseTest">
-                <methods>
-                    <include name="addNewCourse">
-                    </include>
-                </methods>
-            </class>
-            <class name="AddNewCourseWithInvalidDataTest">
-                <methods>
-                    <include name="courseNameExceed">
-                        <include name="courseNameEmpty"/>
-                        <include name="courseCodeExceeding"/>
-                        <include name="coursePriceInvalid"/>
-                        <include name="courseUrlInvalid"/>
-                        <include name="courseCapacityInvalid"/>
-                    </include>
-                </methods>
-            </class>
+
+            <class name="AddNewCourseWithInvalidDataTest"/>
         </classes>
-
-
     </test>
 </suite>
