@@ -7,7 +7,8 @@ import lombok.Getter;
 @Getter
 public class Category {
 
-    String catName = "qwzexrctfvybhunimoqwzexrctfvybhunimoqwzexrctfvybh";
+    String catName = "Qwerty ST Trew";
+    String  price = "12898";
 
     public Category() {
         this.catName = catName;

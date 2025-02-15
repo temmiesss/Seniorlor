@@ -3,12 +3,73 @@
 <suite name="Regression suite">
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
         <classes>
+          <class name="DashboardPageTest"/>
+            <class name="UserPageTest"/>
+            <class name="AddUserPageTest"/>
+            <class name="EditUserDataTest"/>
+            <class name="UsersCsvGeneratorTest"/>
+            <class name="UserCoursesPageTest"/>
+            <class name="UserGroupsPageTest"/>
             <class name="CloneCourseTest"/>
             <class name="DeleteCourseTest"/>
             <class name="UpdateCourseTest"/>
             <class name="CSVGeneratorTest"/>
             <class name="ReportCourseTest"/>
             <class name="AdvertCoursesTest"/>
+            <class name="ReportsTest">
+                <methods>
+                    <include name="userTest"/>
+                    <include name="testUserReport"/>
+                    <include name="testCourseReport"/>
+                    <include name="testBranchReport"/>
+                    <include name="testGroup"/>
+                    <include name="testScorm"/>
+                    <include name="testReports"/>
+                    <include name="surveyTest"/>
+                    <include name="assignmentTest"/>
+                    <include name="iltTest"/>
+                    <include name="customTest"/>
+                    <include name="testInfographicsReport"/>
+                    <include name="testTrainingMatrix"/>
+                    <include name="testTimelineReport"/>
+                </methods>
+            </class>
+            <class name="NotificationsTest">
+                <methods>
+                    <include name="deleteNotificationTest"/>
+                    <include name="editNotificationNameTest"/>
+                    <include name="editEventTest"/>
+                    <include name="editRecipientTest"/>
+                    <include name="editNotificationBodyTest"/>
+                </methods>
+            </class>
+            <class name="AddNotificationTest">
+                <methods>
+                    <include name="addNotificationTest"/>
+                    <include name="notificationWithoutName"/>
+                    <include name="addNotificationWithNameOnly"/>
+                    <include name="addNotificationWithoutBody"/>
+                    <include name="addNotification"/>
+                </methods>
+            </class>
+            <class name="AddGroupPageTest">
+                <methods>
+                    <include name="testAddGroup"/>
+                    <include name="testAddNewGroup"/>
+                    <include name="testEditGroup"/>
+                    <include name="testIsGroupAdded"/>
+                    <include name="deleteGroupTest"/>
+                    <include name="cancelDeletingGroupTest"/>
+                    <include name="testAddGroupButtonAfterDataEntry"/>
+                    <include name="testMandatoryFields"/>
+                    <include name="testEditGroupEmptyName"/>
+                    <include name="testEditGroupEmptyDescription"/>
+                    <include name="testEditGroupWithLongName"/>
+                    <include name="testAddGroupWithLongDescription"/>
+                    <include name="testGroupDisplayedInTable"/>
+                    <include name="testAddGroupButtonDisplayed"/>
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

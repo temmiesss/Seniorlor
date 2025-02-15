@@ -2,6 +2,7 @@ import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -62,15 +63,20 @@ public class UsersCsvGeneratorTest extends BaseTest {
         Assert.assertEquals(actualHeader, expectedHeader, "Заголовки в CSV-файле не совпадают с ожидаемыми!");
 
         // Проверяем, что файл скачан в папке загрузок
-        Assert.assertTrue(fileUtils.isFileDownloaded(fileName), "Файл не был скачан!");
+        Assert.assertTrue(fileUtilsUser.isFileDownloaded(fileName), "Файл не был скачан!");
 
         // Сохраняем скачанный файл в папку ресурсов
-        fileUtils.saveDownloadedFile(fileName);
+        fileUtilsUser.saveDownloadedFile(fileName);
 
         // Проверяем, что файл теперь существует в папке resources
         File savedFile = new File(filePath);
         Assert.assertTrue(savedFile.exists(), "Файл не был сохранен в папке resources!");
 
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }
 
