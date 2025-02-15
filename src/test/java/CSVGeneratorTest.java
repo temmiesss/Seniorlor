@@ -2,6 +2,7 @@ import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import com.digital_nomads.talent_lms.page.course.CVSGenerator;
 import com.github.javafaker.Faker;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -38,6 +39,10 @@ public class CSVGeneratorTest extends BaseTest{
             java.io.File csvFile = new File("C:\\Users\\tokto\\Downloads\\ranoprojectgroup-courses (6).xlsx");
             fileUtils.saveToResources(csvFile,"ranoprojectgroup-courses(6).xlsx");
         }
+    @AfterMethod
+    public void tearDown1() {
+        driver.manage().deleteAllCookies();
+    }
 
     }
 

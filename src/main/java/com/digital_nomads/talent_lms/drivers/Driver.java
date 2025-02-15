@@ -42,6 +42,7 @@ public class Driver {
             }
         } catch (Exception e) {
             System.out.println("Error while closing driver");
+
         }
     }
 }
