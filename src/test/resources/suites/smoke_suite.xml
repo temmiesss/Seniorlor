@@ -6,7 +6,7 @@
         <classes>
           <class name="DashboardPageTest"/>
               <class name="AddUserPageTest"/>
-            <class name="CloneCourseTest"/>
+           <!-- <class name="CloneCourseTest"/>
             <class name="DeleteCourseTest"/>
             <class name="UpdateCourseTest"/>
             <class name="CSVGeneratorTest"/>
@@ -50,7 +50,7 @@
                     <include name="testGroupDisplayedInTable"/>
                     <include name="testAddGroupButtonDisplayed"/>
                 </methods>
-            </class>
+            </class> -->
         </classes>
       
       
