@@ -11,32 +11,19 @@ import java.util.List;
  */
 public class DashboardPageTest extends BaseTest {
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setup() {
         driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
+        Assert.assertTrue(dashboardPage.isPageLoaded(), "ERROR: Login failed, DashboardPage not loaded");
     }
 
     @Test
     public void testSelectRandomSection() {
         List<Section> sections = Arrays.asList(Section.values());
         Section randomSection = sections.get(random.nextInt(sections.size()));
-        System.out.println("Randomly selected section: " + randomSection.getSectionName());
         String userSection = randomSection.getSectionName();
-
-//        String formattedSection = userSection.replaceAll("\\s+", "").toLowerCase();
-//
-//        //div[contains(text(),'Users')]
-//        //div[contains(text(),'Courses')]
-//        //div[contains(text(),'Categories')]
-//        //span[@class='tl-box-title-options']/parent::div[text()='Groups']
-//
-//        for (WebElement element : sectionElement) {
-//            if (userSection.equals(element)) {
-//                Assert. assert
-//            }
-//        }
 
         dashboardPage.selectSection(randomSection);
         String urlPart;

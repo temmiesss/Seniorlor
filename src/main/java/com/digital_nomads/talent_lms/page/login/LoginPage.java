@@ -15,8 +15,8 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//input[@name ='submit']")
     public WebElement submit;
 
-    public DashboardPage doLogin(String login, String password){
-        webElementActions.sendKeys(this.login, login)
+    public DashboardPage doLogin(String userName, String password){
+        webElementActions.sendKeys(login, userName)
                 .sendKeys(this.password, password)
                 .click(submit);
         return new DashboardPage();

@@ -13,6 +13,7 @@ import com.digital_nomads.talent_lms.page.BasePage;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -50,17 +51,47 @@ public class AddUserPage extends BasePage {
     @FindBy(xpath = "//input[@name='restrict_email']")
     public WebElement excludeFromEmailTick;
 
-    @FindBy(id = "fileupload_input")
-    public WebElement fileUpload;
-
-    @FindBy(xpath = "//button[contains(text(),'Apply')]")
-    public WebElement applyBtn;
-
     @FindBy(xpath = "//input[@name='submit_personal_details']")
     public WebElement addUserButton;
 
     @FindBy(xpath = "//a[text()='cancel']")
     public WebElement cancelAddUserBtn;
+
+    @FindBy(xpath = "//input[@name='name']/../../span/span")
+    public WebElement invalidFirstNameInputMessage;
+
+    @FindBy(xpath = "//input[@name='surname']/../../span/span")
+    public WebElement invalidLastNameInputMessage;
+
+    @FindBy(xpath = "//input[@name='email']/../../span/span")
+    public WebElement invalidEmailInputMessage;
+
+    @FindBy(xpath = "//input[@name='login']/../../span/span")
+    public WebElement invalidUsernameInputMessage;
+
+    @FindBy(xpath = "//input[@name='password']/../../span/span")
+    public WebElement invalidPasswordInputMessage;
+
+
+    public String getInvalidFirstNameMessage() {
+        return invalidFirstNameInputMessage.getText();
+    }
+
+    public String getInvalidLastNameMessage() {
+        return invalidLastNameInputMessage.getText();
+    }
+
+    public String getInvalidEmailMessage() {
+        return invalidEmailInputMessage.getText();
+    }
+
+    public String getInvalidUsernameMessage() {
+        return invalidUsernameInputMessage.getText();
+    }
+
+    public String getInvalidPasswordMessage() {
+        return invalidPasswordInputMessage.getText();
+    }
 
     /**
      * Добавление нового пользователя в систему
@@ -145,4 +176,22 @@ public class AddUserPage extends BasePage {
         return addUserButton.isDisplayed();
     }
 
+    /**
+     * Пытаемся добавить пользователя с некорректыми данными
+     *
+     * @param user        - пользователь, данные которого используются
+     * @param invalidData - некорректные значения данных, которые подставляются для проверки
+     * @return Возвращает текущий объект AddUserWithInvalidData
+     */
+    public AddUserPage addInvalidUser(User user, Map<String, String> invalidData) {
+        webElementActions.sendKeys(firstNameInput, invalidData.getOrDefault("firstName", user.getFirstName()))
+                .sendKeys(lastNameInput, invalidData.getOrDefault("lastName", user.getLastName()))
+                .sendKeys(emailInput, invalidData.getOrDefault("email", user.getEmail()));
+        usernameInput.clear();
+        webElementActions.sendKeys(usernameInput, invalidData.getOrDefault("username", user.getUsername()))
+                .sendKeys(passwordInput, invalidData.getOrDefault("password", "TestPassed123$"))
+                .sendKeys(bioInput, invalidData.getOrDefault("bio", user.getBio()))
+                .click(addUserButton);
+        return this;
+    }
 }

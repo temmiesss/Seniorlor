@@ -1,6 +1,7 @@
 import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -40,6 +41,11 @@ public class UserGroupsPageTest extends BaseTest{
 
         boolean isAddToGroupButtonVisible = userGroupsPage.addToGroupOption.isDisplayed();
         Assert.assertTrue(isAddToGroupButtonVisible, "Add to group button should be visible after removing user from group");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 
 }

@@ -42,6 +42,34 @@ public class UserPageTest extends BaseTest {
     }
 
     @Test
+    public void testUserReportsOption() {
+        addUserPage = userPage.navigateToAddUserPage();
+        List<String> users = userPage.getUserList();
+        String userEmail = users.get(new Random().nextInt(users.size()));
+        userPage.userReportsOption(userEmail);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlContains("/reports/userinfo"));
+
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("/reports/userinfo"), "URL does not contain this part after opening reports.");
+    }
+
+    @Test
+    public void testLogIntoAccountOption() {
+        addUserPage = userPage.navigateToAddUserPage();
+        List<String> users = userPage.getUserList();
+        String userEmail = users.get(new Random().nextInt(users.size()));
+        userPage.logIntoAccountOption(userEmail);
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.urlContains("/dashboard"));
+
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("/dashboard"), "URL does not contain this part after opening reports.");
+    }
+
+    @Test
     public void testDeleteAndCancelDeleteUser() {
         List<String> users = userPage.getUserList();
         String userEmail = users.get(new Random().nextInt(users.size()));
@@ -136,32 +164,6 @@ public class UserPageTest extends BaseTest {
 //        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 //        wait.until(ExpectedConditions.urlContains("/user/info"));
 //        Assert.assertTrue(editUserDataPage.isEditPageLoaded(), "The Edit User page did not load correctly.");
-//    }
-//
-//    @Test
-//    public void testUserReportsOption() {
-//        List<String> users = userPage.getUserList();
-//        String userEmail = users.get(new Random().nextInt(users.size()));
-//        userPage.userReportsOption(userEmail);
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        wait.until(ExpectedConditions.urlContains("/reports/userinfo"));
-//
-//        String currentUrl = driver.getCurrentUrl();
-//        Assert.assertTrue(currentUrl.contains("/reports/userinfo"), "URL does not contain this part after opening reports.");
-//    }
-//
-//    @Test
-//    public void testLogIntoAccountOption() {
-//        List<String> users = userPage.getUserList();
-//        String userEmail = users.get(new Random().nextInt(users.size()));
-//        userPage.logIntoAccountOption(userEmail);
-//
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-//        wait.until(ExpectedConditions.urlContains("/dashboard"));
-//
-//        String currentUrl = driver.getCurrentUrl();
-//        Assert.assertTrue(currentUrl.contains("/dashboard"), "URL does not contain this part after opening reports.");
 //    }
 //
 //    @Test
