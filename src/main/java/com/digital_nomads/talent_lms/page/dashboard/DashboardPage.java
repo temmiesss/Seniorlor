@@ -12,7 +12,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import com.digital_nomads.talent_lms.page.BasePage;
-import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -42,12 +41,12 @@ public class DashboardPage extends BasePage {
     public WebElement dashboardContainer;
 
     /**
-     * @return Возвращает объект типа LoginPage, позволяя продолжить работу с этой страницей.
+     * @return Возвращает объект типа DashboardPage, позволяя продолжить работу с этой страницей.
      * @author Akylai
      * Метод ожидает и открывает меню и переключается на  Legacy Interface
      */
-    public LoginPage switchToLegacyInterface() {
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10));
+    public DashboardPage switchToLegacyInterface() {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(30));
         try {
             wait.until(ExpectedConditions.visibilityOf(subMenu));
             webElementActions.click(subMenu);
@@ -55,13 +54,14 @@ public class DashboardPage extends BasePage {
             wait.until(ExpectedConditions.visibilityOf(legacyMenuItem));
             webElementActions.click(legacyMenuItem);
 
-            return new LoginPage();
+            return new DashboardPage();
         } catch (NoSuchElementException e) {
             System.err.println("Element not found or not clickable: " + e.getMessage());
-            return new LoginPage();
+            return new DashboardPage();
         }
     }
     /**
+     * Универсальный метод для переключения на разделы
      * @author Akylai
      */
     public void selectSection(Section section) {
@@ -155,5 +155,9 @@ public class DashboardPage extends BasePage {
         webElementActions.click(dropdownRoles)
                 .click(dropdownRoles.findElement(By.xpath("//a[normalize-space()='" + role.getRole() + "']")));
         return new DashboardPage();
+    }
+
+    public boolean isPageLoaded(){
+        return addUserBtn.isDisplayed();
     }
 }

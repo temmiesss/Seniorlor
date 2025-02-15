@@ -22,17 +22,6 @@ public class SortingUserPageTest extends BaseTest{
         dashboardPage.selectSection(Section.USERS);
     }
 
-    @AfterMethod
-    public void tearDown() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        driver.close();
-        driver.quit();
-    }
-
     @Test
     public void testSortingByUsername() throws IOException {
         sortingUserPage.sortByColumn("User");
@@ -99,5 +88,10 @@ public class SortingUserPageTest extends BaseTest{
         // Проверяем, что файл успешно скопирован
         File savedFile = new File("src/main/resources/files/" + fileName);
         Assert.assertTrue(savedFile.exists(), "Файл не был скопирован в папку resources!");
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }
