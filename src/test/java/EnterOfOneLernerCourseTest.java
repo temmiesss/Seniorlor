@@ -1,5 +1,6 @@
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,10 @@ public void setUp(){
         Assert.assertTrue(true, "Каталог курсов должен быть открыт");
 
         }
+    @AfterMethod
+    public void tearDown1() {
+        driver.manage().deleteAllCookies();
+    }
 
 
 
