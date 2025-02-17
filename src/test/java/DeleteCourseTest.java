@@ -27,15 +27,15 @@ public class DeleteCourseTest extends BaseTest {
     @BeforeMethod
             public void setUp(){
         driver.get(ConfigReader.getProperty("URL"));
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
+        driver.navigate().refresh();
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+                .switchToLegacyInterface();
     }
-
     /**
      * @Test удаляет рандомный курс и выводит на консоль, что курс успешно удален
      **/
     @Test
     public void deleteSelectedCourse() throws InterruptedException {
-
         Course randomCourse = randomCourseGenerator.randomCourse();
         deleteCourse.enterToCourse(randomCourse);
         deleteCourse.openCourse();
@@ -73,7 +73,6 @@ public class DeleteCourseTest extends BaseTest {
      **/
     @Test
     public void deleteFirstCourse() {
-
         Course randomCourse = randomCourseGenerator.randomCourse();
         deleteCourse.enterToCourse(randomCourse);
         deleteCourse.openCourse();
@@ -193,7 +192,6 @@ public class DeleteCourseTest extends BaseTest {
      */
    @Test
    public void testDeleteCourseWithEmptyName() {
-
         deleteCourse.openCourse();
         String emptyCourseName = "";
         deleteCourse.deleteCourseByInvalidName(emptyCourseName);

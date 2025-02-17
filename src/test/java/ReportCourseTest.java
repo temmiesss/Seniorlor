@@ -14,7 +14,9 @@ public class ReportCourseTest extends BaseTest {
     @BeforeMethod
     public void setUp() {
         driver.get(ConfigReader.getProperty("URL"));
-        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password")).switchToLegacyInterface();
+        driver.navigate().refresh();
+        loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
+                .switchToLegacyInterface();
     }
 
     @Test
