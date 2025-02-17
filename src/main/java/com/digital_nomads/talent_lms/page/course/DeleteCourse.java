@@ -22,7 +22,7 @@ public class DeleteCourse extends BasePage {
     @FindBy(xpath = "//a[normalize-space()='Courses']/parent::div[@class='tl-bold-link']")
     public WebElement courseEnter;
 
-    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]//td[5]/div/div/i[3]")
+    @FindBy(xpath = "//*[@id=tl-courses-grid]//td[5]/div/div/i[3]")
     public WebElement iconDelete;
 
     @FindBy(xpath = "//div[@class='tl-table-operations-trigger touchable']")
@@ -34,10 +34,10 @@ public class DeleteCourse extends BasePage {
     @FindBy(xpath = "//a[@class='btn]")
     public WebElement canselBtn;
 
-    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[4]/td[1]/input")
+    @FindBy(xpath = "//*[@id=tl-courses-grid]/tbody/tr[4]/td[1]/input")
     public WebElement courseName;
 
-    @FindBy(xpath = "//*[@id=\"tl-courses-grid\"]/tbody/tr[1]/td[2]/a/span")
+    @FindBy(xpath = "//*[@id=tl-courses-grid]/tbody/tr[1]/td[2]/a/span")
     public WebElement firstCourse;
 
 
@@ -127,8 +127,5 @@ public class DeleteCourse extends BasePage {
             System.out.println("Ошибка при удалении курса '" + courseName + "': " + e.getMessage());
         }
     }
-
-
-
 
 }
