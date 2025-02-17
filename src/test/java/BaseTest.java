@@ -22,7 +22,6 @@ import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerat
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import com.digital_nomads.talent_lms.page.login.LoginPage;
 import com.digital_nomads.talent_lms.page.users.UserPage;
@@ -66,7 +65,9 @@ public abstract class BaseTest {
     PerformMassActionCourse massAction = new PerformMassActionCourse();
 
 
-    @BeforeClass
+            ;
+
+    @BeforeSuite
     public void beforeSuite() {
         driver = Driver.getDriver();
         alertHelper = new AlertHelper(driver);
@@ -74,7 +75,9 @@ public abstract class BaseTest {
 
     @AfterClass
     public void tearDown() {
-       Driver.closeDriver();
+        if (driver != null) {
+            driver.close();
+        }
     }
 
 
