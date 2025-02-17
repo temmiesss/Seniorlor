@@ -4,7 +4,8 @@
     <test verbose="2" preserve-order="true" name="C:\Users\User\Seniorlor">
 
         <classes>
-            <class name="DeleteCourseTest"/>
+<!--            <class name="DeleteCourseTest"/>-->
+            <class name="CloneCourseTest"/>
 
 <!--          <class name="DashboardPageTest"/>-->
 <!--              <class name="AddUserPageTest"/>-->
