@@ -16,7 +16,7 @@ import com.digital_nomads.talent_lms.page.course.EnterOfOneLerner;
 import com.digital_nomads.talent_lms.page.course.UpdateCourse;
 import com.digital_nomads.talent_lms.page.dashboard.DashboardPage;
 import com.digital_nomads.talent_lms.page.users.AddUserPage;
-import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
+//import com.digital_nomads.talent_lms.page.users.AddUserWithInvalidData;
 import com.digital_nomads.talent_lms.page.users.EditUserDataPage;
 import com.digital_nomads.talent_lms.utils.randomEntityUtils.RandomCourseGenerator;
 import org.openqa.selenium.WebDriver;
@@ -44,7 +44,7 @@ public abstract class BaseTest {
     Groups group = new Groups();
     DashboardPage dashboardPage = new DashboardPage();
     AddUserPage addUserPage = new AddUserPage();
-    AddUserWithInvalidData addUserWithInvalidData = new AddUserWithInvalidData();
+//    AddUserWithInvalidData addUserWithInvalidData = new AddUserWithInvalidData();
     EditUserDataPage editUserDataPage = new EditUserDataPage();
     User user = new User();
     UpdateCourse updateCourse = new UpdateCourse();
