@@ -5,15 +5,15 @@ import org.openqa.selenium.WebDriver;
 
 public class Driver {
 
-    public Driver(){
+    public Driver() {
 
     }
 
     public static WebDriver driver;
 
-    public static WebDriver getDriver(){
-        if(driver == null){
-            switch(ConfigReader.getProperty("browserType").toLowerCase().trim()){
+    public static WebDriver getDriver() {
+        if (driver == null) {
+            switch (ConfigReader.getProperty("browserType").toLowerCase().trim()) {
                 case "chrome":
                     driver = ChromeWebDriver.loadChromeDriver();
                     break;
@@ -32,6 +32,7 @@ public class Driver {
         }
         return driver;
     }
+<<<<<<< HEAD
     public static void closeDriver() {
         try {
             if (driver != null) {
@@ -44,4 +45,19 @@ public class Driver {
         }
     }
 
+=======
+
+    public static void closeDriver() {
+        try {
+            if (driver!=null){
+                driver.close();
+                driver.quit();
+                driver=null;
+            }
+        } catch (Exception e) {
+            System.out.println("Error while closing driver");
+
+        }
+    }
+>>>>>>> d7b176e8b7f1d6cbdfa8214602319533219e49f5
 }

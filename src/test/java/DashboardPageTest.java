@@ -1,4 +1,3 @@
-
 import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.testng.Assert;
@@ -12,27 +11,34 @@ import java.util.List;
  */
 public class DashboardPageTest extends BaseTest {
 
-    @BeforeMethod
-    public void setup(){
+    @BeforeMethod(alwaysRun = true)
+    public void setup() {
         driver.get(ConfigReader.getProperty("URL"));
         loginPage.doLogin(ConfigReader.getProperty("userName"), ConfigReader.getProperty("password"))
                 .switchToLegacyInterface();
+        Assert.assertTrue(dashboardPage.isPageLoaded(), "ERROR: Login failed, DashboardPage not loaded");
     }
 
     @Test
-    public void testSelectRandomSection(){
+    public void testSelectRandomSection() {
         List<Section> sections = Arrays.asList(Section.values());
         Section randomSection = sections.get(random.nextInt(sections.size()));
-        System.out.println("Randomly selected section: " + randomSection.getSectionName());
+        String userSection = randomSection.getSectionName();
 
         dashboardPage.selectSection(randomSection);
+        String urlPart;
+        if (userSection.equals("Import - Export")) {
+            urlPart = "import";
+        } else {
+            urlPart = "index";
+        }
 
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue(currentUrl.contains("index"), "ERROR: URL does not contain 'index'. Current URL: " + currentUrl);
+        Assert.assertTrue(currentUrl.contains(urlPart), "ERROR: URL does not contain this part. Current URL: " + currentUrl);
     }
 
     @Test
-    public void testNavigateToAddUserPageFromDashboardPage(){
+    public void testNavigateToAddUserPageFromDashboardPage() {
         addUserPage = dashboardPage.navigateToAddUserPage();
         Assert.assertTrue(addUserPage.isPageLoaded(), "AddUserPage did not load correctly");
     }
@@ -45,12 +51,6 @@ public class DashboardPageTest extends BaseTest {
 
     @AfterMethod
     public void tearDown() {
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        driver.close();
-        driver.quit();
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }

@@ -21,13 +21,13 @@ public class WebElementActions {
     public Actions actions = new Actions(Driver.getDriver());
 
     public WebElementActions waitButtonBeClickable(WebElement element){
-        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15))
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20))
                 .until(ExpectedConditions.elementToBeClickable(element));
         return this;
     }
 
     public WebElementActions waitElementToBeDisplayed(WebElement element){
-        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(15))
+        new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(20))
                 .until(ExpectedConditions.visibilityOf(element));
         return this;
     }

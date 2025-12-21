@@ -6,6 +6,7 @@ import com.digital_nomads.talent_lms.entity.Groups;
 import com.digital_nomads.talent_lms.entity.User;
 import com.digital_nomads.talent_lms.helper.WebElementActions;
 import com.digital_nomads.talent_lms.page.BasePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -103,6 +104,7 @@ public class AddGroupPage extends BasePage {
      * @param group Объект группы, содержащий информацию о названии и описании группы.
      * @return Возвращает объект текущей страницы для продолжения работы с ней.
      */
+    @Step ("метод для добавления новой группы")
     public AddGroupPage addNewGroup(Groups group) {
         webElementActions.click(addGroupBtn)
                 .sendKeys(this.inputName, group.getName())
@@ -117,6 +119,7 @@ public class AddGroupPage extends BasePage {
      * @param group группа для добавления курса
      * @return новая страница AddGroupPage
      */
+    @Step ("метод для добавления курсов группе")
     public AddGroupPage addCourseToGroup(Groups group) {
         webElementActions.click(massActions)
                 .click(addCourseToAllGroups)
@@ -130,6 +133,7 @@ public class AddGroupPage extends BasePage {
      * @param group Объект группы, содержащий новые данные для редактирования.
      * @return Возвращает объект текущей страницы для продолжения работы с ней.
      */
+    @Step ("метод для редактирования группы")
     public AddGroupPage editGroup(Groups group) {
         webElementActions.click(enterGroup)
                 .moveToElement(textLine)
@@ -146,6 +150,7 @@ public class AddGroupPage extends BasePage {
      * @param group Объект группы, которую нужно проверить.
      * @return Возвращает true, если группа была добавлена, иначе false.
      */
+    @Step ("метод для проверки добавления группы")
     public boolean isGroupAdded(Groups group) {
         String xpath = "//td[normalize-space(text()) = '" + group.getName() + "']";
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//table")));
@@ -158,6 +163,7 @@ public class AddGroupPage extends BasePage {
      * @param group Объект группы, которую нужно удалить.
      * @return Возвращает объект текущей страницы для продолжения работы с ней.
      */
+    @Step ("метод для удаления  группы")
     public AddGroupPage deleteGroup(Groups group) {
         webElementActions.click(enterGroup)
                 .moveToElement(textLine)
@@ -172,6 +178,7 @@ public class AddGroupPage extends BasePage {
      * @param group Объект группы, который планировалось удалить.
      * @return Экземпляр страницы {@link AddGroupPage} после отмены удаления.
      */
+    @Step ("метод для отмены удаления группы")
     public AddGroupPage cancelDeletingGroup(Groups group) {
         webElementActions.click(enterGroup)
                 .moveToElement(textLine)
@@ -187,6 +194,7 @@ public class AddGroupPage extends BasePage {
      * @param title Название группы, которую нужно проверить.
      * @return {@code true}, если группа существует, иначе {@code false}.
      */
+    @Step ("метод для проверки существования группы по названию")
     public boolean isGroupExist(String title) {
         WebElement group = driver.findElement(By.xpath("//span[@title='" + title + "']"));
         return webElementActions.isDisplayed(group);
@@ -198,6 +206,7 @@ public class AddGroupPage extends BasePage {
      * @param element элемент, видимость которого проверяется
      * @return true, если элемент видим, иначе false
      */
+    @Step ("метод для проверки видимости элемента на странице")
     public boolean isElementVisible(WebElement element) {
         try {
             new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(10))
@@ -214,6 +223,7 @@ public class AddGroupPage extends BasePage {
      * @param newGroupName        новое имя группы.
      * @param newGroupDescription новое описание группы.
      */
+    @Step ("метод обновления данных группы")
     public void updateGroup(String newGroupName, String newGroupDescription) {
         webElementActions.waitElementToBeDisplayed(editName);
         webElementActions.clear(editName).sendKeys(editName, newGroupName);
@@ -227,6 +237,7 @@ public class AddGroupPage extends BasePage {
      *
      * @return {@code true}, если сообщение об успехе видно, иначе {@code false}.
      */
+    @Step ("метод для получения сообщения об успешности операции")
     public boolean isSuccessMessageVisible() {
         WebElement successMessage = Driver.getDriver().findElement(By.id("successMessage")); // или другой локатор для вашего сообщения
         return successMessage.isDisplayed();
@@ -237,6 +248,7 @@ public class AddGroupPage extends BasePage {
      *
      * @return {@code true}, если сообщение об ошибке видно, иначе {@code false}.
      */
+    @Step ("метод проверки видимости сообщени об ошибке")
     public boolean isErrorMessageVisible() {
         WebElement errorMessage = Driver.getDriver().findElement(By.xpath("//div[@class='alert alert-danger']"));
         return errorMessage.isDisplayed();
@@ -248,6 +260,7 @@ public class AddGroupPage extends BasePage {
      * @param groupName Название группы.
      * @return Веб-элемент, соответствующий указанной группе.
      */
+    @Step ("метод для получения члена группы по названию")
     public WebElement getGroupElementByName(String groupName) {
         return Driver.getDriver().findElement(By.xpath("//td[normalize-space(text()) = '" + groupName + "']"));
     }
@@ -255,6 +268,7 @@ public class AddGroupPage extends BasePage {
     /**
      * Метод для отмены добавления группы.
      */
+    @Step ("метод для отмены добавления членов группы")
     public void cancelGroupAddition() {
         deleteCancelGroup.click();  // Нажимает кнопку отмены
     }
@@ -264,6 +278,7 @@ public class AddGroupPage extends BasePage {
      *
      * @param groupName название группы, которую необходимо удалить.
      */
+    @Step ("метод для удаления группы")
     public void deleteGroupWithoutConfirmation(String groupName) {
         WebElement groupElement = Driver.getDriver().findElement(By.xpath("//a[@title='Groups' and text()='" + groupName + "']"));
         webElementActions.waitElementToBeDisplayed(groupElement);
@@ -280,6 +295,7 @@ public class AddGroupPage extends BasePage {
      * @param group группа с обновленными данными
      * @return true, если группа обновлена, иначе false
      */
+    @Step ("метод проверки добавления группы")
     public boolean isGroupUpdated(Groups group) {
         webElementActions.waitElementToBeDisplayed(groupsNames);
 
@@ -299,6 +315,7 @@ public class AddGroupPage extends BasePage {
      * @param group группа, которую нужно создать.
      * @param users список пользователей, которых нужно добавить в группу.
      */
+    @Step ("метод для добавления членов группы")
     public void createGroupAndAddUsers(Groups group, List<User> users) {
         addNewGroup(group);
 
@@ -313,6 +330,7 @@ public class AddGroupPage extends BasePage {
      * @param group группа, в которую добавляется пользователь.
      * @param user  пользователь, которого добавляют в группу.
      */
+    @Step ("метод для добавления членов группы")
     private void addUserToGroup(Groups group, User user) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         groupElement.findElement(By.xpath(".//button[contains(text(), 'Add user')]")).click();
@@ -331,6 +349,7 @@ public class AddGroupPage extends BasePage {
      * @param users список пользователей, которых нужно найти в группе.
      * @return true, если группа существует и пользователи добавлены.
      */
+    @Step ("метод проверки создания группы")
     public boolean isGroupCreatedWithUsers(Groups group, List<User> users) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         if (groupElement != null) {
@@ -353,6 +372,7 @@ public class AddGroupPage extends BasePage {
      * @param expectedUsers ожидаемый список пользователей.
      * @return true, если изменения были успешно применены.
      */
+    @Step ("метод проверки названия группы и пользователей группы")
     public boolean isGroupEdited(Groups group, String expectedName, List<User> expectedUsers) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         if (groupElement != null && groupElement.getText().equals(expectedName)) {
@@ -372,11 +392,12 @@ public class AddGroupPage extends BasePage {
      *
      * @param group группа, которую нужно удалить.
      */
+    @Step ("метод для удаления группы без участников")
     public void deleteGroupWithoutAffectingUsers(Groups group) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         groupElement.findElement(By.xpath(".//button[contains(text(), 'Delete')]")).click();
 
-          driver.findElement(By.xpath("//button[contains(text(), 'Yes')]")).click();
+        driver.findElement(By.xpath("//button[contains(text(), 'Yes')]")).click();
     }
 
     /**
@@ -385,6 +406,7 @@ public class AddGroupPage extends BasePage {
      * @param group группа, которую нужно проверить.
      * @return true, если группа была удалена.
      */
+    @Step ("метод для проверки удаления группы")
     public boolean isGroupDeleted(Groups group) {
         try {
             driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
@@ -400,6 +422,7 @@ public class AddGroupPage extends BasePage {
      * @param group   группа, которой нужно назначить курсы.
      * @param courses список курсов, которые нужно назначить группе.
      */
+    @Step ("метод для назначения курсов группе")
     public void assignCoursesToGroup(Groups group, List<Course> courses) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         groupElement.findElement(By.xpath(".//button[contains(text(), 'Assign Courses')]")).click();
@@ -420,6 +443,7 @@ public class AddGroupPage extends BasePage {
      * @param expectedCourses ожидаемые курсы.
      * @return true, если курсы были назначены.
      */
+    @Step ("метод для назначения курсов группе")
     public boolean areCoursesAssignedToGroup(Groups group, List<Course> expectedCourses) {
         WebElement groupElement = driver.findElement(By.xpath("//div[contains(text(), '" + group.getName() + "')]"));
         if (groupElement != null) {
@@ -440,6 +464,7 @@ public class AddGroupPage extends BasePage {
      *
      * @return текущий объект AddGroupPage для цепочки вызовов
      */
+    @Step ("метод для добавления членов группы")
     public AddGroupPage listOfGroups() {
 
         for (WebElement list : webTableOfGroups) {
@@ -450,7 +475,9 @@ public class AddGroupPage extends BasePage {
         return this;
     }
 
-
+    public boolean isGroupPresent(Groups group) {
+        return driver.findElements(By.xpath("//div[text()='" + group + "']")).size() > 0;
+    }
 
 }
 

@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -200,7 +201,10 @@ public class DeleteCourseTest extends BaseTest {
         boolean courseExists = deleteCourse.isCoursePresent(emptyCourseName);
         Assert.assertTrue(true, "Курс не может быть с пустым именем");
     }
-
+    @AfterMethod
+    public void tearDown1() {
+        driver.manage().deleteAllCookies();
+    }
 }
 
 

@@ -150,12 +150,6 @@ public class EditUserDataTest extends BaseTest {
 
     @AfterMethod
     public void tearDown() {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        driver.close();
-        driver.quit();
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }

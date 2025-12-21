@@ -2,6 +2,7 @@ import com.digital_nomads.talent_lms.entity.Course;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import org.checkerframework.checker.units.qual.C;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -179,6 +180,10 @@ public class ReportCourseTest extends BaseTest {
         reportCoursePage.reportCoursePage(randomCourse);
         reportCoursePage.monthUserReport();
         Assert.assertFalse(reportCoursePage.monthPress.isSelected(), "отчет по юзеру за месяц загружается!");
+    }
+    @AfterMethod
+    public void tearDown1() {
+        driver.manage().deleteAllCookies();
     }
 
 }

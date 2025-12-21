@@ -2,6 +2,7 @@ import com.digital_nomads.talent_lms.enums.Section;
 import com.digital_nomads.talent_lms.fileUtils.ConfigReader;
 import com.github.javafaker.Faker;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -71,6 +72,11 @@ public class UsersCsvGeneratorTest extends BaseTest {
         File savedFile = new File(filePath);
         Assert.assertTrue(savedFile.exists(), "Файл не был сохранен в папке resources!");
 
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        driver.manage().deleteAllCookies();  // Очищаем куки перед следующим тестом
     }
 }
 
